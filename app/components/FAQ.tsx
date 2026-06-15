@@ -33,7 +33,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-[#111111]/10">
+    <div className="divide-y divide-gray-100">
       {faqs.map((item, i) => (
         <div key={i}>
           <button
@@ -41,7 +41,7 @@ export default function FAQ() {
             onClick={() => setOpenIndex(openIndex === i ? null : i)}
             aria-expanded={openIndex === i}
           >
-            <span className="text-[#111111] font-semibold text-base md:text-lg group-hover:text-[#B8922A] transition-colors">
+            <span className="text-[#111827] font-semibold text-base md:text-lg group-hover:text-[#B8922A] transition-colors">
               {item.q}
             </span>
             <span
@@ -64,7 +64,7 @@ export default function FAQ() {
               openIndex === i ? "max-h-96 pb-5" : "max-h-0"
             }`}
           >
-            <p className="text-[#111111]/70 leading-relaxed text-base">
+            <p className="text-[#6b7280] leading-relaxed text-base">
               {item.a}
             </p>
           </div>

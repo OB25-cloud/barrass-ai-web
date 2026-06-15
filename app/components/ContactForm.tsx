@@ -30,7 +30,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <label className="block text-[#111111]/50 text-sm mb-2">
+      <label className="block text-[#6b7280] text-sm mb-2">
         {label}
         {required && <span className="text-[#B8922A] ml-0.5"> *</span>}
       </label>
@@ -39,7 +39,7 @@ function SelectField({
           name={name}
           defaultValue=""
           required={required}
-          className="w-full appearance-none bg-white rounded-lg border border-[#111111]/12 px-4 py-3 pr-10 text-[#111111] focus:outline-none focus:border-[#B8922A] transition-colors text-base cursor-pointer"
+          className="w-full appearance-none bg-white rounded-lg border border-gray-200 px-4 py-3 pr-10 text-[#111827] focus:outline-none focus:border-[#B8922A] transition-colors text-base cursor-pointer"
         >
           <option value="" disabled>
             Select…
@@ -50,7 +50,7 @@ function SelectField({
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#111111]/35">
+        <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
               d="M4 6l4 4 4-4"
@@ -69,7 +69,7 @@ function SelectField({
 const initial: ContactState = { status: "idle", message: "" };
 
 const inputClass =
-  "w-full bg-white rounded-lg border border-[#111111]/12 px-4 py-3 text-[#111111] placeholder-[#111111]/30 focus:outline-none focus:border-[#B8922A] transition-colors text-base";
+  "w-full bg-white rounded-lg border border-gray-200 px-4 py-3 text-[#111827] placeholder-gray-300 focus:outline-none focus:border-[#B8922A] transition-colors text-base";
 
 export default function ContactForm() {
   const [state, action] = useActionState(submitContact, initial);
@@ -88,7 +88,7 @@ export default function ContactForm() {
             />
           </svg>
         </div>
-        <p className="text-[#111111] font-semibold text-lg">{state.message}</p>
+        <p className="text-[#111827] font-semibold text-lg">{state.message}</p>
       </div>
     );
   }
@@ -98,7 +98,7 @@ export default function ContactForm() {
       {/* Row 1: Name + Business */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-[#111111]/50 text-sm mb-2">
+          <label className="block text-[#6b7280] text-sm mb-2">
             Name <span className="text-[#B8922A]">*</span>
           </label>
           <input
@@ -110,7 +110,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-[#111111]/50 text-sm mb-2">
+          <label className="block text-[#6b7280] text-sm mb-2">
             Business name
           </label>
           <input
@@ -124,7 +124,7 @@ export default function ContactForm() {
 
       {/* Industry */}
       <div>
-        <label className="block text-[#111111]/50 text-sm mb-2">Industry</label>
+        <label className="block text-[#6b7280] text-sm mb-2">Industry</label>
         <input
           type="text"
           name="industry"
@@ -161,7 +161,7 @@ export default function ContactForm() {
       {/* Row 3: Email + Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-[#111111]/50 text-sm mb-2">
+          <label className="block text-[#6b7280] text-sm mb-2">
             Email <span className="text-[#B8922A]">*</span>
           </label>
           <input
@@ -173,7 +173,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-[#111111]/50 text-sm mb-2">Phone</label>
+          <label className="block text-[#6b7280] text-sm mb-2">Phone</label>
           <input
             type="tel"
             name="phone"
@@ -185,9 +185,9 @@ export default function ContactForm() {
 
       {/* Additional context */}
       <div>
-        <label className="block text-[#111111]/50 text-sm mb-2">
+        <label className="block text-[#6b7280] text-sm mb-2">
           Additional context{" "}
-          <span className="text-[#111111]/30 font-normal">(optional)</span>
+          <span className="text-gray-400 font-normal">(optional)</span>
         </label>
         <textarea
           name="context"

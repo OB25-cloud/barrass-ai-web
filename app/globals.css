@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-dark: #111111;
-  --color-cream: #F5F0E8;
+  --color-navy: #1a1a2e;
   --color-gold: #B8922A;
   --font-sans: var(--font-geist-sans);
 }
@@ -12,8 +11,8 @@ html {
 }
 
 body {
-  background: #F5F0E8;
-  color: #111111;
+  background: #ffffff;
+  color: #1a1a2e;
   font-family: var(--font-geist-sans, Arial, sans-serif);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

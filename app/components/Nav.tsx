@@ -7,7 +7,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -21,10 +21,8 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#F5F0E8]/95 backdrop-blur-sm"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 transition-shadow duration-300 ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
@@ -41,11 +39,7 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className={`text-sm tracking-wide transition-colors ${
-                scrolled
-                  ? "text-[#111111]/60 hover:text-[#111111]"
-                  : "text-[#F5F0E8]/70 hover:text-[#F5F0E8]"
-              }`}
+              className="text-sm tracking-wide text-[#111827]/55 hover:text-[#111827] transition-colors"
             >
               {l.label}
             </a>
@@ -67,9 +61,7 @@ export default function Nav() {
           {[1, 2, 3].map((n) => (
             <span
               key={n}
-              className={`block h-0.5 w-6 transition-all duration-200 ${
-                scrolled ? "bg-[#111111]" : "bg-[#F5F0E8]"
-              } ${
+              className={`block h-0.5 w-6 bg-[#111827] transition-all duration-200 ${
                 n === 1 && open ? "translate-y-2 rotate-45" :
                 n === 2 && open ? "opacity-0" :
                 n === 3 && open ? "-translate-y-2 -rotate-45" : ""
@@ -79,15 +71,15 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu — always dark for legibility over hero */}
+      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-[#111111] px-6 py-6 flex flex-col gap-5">
+        <div className="md:hidden bg-white border-t border-gray-100 px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-[#F5F0E8]/80 hover:text-[#F5F0E8] text-base transition-colors"
+              className="text-[#111827]/70 hover:text-[#111827] text-base transition-colors"
             >
               {l.label}
             </a>
