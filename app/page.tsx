@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Nav from "./components/Nav";
 import FAQ from "./components/FAQ";
 import ContactForm from "./components/ContactForm";
+import oliverPhoto from "../public/oliver.jpg";
 
 /* ─── Shared primitives ──────────────────────────────────────── */
 
@@ -461,47 +463,64 @@ function CurrentWork() {
 function About() {
   return (
     <section id="about" className="bg-white py-24 md:py-36">
-      <div className="max-w-2xl mx-auto px-6">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#111827] mb-3 leading-tight">
-            Oliver Barrass
-          </h2>
-          <p className="text-[#B8922A] font-medium text-base md:text-lg">
-            Founder · Barrass AI · Queenstown
-          </p>
-        </div>
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-20">
+          {/* Bio */}
+          <div className="flex-1 min-w-0">
+            <div className="mb-10">
+              <h2 className="text-4xl md:text-5xl font-bold text-[#111827] mb-3 leading-tight">
+                Oliver Barrass
+              </h2>
+              <p className="text-[#B8922A] font-medium text-base md:text-lg">
+                Founder · Barrass AI · Queenstown
+              </p>
+            </div>
 
-        <div className="space-y-5 text-[#6b7280] text-base md:text-lg leading-relaxed">
-          <p>
-            I&apos;m an AI consultant and builder based in Queenstown, New
-            Zealand. I work directly with business owners — no middlemen, no
-            account managers — to identify where AI can genuinely make a
-            difference and then build it.
-          </p>
-          <p>
-            My background is in recruitment and operations. I spent years inside
-            businesses that were losing real money to manual admin, misaligned
-            tools, and processes nobody had time to fix. That&apos;s what led me
-            to AI — not as a buzzword, but as a practical answer to problems
-            I&apos;d seen up close.
-          </p>
-          <p>
-            What makes Barrass AI different is the end-to-end approach. I do the
-            strategy, the build, and the ongoing support — locally, in person
-            where possible. You&apos;re not outsourcing to a team in another
-            country or paying for a generic platform. You&apos;re getting
-            something built specifically for your business, by someone who
-            understands it.
-          </p>
-        </div>
+            <div className="space-y-5 text-[#6b7280] text-base md:text-lg leading-relaxed">
+              <p>
+                I&apos;m an AI consultant and builder based in Queenstown, New
+                Zealand. I work directly with business owners — no middlemen, no
+                account managers — to identify where AI can genuinely make a
+                difference and then build it.
+              </p>
+              <p>
+                My background is in recruitment and operations. I spent years
+                inside businesses that were losing real money to manual admin,
+                misaligned tools, and processes nobody had time to fix.
+                That&apos;s what led me to AI — not as a buzzword, but as a
+                practical answer to problems I&apos;d seen up close.
+              </p>
+              <p>
+                What makes Barrass AI different is the end-to-end approach. I
+                do the strategy, the build, and the ongoing support — locally,
+                in person where possible. You&apos;re not outsourcing to a team
+                in another country or paying for a generic platform. You&apos;re
+                getting something built specifically for your business, by
+                someone who understands it.
+              </p>
+            </div>
 
-        <div className="mt-12 text-center">
-          <a
-            href="#contact"
-            className="inline-block bg-[#B8922A] hover:bg-[#a07824] text-white font-bold px-8 py-4 rounded transition-colors text-base tracking-wide"
-          >
-            Book a free call
-          </a>
+            <div className="mt-12">
+              <a
+                href="#contact"
+                className="inline-block bg-[#B8922A] hover:bg-[#a07824] text-white font-bold px-8 py-4 rounded transition-colors text-base tracking-wide"
+              >
+                Book a free call
+              </a>
+            </div>
+          </div>
+
+          {/* Photo */}
+          <div className="mt-14 lg:mt-0 flex justify-center lg:block lg:shrink-0">
+            <div className="overflow-hidden rounded-2xl shadow-md w-[280px] lg:w-[400px] aspect-[1/2]">
+              <Image
+                src={oliverPhoto}
+                alt="Oliver Barrass, founder of Barrass AI"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "40% bottom" }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
