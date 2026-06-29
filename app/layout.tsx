@@ -8,13 +8,13 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Barrass AI — AI Consulting for NZ Businesses",
+  title: "Barrass AI — Custom Software for NZ Businesses",
   description:
-    "Barrass AI helps New Zealand businesses replace manual admin and generic tools with custom AI built for their operations. Based in Queenstown.",
+    "We build custom software, automation and business systems for trades, construction, tourism and SMEs across New Zealand. Fixed price. You own the code.",
   openGraph: {
-    title: "Barrass AI — AI built for your business. Not someone else's.",
+    title: "Barrass AI — Custom software built around your business.",
     description:
-      "Custom AI consulting for NZ businesses. Fixed price, local Queenstown-based, real results.",
+      "Custom software, workflow automation and business systems for NZ SMEs. Fixed price, no lock-in, Queenstown-based.",
     siteName: "Barrass AI",
   },
 };

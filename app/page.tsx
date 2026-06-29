@@ -1,263 +1,1241 @@
-import Image from "next/image";
-import Nav from "./components/Nav";
+﻿import Nav from "./components/Nav";
 import FAQ from "./components/FAQ";
 import ContactForm from "./components/ContactForm";
-import oliverPhoto from "../public/oliver.jpg";
+import AnimateOnScroll from "./components/AnimateOnScroll";
+
+/* ─── Design system
+   Navy: #0D1B2A   Gold: #D4AF37   Dark text: #0F172A   Muted: #64748B
+   Light bg: #F8FAFC   Section padding: py-24 md:py-36   Width: max-w-5xl
+   Light card: bg-white rounded-2xl border border-gray-100 shadow-sm
+   Dark card:  background rgba(255,255,255,0.04) border rgba(255,255,255,0.07) rounded-2xl
+──────────────────────────────────────────────────────────────────── */
 
 /* ─── Shared primitives ──────────────────────────────────────── */
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[#B8922A] text-xs font-bold tracking-[0.2em] uppercase mb-5">
+    <p
+      className="text-xs font-bold tracking-[0.2em] uppercase mb-5"
+      style={{ color: "#D4AF37" }}
+    >
       {children}
     </p>
   );
 }
 
-/* ─── Hero ───────────────────────────────────────────────────── */
-
-function Hero() {
+function Chip({ label, icon }: { label: string; icon: React.ReactNode }) {
   return (
-    <section className="bg-white pt-32 pb-20 md:pb-28 min-h-[80vh] flex flex-col justify-center">
-      <div className="max-w-5xl mx-auto px-6">
-        <p className="text-[#B8922A] text-xs font-bold tracking-[0.2em] uppercase mb-7">
-          AI Consulting · Queenstown, NZ
-        </p>
+    <div
+      className="flex items-center gap-1.5 rounded-lg"
+      style={{
+        padding: "6px 9px",
+        background: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(255,255,255,0.08)",
+      }}
+    >
+      <span style={{ color: "rgba(255,255,255,0.38)", lineHeight: 0, flexShrink: 0 }}>
+        {icon}
+      </span>
+      <span
+        style={{
+          fontSize: "11px",
+          color: "rgba(255,255,255,0.58)",
+          fontWeight: 500,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
 
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-[#111827] leading-[1.0] tracking-tight max-w-4xl mb-8">
-          AI built for your business.{" "}
-          <span className="text-[#B8922A]">Not someone else&apos;s.</span>
-        </h1>
-
-        <p className="text-[#6b7280] text-lg md:text-xl max-w-xl leading-relaxed mb-10">
-          I help NZ businesses cut manual admin, replace tools that don&apos;t
-          fit, and build systems designed around how they actually work.
-        </p>
-
-        <div className="flex flex-wrap gap-4">
-          <a
-            href="#contact"
-            className="inline-block bg-[#B8922A] hover:bg-[#a07824] text-white font-bold text-base px-8 py-4 rounded transition-colors tracking-wide"
-          >
-            Book a free discovery call
-          </a>
-          <a
-            href="#work"
-            className="inline-block border border-gray-200 hover:border-gray-400 text-[#111827] font-semibold text-base px-8 py-4 rounded transition-colors"
-          >
-            See our work
-          </a>
-        </div>
-
-        <div className="mt-16 pt-6 border-t border-gray-100">
-          <div className="flex flex-wrap gap-x-10 gap-y-4">
-            {[
-              { value: "$88k+", label: "identified across active projects" },
-              { value: "$40k+", label: "average value found per audit" },
-              { value: "Queenstown-based", label: "NZ-wide" },
-            ].map((s) => (
-              <div key={s.value}>
-                <p className="text-[#111827] font-semibold text-sm">{s.value}</p>
-                <p className="text-[#6b7280] text-xs mt-0.5">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+function NavySection({ children }: { children: React.ReactNode }) {
+  return (
+    <section className="relative overflow-hidden" style={{ background: "#0D1B2A" }}>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }}
+      />
+      {children}
     </section>
   );
 }
 
-/* ─── Social Proof Bar ───────────────────────────────────────── */
+/* ─── Dashboard mock-up ──────────────────────────────────────── */
 
-function SocialProof() {
+function DashboardMockup() {
+  const ff = "var(--font-geist-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif)";
+
+  const navItems = [
+    { label: "Dashboard", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg> },
+    { label: "Jobs", active: true, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg> },
+    { label: "Clients", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg> },
+    { label: "Schedule", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> },
+    { label: "CRM", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> },
+    { label: "Fleet", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg> },
+    { label: "Finance", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> },
+    { label: "Reports", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg> },
+  ];
+
+  const kpis = [
+    { label: "Revenue This Month", value: "$28,430", sub: "+12% vs last month", up: true },
+    { label: "Jobs Today", value: "12", sub: "3 active now", up: true },
+    { label: "Active Clients", value: "46", sub: "+2 this week", up: true },
+    { label: "Outstanding", value: "$18,250", sub: "7 invoices pending", up: false },
+  ];
+
+  const kpiColors = [
+    { topBorder: "rgba(212,175,55,0.55)",  labelColor: "rgba(212,175,55,0.65)"  },
+    { topBorder: "rgba(96,165,250,0.55)",  labelColor: "rgba(96,165,250,0.65)"  },
+    { topBorder: "rgba(74,222,128,0.55)",  labelColor: "rgba(74,222,128,0.65)"  },
+    { topBorder: "rgba(251,146,60,0.55)",  labelColor: "rgba(251,146,60,0.65)"  },
+  ];
+
+  const jobs = [
+    { ref: "#3041", client: "Meridian Group", type: "Site Inspection", assignee: "AK", status: "active" as const, time: "08:00" },
+    { ref: "#3042", client: "Pacific Holdings", type: "Installation", assignee: "MR", status: "scheduled" as const, time: "10:30" },
+    { ref: "#3043", client: "Summit Co.", type: "Maintenance", assignee: "JL", status: "complete" as const, time: "07:00" },
+    { ref: "#3044", client: "Lakeside Ops", type: "Consultation", assignee: "AK", status: "complete" as const, time: "09:00" },
+    { ref: "#3045", client: "Harwick Ltd", type: "Full Service", assignee: "TF", status: "scheduled" as const, time: "13:00" },
+  ];
+
+  const statusStyles = {
+    active:    { label: "Active",    bg: "rgba(212,175,55,0.12)",     color: "#D4AF37" },
+    scheduled: { label: "Scheduled", bg: "rgba(255,255,255,0.06)",     color: "rgba(255,255,255,0.42)" },
+    complete:  { label: "Complete",  bg: "rgba(74,222,128,0.08)",      color: "rgba(74,222,128,0.6)" },
+  };
+
+  const assigneeColors: Record<string, { bg: string; color: string }> = {
+    AK: { bg: "rgba(212,175,55,0.15)",  color: "#D4AF37"  },
+    MR: { bg: "rgba(96,165,250,0.15)",  color: "#60A5FA"  },
+    JL: { bg: "rgba(74,222,128,0.15)",  color: "#4ADE80"  },
+    TF: { bg: "rgba(251,146,60,0.15)",  color: "#FB923C"  },
+  };
+
+  const pipeline = [
+    { stage: "Lead",        count: 8,  max: 8  },
+    { stage: "Quoted",      count: 5,  max: 8  },
+    { stage: "Confirmed",   count: 4,  max: 8  },
+    { stage: "In Progress", count: 3,  max: 8  },
+    { stage: "Complete",    count: 12, max: 12 },
+  ];
+
+  const staffList = [
+    { initials: "AK", name: "A. Kumar",   status: "On site",   active: true  },
+    { initials: "MR", name: "M. Reid",    status: "Available", active: true  },
+    { initials: "JL", name: "J. Liu",     status: "Break",     active: false },
+    { initials: "TF", name: "T. Foster",  status: "On site",   active: true  },
+  ];
+
+  const revenueData = [18, 24, 21, 32, 28, 36, 31, 42, 38, 46, 39, 44];
+  const maxRev = Math.max(...revenueData);
+
+  const aiChips = ["Outstanding invoices", "Today's jobs", "Late quotes", "Revenue this month", "Tool locations", "Vehicle availability"];
+
   return (
-    <div className="bg-white border-y border-gray-100 py-5">
-      <div className="max-w-5xl mx-auto px-6">
-        <p className="text-[#6b7280] text-sm text-center">
-          Working with businesses across trades, hospitality, professional
-          services, retail and more — Queenstown and beyond.
-        </p>
+    <div style={{ fontFamily: ff, borderRadius: "16px", overflow: "hidden", background: "#0a1120", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}>
+
+      {/* Browser chrome */}
+      <div style={{ background: "#060c18", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "9px 14px", display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "5px" }}>
+          {(["#FF5F57", "#FEBC2E", "#28C840"] as const).map((c) => (
+            <div key={c} style={{ width: "8px", height: "8px", borderRadius: "50%", background: c }} />
+          ))}
+        </div>
+        <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+          <div style={{ background: "#0d1a2e", borderRadius: "5px", padding: "3px 14px", display: "flex", alignItems: "center", gap: "5px", width: "240px" }}>
+            <svg width="8" height="8" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.3 }}>
+              <circle cx="7" cy="7" r="5" stroke="white" strokeWidth="1.5" />
+              <path d="M11 11l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.28)" }}>app.barrassai.co.nz/dashboard</span>
+          </div>
+        </div>
+      </div>
+
+      {/* App shell */}
+      <div style={{ display: "flex", height: "550px" }}>
+
+        {/* Sidebar */}
+        <div style={{ width: "118px", background: "#070d1a", borderRight: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
+          <div style={{ padding: "12px 10px 10px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: "7px" }}>
+            <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "#D4AF37", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <span style={{ fontSize: "9px", fontWeight: 900, color: "#0D1B2A" }}>B</span>
+            </div>
+            <div>
+              <div style={{ fontSize: "9px", fontWeight: 700, color: "rgba(255,255,255,0.88)", lineHeight: 1 }}>Barrass OS</div>
+              <div style={{ fontSize: "7px", color: "rgba(255,255,255,0.28)", marginTop: "2px" }}>Business Suite</div>
+            </div>
+          </div>
+          <div style={{ flex: 1, padding: "8px 6px", display: "flex", flexDirection: "column", gap: "1px" }}>
+            {navItems.map((item) => (
+              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", background: item.active ? "rgba(212,175,55,0.12)" : "transparent", color: item.active ? "#D4AF37" : "rgba(255,255,255,0.28)" }}>
+                {item.icon}
+                <span style={{ fontSize: "8.5px", fontWeight: item.active ? 600 : 400 }}>{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: "8px 6px 12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", color: "rgba(255,255,255,0.22)" }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/>
+              </svg>
+              <span style={{ fontSize: "8.5px" }}>Settings</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Main content */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#0a1120" }}>
+
+          {/* Top bar */}
+          <div style={{ height: "38px", background: "#0d1525", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", padding: "0 14px", gap: "10px", flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "5px", padding: "3px 8px", borderRadius: "6px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <div style={{ width: "13px", height: "13px", borderRadius: "3px", background: "rgba(212,175,55,0.18)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: "6.5px", fontWeight: 800, color: "#D4AF37" }}>A</span>
+              </div>
+              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.6)", fontWeight: 500 }}>Apex Operations</span>
+              <svg width="8" height="8" viewBox="0 0 16 16" fill="none" style={{ color: "rgba(255,255,255,0.28)" }}>
+                <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div style={{ flex: 1, maxWidth: "180px", display: "flex", alignItems: "center", gap: "5px", padding: "4px 10px", borderRadius: "6px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <svg width="9" height="9" viewBox="0 0 16 16" fill="none" style={{ color: "rgba(255,255,255,0.22)", flexShrink: 0 }}>
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.2)" }}>Search...</span>
+            </div>
+            <div style={{ flex: 1 }} />
+            <div style={{ position: "relative", width: "26px", height: "26px", borderRadius: "7px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.38)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+              </svg>
+              <div style={{ position: "absolute", top: "5px", right: "5px", width: "5px", height: "5px", borderRadius: "50%", background: "#D4AF37" }} />
+            </div>
+            <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "rgba(212,175,55,0.18)", border: "1px solid rgba(212,175,55,0.28)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: "8px", fontWeight: 700, color: "#D4AF37" }}>OB</span>
+            </div>
+          </div>
+
+          {/* Content area */}
+          <div style={{ flex: 1, overflow: "hidden", padding: "12px 14px", display: "flex", flexDirection: "column", gap: "10px" }}>
+
+            {/* KPI row */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", flexShrink: 0 }}>
+              {kpis.map((kpi, i) => {
+                const kc = kpiColors[i];
+                return (
+                  <div key={kpi.label} style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderTop: `2px solid ${kc.topBorder}`, borderRadius: "10px", padding: "11px 14px" }}>
+                    <div style={{ fontSize: "7px", color: kc.labelColor, marginBottom: "7px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" as const }}>{kpi.label}</div>
+                    <div style={{ fontSize: i < 2 ? "22px" : "18px", fontWeight: 700, color: i < 2 ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.72)", lineHeight: 1, marginBottom: "5px", letterSpacing: "-0.02em" }}>{kpi.value}</div>
+                    <div style={{ fontSize: "7px", color: kpi.up ? "rgba(74,222,128,0.65)" : "rgba(251,146,60,0.7)" }}>{kpi.sub}</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Middle row: jobs + right panel */}
+            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 38%", gap: "10px", minHeight: 0 }}>
+
+              {/* Jobs panel */}
+              <div style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                <div style={{ padding: "10px 14px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+                  <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>Upcoming Jobs</span>
+                  <span style={{ fontSize: "7.5px", color: "rgba(255,255,255,0.25)" }}>Today · 12 total</span>
+                </div>
+                <div style={{ flex: 1, overflow: "hidden" }}>
+                  {jobs.map((job, i) => {
+                    const s = statusStyles[job.status];
+                    const ac = assigneeColors[job.assignee] ?? { bg: "rgba(212,175,55,0.15)", color: "#D4AF37" };
+                    return (
+                      <div key={job.ref} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 22px 80px 38px", alignItems: "center", padding: "8px 14px", borderBottom: "1px solid rgba(255,255,255,0.03)", background: i === 0 ? "rgba(212,175,55,0.03)" : "transparent" }}>
+                        <span style={{ fontSize: "8.5px", fontWeight: 500, color: "rgba(255,255,255,0.82)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const, paddingRight: "10px" }}>{job.client}</span>
+                        <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.32)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const, paddingRight: "8px" }}>{job.type}</span>
+                        <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: ac.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "6.5px", fontWeight: 700, color: ac.color }}>{job.assignee}</div>
+                        <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 7px", borderRadius: "999px", background: s.bg }}>
+                          <div style={{ width: "3.5px", height: "3.5px", borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                          <span style={{ fontSize: "7px", color: s.color, fontWeight: 600 }}>{s.label}</span>
+                        </div>
+                        <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.28)", textAlign: "right" as const }}>{job.time}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right column */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", minHeight: 0, overflow: "hidden" }}>
+
+                {/* Business Pipeline */}
+                <div style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", padding: "8px 12px", flexShrink: 0 }}>
+                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)", marginBottom: "8px" }}>Business Pipeline</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                    {pipeline.map((p) => (
+                      <div key={p.stage} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
+                        <span style={{ fontSize: "7px", color: "rgba(255,255,255,0.32)", width: "54px", flexShrink: 0 }}>{p.stage}</span>
+                        <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+                          <div style={{ height: "100%", width: `${(p.count / p.max) * 100}%`, borderRadius: "2px", background: "rgba(212,175,55,0.5)" }} />
+                        </div>
+                        <span style={{ fontSize: "7.5px", color: "rgba(255,255,255,0.42)", width: "14px", textAlign: "right" as const, flexShrink: 0 }}>{p.count}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Revenue chart */}
+                <div style={{ flex: 1, background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", padding: "8px 12px", display: "flex", flexDirection: "column", minHeight: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px", flexShrink: 0 }}>
+                    <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>Revenue Trend</span>
+                    <span style={{ fontSize: "7.5px", color: "#D4AF37", fontWeight: 600 }}>Jun 2026</span>
+                  </div>
+                  <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "flex-end", gap: "3px" }}>
+                    {revenueData.map((v, i) => (
+                      <div key={i} style={{ flex: 1, height: `${(v / maxRev) * 100}%`, borderRadius: "2px 2px 0 0", background: i === revenueData.length - 1 ? "#D4AF37" : "rgba(212,175,55,0.22)", minHeight: "2px" }} />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Staff availability */}
+                <div style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", padding: "8px 12px", flexShrink: 0 }}>
+                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)", marginBottom: "7px" }}>Staff Availability</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                    {staffList.map((s) => (
+                      <div key={s.initials} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
+                        <div style={{ position: "relative", flexShrink: 0 }}>
+                          <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: "rgba(212,175,55,0.14)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "6.5px", fontWeight: 700, color: "#D4AF37" }}>{s.initials}</div>
+                          <div style={{ position: "absolute", bottom: "0", right: "0", width: "5px", height: "5px", borderRadius: "50%", background: s.active ? "rgba(74,222,128,0.85)" : "rgba(255,255,255,0.22)", border: "1px solid #0f1826" }} />
+                        </div>
+                        <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.58)", flex: 1 }}>{s.name}</span>
+                        <span style={{ fontSize: "7px", color: s.active ? "rgba(74,222,128,0.6)" : "rgba(255,255,255,0.22)" }}>{s.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* AI Search */}
+            <div style={{ flexShrink: 0, background: "linear-gradient(135deg, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.02) 100%)", border: "1px solid rgba(212,175,55,0.18)", borderRadius: "12px", padding: "14px 16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "7px", marginBottom: "10px" }}>
+                <div style={{ width: "16px", height: "16px", borderRadius: "4px", background: "rgba(212,175,55,0.16)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z"/>
+                  </svg>
+                </div>
+                <span style={{ fontSize: "9px", fontWeight: 700, color: "rgba(212,175,55,0.92)", letterSpacing: "0.04em", textTransform: "uppercase" as const }}>Business Search (AI)</span>
+                <span style={{ fontSize: "7px", color: "rgba(255,255,255,0.18)", marginLeft: "auto" }}>Business intelligence · Not a chatbot</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(0,0,0,0.32)", border: "1px solid rgba(212,175,55,0.24)", borderRadius: "8px", padding: "9px 12px", marginBottom: "10px", boxShadow: "0 0 0 3px rgba(212,175,55,0.05)" }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <span style={{ fontSize: "8.5px", color: "rgba(255,255,255,0.22)", flex: 1 }}>Ask anything about your business...</span>
+                <span className="cursor-blink" />
+                <div style={{ display: "flex", alignItems: "center", padding: "2px 7px", borderRadius: "4px", background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.22)" }}>
+                  <span style={{ fontSize: "7px", color: "#D4AF37", fontWeight: 600 }}>⌘K</span>
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" as const }}>
+                {aiChips.map((chip) => (
+                  <div key={chip} style={{ padding: "3px 10px", borderRadius: "999px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)", fontSize: "7.5px", color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap" as const }}>{chip}</div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-/* ─── Problem ────────────────────────────────────────────────── */
+/* ─── 1. Hero (navy) ─────────────────────────────────────────── */
 
-const problems = [
+function Hero() {
+  return (
+    <section className="relative bg-[#0D1B2A] overflow-hidden" style={{ minHeight: "100svh" }}>
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            top: "10%",
+            left: "-15%",
+            width: "55%",
+            height: "70%",
+            background: "radial-gradient(ellipse, rgba(212,175,55,0.07) 0%, transparent 65%)",
+            filter: "blur(60px)",
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            top: "5%",
+            right: "-10%",
+            width: "60%",
+            height: "90%",
+            background: "radial-gradient(ellipse, rgba(99,102,241,0.09) 0%, transparent 65%)",
+            filter: "blur(80px)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 right-0"
+          style={{ height: "120px", background: "linear-gradient(to bottom, transparent, rgba(13,27,42,0.6))" }}
+        />
+      </div>
+
+      <div
+        className="relative w-full max-w-7xl mx-auto px-6 pt-28 pb-2 md:pt-36 md:pb-4 flex items-center"
+        style={{ minHeight: "100svh" }}
+      >
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+
+          <div>
+            <div
+              className="inline-flex items-center gap-2 rounded-full mb-8"
+              style={{
+                background: "rgba(212,175,55,0.1)",
+                border: "1px solid rgba(212,175,55,0.22)",
+                padding: "5px 14px",
+              }}
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" style={{ boxShadow: "0 0 6px rgba(212,175,55,0.8)" }} />
+              <span className="text-[#D4AF37] text-xs font-medium tracking-wide">
+                Queenstown, NZ &middot; Serving businesses nationwide
+              </span>
+            </div>
+
+            <h1
+              className="font-bold text-white leading-[0.94] tracking-tight mb-6"
+              style={{ fontSize: "clamp(2.5rem, 5vw, 4.25rem)" }}
+            >
+              Custom software{" "}
+              <span className="text-[#D4AF37]">built around</span>{" "}
+              your business.
+            </h1>
+
+            <p
+              className="text-lg md:text-xl leading-relaxed mb-14 max-w-lg"
+              style={{ color: "rgba(255,255,255,0.52)" }}
+            >
+              We design software around the way your business actually operates — replacing disconnected apps with one intelligent system that connects your team, customers and existing tools like Xero.
+            </p>
+
+            <div className="flex flex-wrap gap-4 mb-10">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 font-bold text-base px-7 py-3.5 rounded-lg transition-all tracking-wide hover:-translate-y-0.5 active:translate-y-0"
+                style={{
+                  background: "#D4AF37",
+                  color: "#0D1B2A",
+                  boxShadow: "0 4px 20px rgba(212,175,55,0.35), 0 1px 3px rgba(0,0,0,0.3)",
+                }}
+              >
+                Book a Discovery Call
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 font-semibold text-base px-7 py-3.5 rounded-lg transition-all hover:-translate-y-0.5 active:translate-y-0"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "rgba(255,255,255,0.75)",
+                }}
+              >
+                View Our Work
+              </a>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              {["Fixed-price projects", "NZ-based", "You own the code", "AI-powered systems"].map((item) => (
+                <span
+                  key={item}
+                  className="text-xs font-medium px-3 py-1 rounded-full"
+                  style={{
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    color: "rgba(255,255,255,0.42)",
+                    background: "rgba(255,255,255,0.03)",
+                    letterSpacing: "0.01em",
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)", letterSpacing: "0.01em" }}>
+              Trusted by businesses across landscaping, vehicle rental, hospitality and trades.
+            </p>
+          </div>
+
+          <div className="hidden lg:block relative">
+            {/* Ambient glow — gold primary, indigo secondary */}
+            <div className="absolute pointer-events-none" style={{ inset: "-100px", background: "radial-gradient(ellipse at 52% 44%, rgba(212,175,55,0.14) 0%, rgba(99,102,241,0.05) 45%, transparent 68%)", filter: "blur(64px)", zIndex: 0 }} />
+            <div className="absolute pointer-events-none" style={{ inset: "-30px", background: "radial-gradient(ellipse at 48% 36%, rgba(212,175,55,0.08) 0%, transparent 52%)", filter: "blur(32px)", zIndex: 0 }} />
+            {/* Layered shadow frame — closest to Apple/Stripe product render quality */}
+            <div className="relative" style={{ zIndex: 1, borderRadius: "20px", boxShadow: "0 0 0 1px rgba(255,255,255,0.07), 0 4px 8px rgba(0,0,0,0.3), 0 16px 40px rgba(0,0,0,0.45), 0 40px 80px rgba(0,0,0,0.4), 0 80px 120px rgba(0,0,0,0.25), 0 0 120px rgba(212,175,55,0.09)" }}>
+              {/* Crop + clip */}
+              <div className="relative overflow-hidden" style={{ borderRadius: "20px" }}>
+                {/* Very subtle tilt — 2° max */}
+                <div style={{ transform: "perspective(1800px) rotateY(-2deg) rotateX(1deg)", transformOrigin: "center center", willChange: "transform" }}>
+                  <DashboardMockup />
+                </div>
+                {/* Glass reflection — diagonal top-left highlight */}
+                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.015) 22%, transparent 50%)", borderRadius: "20px", zIndex: 10 }} />
+                {/* Right edge fade */}
+                <div className="absolute inset-y-0 right-0 pointer-events-none" style={{ width: "26%", background: "linear-gradient(to right, transparent, #0D1B2A)" }} />
+                {/* Bottom edge fade */}
+                <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{ height: "12%", background: "linear-gradient(to bottom, transparent, #0D1B2A)" }} />
+              </div>
+            </div>
+          </div>
+
+          <div className="block lg:hidden">
+            <DashboardMockup />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 2. Trust strip (white) ─────────────────────────────────── */
+
+function TrustStrip() {
+  const stats = [
+    { value: "$40k+", label: "Annual value identified in one project" },
+    { value: "10–15 hrs", label: "Admin time saved every week" },
+    { value: "6 tools", label: "Replaced with one custom system" },
+    { value: "Fixed price", label: "Always agreed before work begins" },
+  ];
+  return (
+    <section className="bg-white border-b border-gray-100">
+      <div className="max-w-5xl mx-auto px-6 py-14 md:py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((s, i) => (
+            <AnimateOnScroll key={s.value} delay={i * 60}>
+              <div className="text-center lg:border-r lg:border-gray-100 lg:last:border-r-0 lg:px-6">
+                <p
+                  className="font-bold text-[#0F172A] tracking-tight mb-2"
+                  style={{ fontSize: "clamp(1.6rem, 3vw, 2.25rem)" }}
+                >
+                  {s.value}
+                </p>
+                <p className="text-sm text-[#64748B] leading-relaxed">{s.label}</p>
+              </div>
+            </AnimateOnScroll>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 3. What we build (light grey) ──────────────────────────── */
+
+function WhatWeBuild() {
+  return (
+    <section id="services" className="bg-[#F8FAFC] py-24 md:py-36">
+      <div className="max-w-5xl mx-auto px-6">
+        <AnimateOnScroll>
+          <Label>What we build</Label>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] leading-[1.05] tracking-tight mb-4">
+            Software designed for your industry
+          </h2>
+          <p className="text-[#64748B] text-base md:text-lg mb-16 md:mb-20 max-w-xl">
+            Real systems built for trades, landscaping, and service businesses —
+            not generic platforms you adapt to fit.
+          </p>
+        </AnimateOnScroll>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+
+          {/* Card 1: Landscaping */}
+          <AnimateOnScroll delay={0} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #D4AF37 0%, rgba(212,175,55,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#D4AF37" }}>Landscaping &amp; Grounds</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Job Management Platform</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A complete job management platform built around how a landscaping business actually runs — from first quote through to invoice.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
+                  <Chip label="CRM" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>} />
+                  <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
+                  <Chip label="Job Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="3" /></svg>} />
+                  <Chip label="AI Assistant" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z" /></svg>} />
+                  <Chip label="Xero Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#D4AF37" }}>$40k+ in annual value identified</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 2: Vehicle Rental Fleet */}
+          <AnimateOnScroll delay={90} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #60A5FA 0%, rgba(96,165,250,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#60A5FA" }}>Vehicle Rental</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Fleet Management System</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A custom fleet management system focused on the physical fleet — tracking compliance, inspections, kilometre logs, and damage across every vehicle.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
+                  <Chip label="COF & Rego Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
+                  <Chip label="AI Inspections" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
+                  <Chip label="KM Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>} />
+                  <Chip label="Fine Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>} />
+                  <Chip label="Damage Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#60A5FA" }}>Full fleet visibility across 115+ vehicles</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 3: Trades & Construction */}
+          <AnimateOnScroll delay={180} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #A78BFA 0%, rgba(167,139,250,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#A78BFA" }}>Trades &amp; Construction</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Job Management System</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  End-to-end job management for trades businesses — from scheduling crew to sending invoices, without the manual admin.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
+                  <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
+                  <Chip label="Progress Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>} />
+                  <Chip label="Team Allocation" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
+                  <Chip label="Invoice Auto" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>} />
+                  <Chip label="Xero Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#A78BFA" }}>10–15 hrs of admin saved per week</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 4: Hospitality Kitchen */}
+          <AnimateOnScroll delay={270} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #34D399 0%, rgba(52,211,153,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#34D399" }}>Hospitality &middot; Queenstown</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Kitchen Management System</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  AI-powered kitchen management tracking stock levels, expiry dates, and wastage in real time — giving staff instant visibility over what they have, what&apos;s running low, and what needs action.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Stock Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
+                  <Chip label="Expiry Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
+                  <Chip label="Wastage Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>} />
+                  <Chip label="AI Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z" /></svg>} />
+                  <Chip label="Staff Dashboard" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
+                  <Chip label="Supplier Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#34D399" }}>Replacing manual stock checks entirely</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 5: Vehicle Rental Operations */}
+          <AnimateOnScroll delay={360} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #FB923C 0%, rgba(251,146,60,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#FB923C" }}>Vehicle Rental</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Operations Dashboard</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A real-time management dashboard giving full visibility over staff scheduling, timesheets, and operational compliance — accessible from any device, for any role.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Staff Timesheets" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>} />
+                  <Chip label="Roster Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
+                  <Chip label="Role-Based Access" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>} />
+                  <Chip label="Mobile PWA" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
+                  <Chip label="Real-Time Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" /></svg>} />
+                  <Chip label="Approval Flows" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#FB923C" }}>Operations managed from any device, anywhere</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 6: Web & Digital */}
+          <AnimateOnScroll delay={450} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #22D3EE 0%, rgba(34,211,238,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#22D3EE" }}>Web &amp; Digital</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Custom Website with AI Integration</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  Fully custom websites built around how the business actually works — not templates. AI-powered lead capture, after-hours chatbot, and owner-editable content mean the site keeps working even when you&apos;re not.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="AI Chatbot" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>} />
+                  <Chip label="Lead Capture" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
+                  <Chip label="Contact Forms" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
+                  <Chip label="SEO Optimised" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>} />
+                  <Chip label="Mobile Responsive" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
+                  <Chip label="CMS Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 10h16M4 14h8" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#22D3EE" }}>Leads captured 24/7 without manual follow-up</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 4. Problem (navy) ──────────────────────────────────────── */
+
+const problemItems = [
   {
-    title: "Drowning in manual admin",
-    body: "Hours every week lost to data entry, scheduling, and chasing paperwork. It feels inevitable — just part of running a business. But most of it can be automated, and the businesses that figure this out gain back 10 or more hours every single week.",
+    title: "Fragmented tools",
+    body: "Multiple apps that don't talk to each other. Data re-entered across systems, nothing giving a complete picture, and hours lost moving information between places.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+      </svg>
+    ),
   },
   {
-    title: "Generic tools that don't fit",
-    body: "Off-the-shelf software built for an average business, not yours. You've bent your processes around the tool's limitations instead of the other way around. Meanwhile you're paying monthly for features you don't use and missing the ones you actually need.",
+    title: "Manual admin",
+    body: "Hours every week lost to data entry, updating statuses, chasing paperwork, and doing tasks by hand that should happen automatically.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v6l4 2" />
+      </svg>
+    ),
   },
   {
-    title: "No real visibility",
-    body: "You know things are falling through the cracks but can't see exactly where. Reporting is manual, delayed, or non-existent — so decisions get made on gut feel rather than facts. By the time you spot the problem, revenue's already gone.",
+    title: "Multiple subscriptions",
+    body: "Paying monthly for tools you've adapted your processes around — rather than tools built for you. The costs keep climbing and the fit keeps getting worse.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="2" />
+        <path d="M1 10h22" />
+      </svg>
+    ),
   },
   {
-    title: "Leads falling through the gaps",
-    body: "Enquiries going cold because follow-up depends on someone remembering at the right moment. After-hours leads sitting in an inbox until Monday. Revenue leaking quietly through gaps that nobody has time to properly fix.",
+    title: "Lost information",
+    body: "Client history, job notes, and critical data scattered across inboxes, spreadsheets, and apps — no single source of truth, and no visibility when you need it.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
+    ),
   },
 ];
 
-function Problem() {
+function ProblemSection() {
   return (
-    <section className="bg-[#f9fafb] py-24 md:py-36">
-      <div className="max-w-5xl mx-auto px-6">
-        <Label>The problem</Label>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-[1.05] tracking-tight mb-16 md:mb-20 max-w-xs">
-          Sound familiar?
-        </h2>
+    <NavySection>
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          bottom: "-20%",
+          right: "-5%",
+          width: "45%",
+          height: "65%",
+          background: "radial-gradient(ellipse, rgba(212,175,55,0.08) 0%, transparent 70%)",
+          filter: "blur(72px)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          top: "-10%",
+          left: "-5%",
+          width: "40%",
+          height: "55%",
+          background: "radial-gradient(ellipse, rgba(99,102,241,0.06) 0%, transparent 70%)",
+          filter: "blur(72px)",
+        }}
+      />
+      <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-36">
+        <AnimateOnScroll className="text-center mb-16 md:mb-20">
+          <Label>The problem</Label>
+          <h2
+            className="font-bold text-white leading-[1.05] tracking-tight mx-auto"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", maxWidth: "560px" }}
+          >
+            Does this sound familiar?
+          </h2>
+        </AnimateOnScroll>
 
-        <div>
-          {problems.map((p) => (
-            <div
-              key={p.title}
-              className="flex gap-5 py-10 border-b border-gray-100 last:border-b-0"
-            >
-              <div className="shrink-0 mt-1.5">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  aria-hidden
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {problemItems.map((p, i) => (
+            <AnimateOnScroll key={p.title} delay={i * 80}>
+              <div
+                className="rounded-2xl p-8 h-full"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                }}
+              >
+                <div
+                  className="flex items-center justify-center rounded-xl mb-6"
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    background: "rgba(212,175,55,0.1)",
+                    border: "1px solid rgba(212,175,55,0.15)",
+                  }}
                 >
-                  <path
-                    d="M9 1.5L16.5 9 9 16.5 1.5 9 9 1.5z"
-                    fill="#B8922A"
-                    fillOpacity="0.15"
-                    stroke="#B8922A"
-                    strokeWidth="1.25"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-[#111827] font-bold text-xl md:text-2xl mb-3">
-                  {p.title}
-                </h3>
-                <p className="text-[#6b7280] text-base md:text-lg leading-relaxed max-w-2xl">
+                  {p.icon}
+                </div>
+                <h3 className="text-white font-bold text-xl mb-3">{p.title}</h3>
+                <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.44)" }}>
                   {p.body}
                 </p>
               </div>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>
-    </section>
+    </NavySection>
   );
 }
 
-/* ─── Services ───────────────────────────────────────────────── */
+/* ─── 5. Solution (white) ────────────────────────────────────── */
 
-const services = [
+const solutionItems = [
   {
-    number: "01",
-    title: "AI Audit",
-    body: "We spend time properly understanding your business before recommending anything. I map your actual workflows, talk to the people doing the work, and identify where AI genuinely makes sense — and where it doesn't. You get a clear written report with priorities and rough cost/benefit estimates. Whether you work with me after that is entirely up to you.",
+    title: "One platform for everything",
+    body: "Replace all your disconnected tools with a single system built specifically for your business.",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
   },
   {
-    number: "02",
-    title: "Quick Wins",
-    body: "Targeted automations live within days, not months. Invoice processing, review request sequences, lead capture and routing, report generation — these are the things that eat hours every week and can be fixed fast. Scoped and delivered in two to four weeks with measurable results from day one.",
+    title: "Built around your workflow",
+    body: "Not configured to approximate what you need — written from scratch around how your business actually operates.",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3-3a1 1 0 000-1.4l-1.6-1.6a1 1 0 00-1.4 0l-3 3z" />
+        <path d="M9.3 17.7a1 1 0 000-1.4l-1.6-1.6a1 1 0 00-1.4 0l-3 3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3-3z" />
+        <path d="M7.5 12L12 7.5M16.5 12l-4.5 4.5" />
+      </svg>
+    ),
   },
   {
-    number: "03",
-    title: "Custom Builds",
-    body: "Software built specifically for your business, scoped and priced upfront — and you own it outright. No licensing fees, no lock-in. Whether it's a custom CRM replacing an expensive generic tool, a client portal, or an end-to-end operational system, it's built from scratch around how your business actually works.",
+    title: "Xero and software integrations",
+    body: "Connects directly to your accounting software and other existing tools — so data flows automatically without manual input.",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+      </svg>
+    ),
   },
   {
-    number: "04",
-    title: "AI Partner",
-    body: "Ongoing support, not a one-off job. Once we've built something, I stay close — monitoring what's working, iterating on what isn't, and building new pieces as your business grows. Think of it as having an in-house AI person without the overhead of a full-time hire.",
+    title: "AI automation, where it helps",
+    body: "Smart automation handles routine admin in the background — scheduling, follow-ups, reporting — without it being the whole point.",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+  },
+  {
+    title: "You own it outright",
+    body: "No monthly licence fees to us. No lock-in. You own the code and the data from day one.",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+    ),
   },
 ];
 
-function Services() {
+function SolutionSection() {
   return (
-    <section id="services" className="bg-white py-24 md:py-36">
+    <section className="bg-white py-24 md:py-36">
       <div className="max-w-5xl mx-auto px-6">
-        <Label>What I do</Label>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-[1.05] tracking-tight mb-16 md:mb-20 max-w-xs">
-          Services
-        </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
 
-        <div className="divide-y divide-gray-100">
-          {services.map((s) => (
-            <div key={s.number} className="flex gap-8 md:gap-16 py-12 md:py-14">
-              <span className="text-[#B8922A] text-sm font-bold shrink-0 w-8 pt-1">
-                {s.number}
-              </span>
-              <div className="flex-1">
-                <h3 className="text-[#111827] font-bold text-2xl md:text-3xl mb-4">
-                  {s.title}
-                </h3>
-                <p className="text-[#6b7280] text-base md:text-lg leading-relaxed max-w-2xl">
-                  {s.body}
-                </p>
-              </div>
+          <AnimateOnScroll>
+            <Label>The solution</Label>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] leading-[1.05] tracking-tight mb-6">
+              One platform, built around your business
+            </h2>
+            <p className="text-[#64748B] text-base md:text-lg leading-relaxed mb-10">
+              Instead of bending your business to fit generic software, we build
+              a system that works exactly the way you do. Custom, owned outright,
+              and built to grow with you.
+            </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 font-bold text-base px-7 py-3.5 rounded-lg transition-all"
+              style={{
+                background: "#D4AF37",
+                color: "#0D1B2A",
+                boxShadow: "0 4px 20px rgba(212,175,55,0.25)",
+              }}
+            >
+              Book a Discovery Call
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll delay={100}>
+            <div className="space-y-6">
+              {solutionItems.map((item, i) => (
+                <AnimateOnScroll key={item.title} delay={i * 60}>
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="flex items-center justify-center rounded-xl shrink-0 mt-0.5"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        background: "rgba(212,175,55,0.08)",
+                        border: "1px solid rgba(212,175,55,0.15)",
+                      }}
+                    >
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-[#0F172A] font-bold text-base mb-1">{item.title}</h3>
+                      <p className="text-[#64748B] text-sm leading-relaxed">{item.body}</p>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              ))}
             </div>
-          ))}
+          </AnimateOnScroll>
+
         </div>
       </div>
     </section>
   );
 }
 
-/* ─── How it works ───────────────────────────────────────────── */
+/* ─── 6. Case studies (navy dark cards) ─────────────────────── */
+
+function CaseStudies() {
+  const completeBadge = { background: "rgba(74,222,128,0.1)", color: "#4ADE80" };
+  const inProgressBadge = { background: "rgba(212,175,55,0.1)", color: "#D4AF37" };
+
+  return (
+    <section id="work" className="py-24 md:py-36" style={{ background: "#0D1B2A" }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <AnimateOnScroll>
+          <Label>Case studies</Label>
+          <h2 className="text-4xl md:text-5xl font-bold text-white leading-[1.05] tracking-tight mb-4 max-w-sm">
+            Real businesses. Real outcomes.
+          </h2>
+          <p className="text-base md:text-lg mb-16 md:mb-20" style={{ color: "rgba(255,255,255,0.44)" }}>
+            Names withheld by agreement.
+          </p>
+        </AnimateOnScroll>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+
+          {/* Card 1: Landscaping CRM */}
+          <AnimateOnScroll delay={0} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #D4AF37 0%, rgba(212,175,55,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#D4AF37" }}>Landscaping &amp; Grounds</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">Job Management Platform</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  Running 30+ jobs a day on $600/month software that didn&apos;t talk to anything. Built a complete job management platform with Xero integration, automated scheduling, and real-time job visibility.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
+                  <Chip label="CRM" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>} />
+                  <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
+                  <Chip label="Job Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="3" /></svg>} />
+                  <Chip label="AI Assistant" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z" /></svg>} />
+                  <Chip label="Xero Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#D4AF37" }}>$40k+ in annual value identified</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 2: Vehicle Rental Fleet */}
+          <AnimateOnScroll delay={80} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #60A5FA 0%, rgba(96,165,250,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#60A5FA" }}>Vehicle Rental</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">Fleet &amp; Compliance System</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A full operations platform covering fleet compliance, staff timesheets, fine management, and vehicle audits — replacing multiple disconnected tools with one custom system.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
+                  <Chip label="Fine Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>} />
+                  <Chip label="Staff Timesheets" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>} />
+                  <Chip label="Vehicle Audits" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
+                  <Chip label="AI Inspections" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
+                  <Chip label="Roster Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#60A5FA" }}>6 disconnected tools replaced</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 3: Kitchen Management */}
+          <AnimateOnScroll delay={160} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #34D399 0%, rgba(52,211,153,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#34D399" }}>Hospitality &middot; Queenstown</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">Kitchen Management System</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={inProgressBadge}>In progress</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  AI-powered kitchen management tracking stock levels, expiry dates, and wastage in real time — giving staff instant visibility over what they have, what&apos;s running low, and what needs action.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Stock Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
+                  <Chip label="Expiry Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
+                  <Chip label="Wastage Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>} />
+                  <Chip label="AI Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z" /></svg>} />
+                  <Chip label="Staff Dashboard" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
+                  <Chip label="Supplier Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#34D399" }}>Replacing manual stock checks entirely</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 4: Operations Dashboard */}
+          <AnimateOnScroll delay={240} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #FB923C 0%, rgba(251,146,60,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#FB923C" }}>Vehicle Rental</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">Operations Dashboard</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A real-time management dashboard giving full visibility across fleet compliance, staff scheduling, infringement fines, and vehicle audits — all accessible from any device.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Live Fleet View" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
+                  <Chip label="Staff Roster" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
+                  <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
+                  <Chip label="Fine Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>} />
+                  <Chip label="Mobile Access" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
+                  <Chip label="Role-Based Access" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#FB923C" }}>Full operational visibility in one place</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 5: Social Media Engine */}
+          <AnimateOnScroll delay={320} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #A78BFA 0%, rgba(167,139,250,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#A78BFA" }}>E-commerce &middot; Online</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">AI Social Media Engine</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  Custom automation system built from scratch — content scanning, post scheduling, lead tracking, and performance analytics all running without manual input across multiple platforms.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Content Auto" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>} />
+                  <Chip label="Post Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
+                  <Chip label="Lead Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
+                  <Chip label="Analytics" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>} />
+                  <Chip label="Multi-Platform" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>} />
+                  <Chip label="Zero Manual Input" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#A78BFA" }}>10–15 hrs saved per week</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 6: Custom Website */}
+          <AnimateOnScroll delay={400} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #22D3EE 0%, rgba(34,211,238,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#22D3EE" }}>Web &amp; Digital</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">Custom Website with AI Integration</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A fully custom website built around the business — not a template. AI chatbot for after-hours enquiries, lead capture automation, and CMS so the owner can update content without touching code.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="AI Chatbot" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>} />
+                  <Chip label="Lead Capture" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
+                  <Chip label="Contact Forms" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
+                  <Chip label="SEO Optimised" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>} />
+                  <Chip label="Mobile Responsive" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
+                  <Chip label="CMS Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 10h16M4 14h8" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#22D3EE" }}>Leads captured 24/7 without manual follow-up</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── 7. How it works (white) ────────────────────────────────── */
 
 const steps = [
   {
     n: "1",
     title: "Discovery Call",
-    body: "Free 20-minute call. We talk about your business, what's costing you time and money, and whether AI is genuinely the right tool. No pitch, no obligation — just an honest conversation to see if it's worth going further.",
+    body: "Free 20-minute call. We talk about your business, what's costing you time and money, and whether custom software is the right fit. No pitch, no obligation — just an honest conversation.",
   },
   {
     n: "2",
-    title: "AI Audit",
-    body: "Paid, in-person or remote deep-dive into how your business actually operates. I map your workflows, identify the highest-value opportunities, and deliver a full written report with priorities and cost/benefit estimates. You own the report regardless of what happens next.",
+    title: "Scoping & Proposal",
+    body: "We map your current workflows, identify the highest-value opportunities, and put together a fixed-price proposal with a clear scope and timeline. You know the total cost before anything begins.",
   },
   {
     n: "3",
-    title: "Build and Partner",
-    body: "Fixed price, agreed upfront — you always know the total cost before work begins. I build, test, and deploy, and you own the result outright. Optionally continue as an AI Partner: I stay embedded, iterate on what we've built, and keep building as your needs grow.",
+    title: "Build, Launch & Partner",
+    body: "We build, test and deploy. You own the result outright — no licence fees, no lock-in. Then we stay embedded: monitoring, iterating and building as your business grows.",
   },
 ];
 
 function HowItWorks() {
-  return (
-    <section className="bg-[#f9fafb] py-24 md:py-36">
-      <div className="max-w-5xl mx-auto px-6">
-        <Label>The process</Label>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-[1.05] tracking-tight mb-16 md:mb-20 max-w-xs">
-          How it works
-        </h2>
+  const cardStyle = {
+    background: "#0f1117",
+    border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: "12px",
+    padding: "28px",
+  };
 
-        <div className="max-w-2xl">
+  const stepLabelStyle = {
+    fontSize: "10px",
+    color: "#D4AF37",
+    fontWeight: 700,
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.18em",
+    marginBottom: "16px",
+  };
+
+  return (
+    <section className="bg-white py-24 md:py-36">
+      <div className="max-w-5xl mx-auto px-6">
+        <AnimateOnScroll className="mb-12">
+          <Label>The process</Label>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] leading-[1.05] tracking-tight">
+            How it works
+          </h2>
+        </AnimateOnScroll>
+
+        {/* Desktop: 3-column card grid with arrows */}
+        <div className="hidden md:flex items-stretch gap-2">
           {steps.map((step, i) => (
-            <div key={step.n} className="flex gap-8 md:gap-12">
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full border border-[#B8922A] flex items-center justify-center text-[#B8922A] font-bold text-sm shrink-0">
-                  {step.n}
+            <div key={step.n} className="flex items-stretch flex-1 gap-2">
+              <AnimateOnScroll delay={i * 90} className="flex flex-1">
+                <div className="flex-1" style={cardStyle}>
+                  <p style={stepLabelStyle}>Step 0{step.n}</p>
+                  <h3 className="text-white font-bold text-xl leading-snug mb-3">
+                    {step.title}
+                  </h3>
+                  <p style={{ color: "rgba(255,255,255,0.44)", fontSize: "15px", lineHeight: "1.65" }}>
+                    {step.body}
+                  </p>
                 </div>
+              </AnimateOnScroll>
+              <div className="flex items-center justify-center shrink-0" style={{ width: "24px" }}>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 bg-[#B8922A]/20 my-3" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18l6-6-6-6" stroke="rgba(212,175,55,0.32)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 )}
               </div>
-              <div className={i < steps.length - 1 ? "pb-12 md:pb-16" : ""}>
-                <h3 className="text-[#111827] font-bold text-xl md:text-2xl mb-3 mt-1.5">
-                  {step.title}
-                </h3>
-                <p className="text-[#6b7280] text-base md:text-lg leading-relaxed">
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile: stacked */}
+        <div className="md:hidden flex flex-col gap-5">
+          {steps.map((step, i) => (
+            <AnimateOnScroll key={step.n} delay={i * 100}>
+              <div style={cardStyle}>
+                <p style={stepLabelStyle}>Step 0{step.n}</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">{step.title}</h3>
+                <p style={{ color: "rgba(255,255,255,0.44)", fontSize: "15px", lineHeight: "1.65" }}>
                   {step.body}
                 </p>
               </div>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>
@@ -265,404 +1243,247 @@ function HowItWorks() {
   );
 }
 
-/* ─── Video Testimonial ──────────────────────────────────────── */
-
-function VideoTestimonial() {
-  return (
-    <section className="bg-white py-24 md:py-36">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <Label>In their own words</Label>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
-            What our clients say
-          </h2>
-          <p className="text-[#6b7280] text-base md:text-lg max-w-md mx-auto">
-            Hear directly from a business owner on what working together
-            actually looks like.
-          </p>
-        </div>
-
-        <div className="max-w-[700px] mx-auto">
-          <iframe
-            src="https://www.youtube.com/embed/oInjRnVlFfk?modestbranding=1&rel=0"
-            title="Client testimonial"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="w-full aspect-video rounded-2xl shadow-sm"
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Current Work ───────────────────────────────────────────── */
-
-function CurrentWork() {
-  return (
-    <section id="work" className="bg-[#f9fafb] py-24 md:py-36">
-      <div className="max-w-5xl mx-auto px-6">
-        <Label>Current projects</Label>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-[1.05] tracking-tight mb-4 max-w-sm">
-          What I&apos;m building
-        </h2>
-        <p className="text-[#6b7280] text-base md:text-lg mb-16 md:mb-20">
-          Real businesses, real results. Names withheld by agreement.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Case Study 1 */}
-          <div className="bg-white rounded-2xl border border-gray-100 p-8 flex flex-col">
-            <div className="flex items-start justify-between mb-8">
-              <p className="text-[#B8922A] text-xs font-bold tracking-[0.15em] uppercase">
-                Trades &amp; Landscaping · South Island
-              </p>
-              <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full bg-[#B8922A]/10 text-[#B8922A]">
-                In build
-              </span>
-            </div>
-
-            <div className="space-y-6 flex-1">
-              <div>
-                <p className="text-[#111827] text-xs font-bold uppercase tracking-widest mb-2">
-                  Problem
-                </p>
-                <p className="text-[#6b7280] text-sm leading-relaxed">
-                  Running 30+ jobs a day on generic project management software
-                  costing $600/month that couldn&apos;t be automated. Hours of
-                  daily admin — updating job statuses, chasing invoices, copying
-                  data between systems that didn&apos;t talk to each other.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#111827] text-xs font-bold uppercase tracking-widest mb-2">
-                  Solution
-                </p>
-                <p className="text-[#6b7280] text-sm leading-relaxed">
-                  Full custom CRM to replace the off-the-shelf tool entirely.
-                  Integrated directly with their accounting software, automated
-                  job scheduling and status updates, and gave the owner
-                  real-time visibility on every job in progress.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#B8922A] text-xs font-bold uppercase tracking-widest mb-2">
-                  Outcome
-                </p>
-                <p className="text-[#111827] font-semibold text-base leading-snug">
-                  $40k+ annual value identified across workflow automation and
-                  tool replacement.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Case Study 2 */}
-          <div className="bg-white rounded-2xl border border-gray-100 p-8 flex flex-col">
-            <div className="flex items-start justify-between mb-8">
-              <p className="text-[#B8922A] text-xs font-bold tracking-[0.15em] uppercase">
-                Hospitality · Queenstown
-              </p>
-              <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full bg-gray-100 text-[#6b7280]">
-                In progress
-              </span>
-            </div>
-
-            <div className="space-y-6 flex-1">
-              <div>
-                <p className="text-[#111827] text-xs font-bold uppercase tracking-widest mb-2">
-                  Problem
-                </p>
-                <p className="text-[#6b7280] text-sm leading-relaxed">
-                  Zero social media presence, no structured group booking
-                  pipeline, and manual kitchen processes creating daily chaos.
-                  The team had the ambition to grow but no systems capable of
-                  supporting it.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#111827] text-xs font-bold uppercase tracking-widest mb-2">
-                  Solution
-                </p>
-                <p className="text-[#6b7280] text-sm leading-relaxed">
-                  AI content engine for consistent social presence, automated
-                  group booking pipeline from first enquiry through to
-                  confirmation, and a kitchen management system to reduce prep
-                  chaos and improve communication.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#B8922A] text-xs font-bold uppercase tracking-widest mb-2">
-                  Outcome
-                </p>
-                <p className="text-[#111827] font-semibold text-base leading-snug">
-                  $48k+ annual value identified across 4 priority projects. All
-                  underway simultaneously.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Case Study 3 */}
-          <div className="bg-white rounded-2xl border border-gray-100 p-8 flex flex-col">
-            <div className="flex items-start justify-between mb-8">
-              <p className="text-[#B8922A] text-xs font-bold tracking-[0.15em] uppercase">
-                E-commerce · Online Business
-              </p>
-              <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full bg-green-50 text-green-700">
-                Complete
-              </span>
-            </div>
-
-            <div className="space-y-6 flex-1">
-              <div>
-                <p className="text-[#111827] text-xs font-bold uppercase tracking-widest mb-2">
-                  Problem
-                </p>
-                <p className="text-[#6b7280] text-sm leading-relaxed">
-                  All social media managed manually — content creation,
-                  scheduling, performance tracking, and lead management done by
-                  hand across multiple platforms. Hours lost every week with
-                  inconsistent results and no way to scale.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#111827] text-xs font-bold uppercase tracking-widest mb-2">
-                  Solution
-                </p>
-                <p className="text-[#6b7280] text-sm leading-relaxed">
-                  AI social media engine built from scratch. Automated content
-                  scanning, post scheduling, lead tracking, and performance
-                  analytics — all running without manual input.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-[#B8922A] text-xs font-bold uppercase tracking-widest mb-2">
-                  Outcome
-                </p>
-                <p className="text-[#111827] font-semibold text-base leading-snug">
-                  10–15 hours per week saved in manual social media admin.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── About ──────────────────────────────────────────────────── */
+/* ─── 8. About (dark) ───────────────────────────────────────── */
 
 function About() {
+  const trustItems = [
+    "NZ Based",
+    "Fixed-Price Projects",
+    "You Own The Code",
+    "Built Around Your Business",
+    "Long-Term Support",
+  ];
+
   return (
-    <section id="about" className="bg-white py-24 md:py-36">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-20">
-          {/* Bio */}
-          <div className="flex-1 min-w-0">
-            <div className="mb-10">
-              <h2 className="text-4xl md:text-5xl font-bold text-[#111827] mb-3 leading-tight">
-                Oliver Barrass
-              </h2>
-              <p className="text-[#B8922A] font-medium text-base md:text-lg">
-                Founder · Barrass AI · Queenstown
-              </p>
-            </div>
+    <section id="about" className="relative overflow-hidden py-24 md:py-36" style={{ background: "#0f1117" }}>
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          top: "-15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "70%",
+          height: "60%",
+          background: "radial-gradient(ellipse, rgba(212,175,55,0.06) 0%, transparent 65%)",
+          filter: "blur(80px)",
+        }}
+      />
 
-            <div className="space-y-5 text-[#6b7280] text-base md:text-lg leading-relaxed">
-              <p>
-                I&apos;m an AI consultant and builder based in Queenstown, New
-                Zealand. I work directly with business owners — no middlemen, no
-                account managers — to identify where AI can genuinely make a
-                difference and then build it.
-              </p>
-              <p>
-                My background is in recruitment and operations. I spent years
-                inside businesses that were losing real money to manual admin,
-                misaligned tools, and processes nobody had time to fix.
-                That&apos;s what led me to AI — not as a buzzword, but as a
-                practical answer to problems I&apos;d seen up close.
-              </p>
-              <p>
-                What makes Barrass AI different is the end-to-end approach. I
-                do the strategy, the build, and the ongoing support — locally,
-                in person where possible. You&apos;re not outsourcing to a team
-                in another country or paying for a generic platform. You&apos;re
-                getting something built specifically for your business, by
-                someone who understands it.
-              </p>
-            </div>
+      <div className="relative max-w-2xl mx-auto px-6">
+        <AnimateOnScroll>
 
-            <div className="mt-12">
-              <a
-                href="#contact"
-                className="inline-block bg-[#B8922A] hover:bg-[#a07824] text-white font-bold px-8 py-4 rounded transition-colors text-base tracking-wide"
-              >
-                Book a free call
-              </a>
-            </div>
+          {/* Label */}
+          <p className="text-xs font-bold tracking-[0.2em] uppercase mb-6 text-center" style={{ color: "#D4AF37" }}>
+            About
+          </p>
+
+          {/* Heading */}
+          <h2
+            className="font-bold text-white text-center tracking-tight mb-14"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.1 }}
+          >
+            Understanding first.{" "}
+            <span style={{ color: "#D4AF37" }}>Software second.</span>
+          </h2>
+
+          {/* Body — three-paragraph story arc */}
+          <div className="space-y-7">
+            <p
+              className="text-lg md:text-xl leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.72)" }}
+            >
+              Before I got into software, I spent years in recruitment — placing people inside trades companies, tourism operators, vehicle rental businesses and service businesses across New Zealand. That work put me inside a lot of companies, and I kept seeing the same thing.
+            </p>
+            <p
+              className="text-base md:text-lg leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.48)" }}
+            >
+              Good businesses being slowed down by software that didn&apos;t fit. Spreadsheets doing jobs they shouldn&apos;t be doing. Apps that didn&apos;t connect to each other. Manual admin eating through hours every week. People had tried the off-the-shelf fixes — they just didn&apos;t stick, because the software was built for the average business, not theirs.
+            </p>
+            <p
+              className="text-base md:text-lg leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.48)" }}
+            >
+              That&apos;s why I started Barrass AI. Every project starts before any code is written: spending real time understanding how the business actually works, talking to the people doing the work, and mapping processes as they really run — not how they&apos;re supposed to on paper. What gets built from that is software that fits the business as it already operates. Not the other way around.
+            </p>
           </div>
 
-          {/* Photo */}
-          <div className="mt-14 lg:mt-0 flex justify-center lg:block lg:shrink-0">
-            <div className="overflow-hidden rounded-2xl shadow-md w-[280px] lg:w-[400px] aspect-[1/2]">
-              <Image
-                src={oliverPhoto}
-                alt="Oliver Barrass, founder of Barrass AI"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: "40% bottom" }}
-              />
-            </div>
+          {/* CTA */}
+          <div className="flex justify-center mt-12">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-lg transition-all text-base hover:-translate-y-0.5 active:translate-y-0"
+              style={{
+                background: "#D4AF37",
+                color: "#0D1B2A",
+                boxShadow: "0 4px 20px rgba(212,175,55,0.28)",
+              }}
+            >
+              Start a conversation
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </div>
-        </div>
+
+          {/* Trust indicators */}
+          <div
+            className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-16 pt-14"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+          >
+            {trustItems.map((item) => (
+              <div key={item} className="flex items-center gap-2.5">
+                <div
+                  className="flex-shrink-0 rounded-full"
+                  style={{ width: "5px", height: "5px", background: "#D4AF37", opacity: 0.55 }}
+                />
+                <span
+                  className="text-sm font-medium"
+                  style={{ color: "rgba(255,255,255,0.38)", letterSpacing: "0.01em" }}
+                >
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+
+        </AnimateOnScroll>
       </div>
     </section>
   );
 }
 
-/* ─── FAQ ────────────────────────────────────────────────────── */
+/* ─── 10. FAQ (light grey) ───────────────────────────────────── */
 
 function FAQSection() {
   return (
-    <section className="bg-[#f9fafb] py-24 md:py-36">
+    <section className="bg-[#F8FAFC] py-24 md:py-36">
       <div className="max-w-3xl mx-auto px-6">
-        <Label>Common questions</Label>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-tight mb-16 md:mb-20 max-w-xs">
-          FAQ
-        </h2>
+        <AnimateOnScroll>
+          <Label>Common questions</Label>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] leading-tight mb-16 md:mb-20 max-w-xs">
+            FAQ
+          </h2>
+        </AnimateOnScroll>
         <FAQ />
       </div>
     </section>
   );
 }
 
-/* ─── Contact ────────────────────────────────────────────────── */
+/* ─── 11. Contact (navy) ─────────────────────────────────────── */
 
 function Contact() {
   return (
-    <section id="contact" className="bg-white py-24 md:py-36">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left */}
-          <div>
-            <Label>Get started</Label>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#111827] mb-6 leading-tight">
-              Let&apos;s talk about your business
+    <NavySection>
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          top: "-15%",
+          left: "-5%",
+          width: "50%",
+          height: "70%",
+          background: "radial-gradient(ellipse, rgba(212,175,55,0.1) 0%, transparent 65%)",
+          filter: "blur(72px)",
+        }}
+      />
+      <div
+        id="contact"
+        className="relative max-w-5xl mx-auto px-6 py-24 md:py-36"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 lg:items-start">
+
+          <AnimateOnScroll>
+            <Label>Get in touch</Label>
+            <h2
+              className="font-bold text-white leading-[1.06] tracking-tight mb-6"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+            >
+              Let&apos;s talk about your business.
             </h2>
-            <p className="text-[#6b7280] text-base md:text-lg leading-relaxed mb-12">
-              The first call is free and there&apos;s no obligation. Tell me
-              what you&apos;re working with and I&apos;ll give you an honest
-              view of where AI can help.
+            <p className="text-lg leading-relaxed mb-12" style={{ color: "rgba(255,255,255,0.48)" }}>
+              Whether you&apos;re replacing existing software or starting from scratch,
+              we&apos;d love to hear about your business.
             </p>
-
-            <div className="space-y-5">
-              <a
-                href="mailto:obarrass@outlook.com"
-                className="flex items-center gap-4 group"
-              >
-                <span className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#B8922A]/10 transition-colors">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="text-[#B8922A]"
-                  >
-                    <path
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
+            <div
+              className="mb-10"
+              style={{
+                height: "1px",
+                background: "linear-gradient(90deg, rgba(212,175,55,0.35) 0%, rgba(255,255,255,0.04) 100%)",
+              }}
+            />
+            <div className="space-y-6">
+              <a href="tel:+64225482473" className="flex items-center gap-4 group">
+                <div
+                  className="flex items-center justify-center rounded-xl shrink-0"
+                  style={{ width: "44px", height: "44px", background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.18)" }}
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                </span>
-                <span className="text-[#6b7280] group-hover:text-[#B8922A] text-sm transition-colors">
-                  obarrass@outlook.com
-                </span>
+                </div>
+                <div>
+                  <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.28)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "3px" }}>Phone</p>
+                  <p className="group-hover:text-[#D4AF37] transition-colors" style={{ color: "rgba(255,255,255,0.75)", fontSize: "15px", fontWeight: 500 }}>
+                    022 548 2473
+                  </p>
+                </div>
               </a>
-
-              <a
-                href="tel:+64225482473"
-                className="flex items-center gap-4 group"
-              >
-                <span className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#B8922A]/10 transition-colors">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="text-[#B8922A]"
-                  >
-                    <path
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
+              <a href="mailto:oliver@barrassai.com" className="flex items-center gap-4 group">
+                <div
+                  className="flex items-center justify-center rounded-xl shrink-0"
+                  style={{ width: "44px", height: "44px", background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.18)" }}
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round">
+                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                </span>
-                <span className="text-[#6b7280] group-hover:text-[#B8922A] text-sm transition-colors">
-                  022 548 2473
-                </span>
+                </div>
+                <div>
+                  <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.28)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "3px" }}>Email</p>
+                  <p className="group-hover:text-[#D4AF37] transition-colors" style={{ color: "rgba(255,255,255,0.75)", fontSize: "15px", fontWeight: 500 }}>
+                    oliver@barrassai.com
+                  </p>
+                </div>
               </a>
-
               <div className="flex items-center gap-4">
-                <span className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="text-[#B8922A]"
-                  >
-                    <path
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    />
+                <div
+                  className="flex items-center justify-center rounded-xl shrink-0"
+                  style={{ width: "44px", height: "44px", background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.18)" }}
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <circle cx="12" cy="11" r="3" />
                   </svg>
-                </span>
-                <span className="text-[#6b7280] text-sm">
-                  Queenstown, New Zealand
-                </span>
+                </div>
+                <div>
+                  <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.28)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "3px" }}>Location</p>
+                  <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "15px", fontWeight: 500 }}>
+                    Queenstown, New Zealand
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </AnimateOnScroll>
 
-          {/* Right */}
-          <div>
+          <AnimateOnScroll delay={120}>
             <ContactForm />
-          </div>
+          </AnimateOnScroll>
+
         </div>
       </div>
-    </section>
+    </NavySection>
   );
 }
 
-/* ─── Footer ─────────────────────────────────────────────────── */
+/* ─── Footer (navy) ──────────────────────────────────────────── */
 
 function Footer() {
   return (
-    <footer className="bg-[#111827] py-10">
+    <footer className="bg-[#0D1B2A] py-10 border-t border-white/[0.06]">
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <p className="text-[#B8922A] font-bold tracking-widest uppercase text-sm">
-          BARRASS AI
-        </p>
+        <p className="text-[#D4AF37] font-bold tracking-widest uppercase text-sm">BARRASS AI</p>
         <p className="text-white/25 text-xs">
-          © {new Date().getFullYear()} Barrass AI · Queenstown, New Zealand
+          &copy; {new Date().getFullYear()} Barrass AI &middot; Queenstown, New Zealand
         </p>
         <div className="flex gap-6 text-white/30 text-xs">
           {[
@@ -671,11 +1492,7 @@ function Footer() {
             ["About", "#about"],
             ["Contact", "#contact"],
           ].map(([label, href]) => (
-            <a
-              key={href}
-              href={href}
-              className="hover:text-white/60 transition-colors"
-            >
+            <a key={href} href={href} className="hover:text-white/60 transition-colors">
               {label}
             </a>
           ))}
@@ -693,12 +1510,12 @@ export default function Page() {
       <Nav />
       <main>
         <Hero />
-        <SocialProof />
-        <Problem />
-        <Services />
+        <TrustStrip />
+        <WhatWeBuild />
+        <ProblemSection />
+        <SolutionSection />
+        <CaseStudies />
         <HowItWorks />
-        <VideoTestimonial />
-        <CurrentWork />
         <About />
         <FAQSection />
         <Contact />

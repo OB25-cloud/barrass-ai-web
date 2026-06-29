@@ -5,27 +5,31 @@ import { useState } from "react";
 const faqs = [
   {
     q: "How is this different from hiring a developer?",
-    a: "A developer builds what you specify. I start by identifying where AI actually creates value in your business — often in places you wouldn't think to look. You get strategy plus execution, not just a contractor waiting for a brief. And everything is fixed price, so you're never watching a meter run.",
+    a: "A developer builds what you specify. We start by understanding your business properly — where the real problems are, what's costing you time and money, and what software will actually make a difference. You get strategy and execution combined, not just a contractor waiting for a brief. Everything is fixed price, so you always know the cost before work begins.",
   },
   {
-    q: "Do I need to understand AI to work with you?",
-    a: "Not at all. You understand your business — I handle the technology. We talk in plain language about outcomes and problems, not model architectures or APIs. If you want to go deeper, I'm happy to explain, but it's never required.",
+    q: "Do I need to be technical to work with you?",
+    a: "Not at all. You understand your business — we handle the technology. We talk in plain language about outcomes and problems, not APIs or code. If you want to go deeper into how something works, we're happy to explain, but it's never required.",
   },
   {
     q: "How long does a project take?",
-    a: "The AI Audit takes around 1–2 weeks. Quick Win projects typically deliver in 2–4 weeks. Custom builds vary by scope, but we agree a timeline upfront before any work begins. You'll never be left wondering.",
+    a: "Automation projects typically deliver in two to four weeks. Custom software builds vary by scope — anywhere from four weeks for something targeted to a few months for a full operational system. We agree a timeline upfront before any work begins, so you're never left wondering.",
   },
   {
-    q: "What does the audit involve?",
-    a: "We spend a few hours together — over calls and a detailed questionnaire — mapping your current workflows, tools, and pain points. I then produce a written report identifying the highest-value AI opportunities in your business, with rough cost/benefit estimates and a recommended priority order.",
+    q: "What does the scoping process involve?",
+    a: "We spend time properly understanding your business through calls and a detailed questionnaire. We map your current workflows, tools, and pain points, then produce a clear written proposal with a fixed price, scope and timeline. You know exactly what you're getting before anything starts.",
   },
   {
     q: "Do you work outside Queenstown?",
-    a: "Yes. The majority of work happens remotely, so location is rarely a constraint. I'm Queenstown-based and proud of it, but I work with businesses across New Zealand.",
+    a: "Yes. Most of our work happens remotely, so location is rarely a constraint. We're Queenstown-based and work with businesses across New Zealand — trades in Canterbury, tourism operators in Rotorua, professional services in Auckland. If you need us in person, we can usually make that work too.",
   },
   {
     q: "Who owns the software?",
-    a: "You do. Everything built for your business is yours — the code, the data, the workflows. There are no ongoing licence fees to me. You may use third-party AI services (like OpenAI) that have their own subscription costs, but I'll make those clear in the proposal.",
+    a: "You do. Everything we build for your business is yours — the code, the data, the workflows. No ongoing licence fees to us, no lock-in. Some projects use third-party services (like cloud hosting or payment providers) that have their own costs, but we make those clear in the proposal upfront.",
+  },
+  {
+    q: "What if my needs change after the build?",
+    a: "That's exactly what our ongoing partnership is for. We don't disappear after launch. Most clients continue with us on a rolling basis — iterating on what we've built, adding new features as the business grows, and staying ahead of problems before they become expensive. One relationship, long term.",
   },
 ];
 
@@ -41,11 +45,11 @@ export default function FAQ() {
             onClick={() => setOpenIndex(openIndex === i ? null : i)}
             aria-expanded={openIndex === i}
           >
-            <span className="text-[#111827] font-semibold text-base md:text-lg group-hover:text-[#B8922A] transition-colors">
+            <span className="text-[#0F172A] font-semibold text-base md:text-lg group-hover:text-[#D4AF37] transition-colors">
               {item.q}
             </span>
             <span
-              className={`flex-shrink-0 w-6 h-6 rounded-full border border-[#B8922A] flex items-center justify-center text-[#B8922A] transition-transform duration-200 ${
+              className={`flex-shrink-0 w-6 h-6 rounded-full border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] transition-transform duration-200 ${
                 openIndex === i ? "rotate-45" : ""
               }`}
             >
@@ -64,7 +68,7 @@ export default function FAQ() {
               openIndex === i ? "max-h-96 pb-5" : "max-h-0"
             }`}
           >
-            <p className="text-[#6b7280] leading-relaxed text-base">
+            <p className="text-[#64748B] leading-relaxed text-base">
               {item.a}
             </p>
           </div>

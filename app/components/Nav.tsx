@@ -7,7 +7,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -21,14 +21,18 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 transition-shadow duration-300 ${
-        scrolled ? "shadow-sm" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white border-b border-gray-100 shadow-sm"
+          : "bg-transparent border-b border-white/10"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 md:h-20">
         <a
           href="#"
-          className="text-[#B8922A] font-bold text-lg tracking-widest uppercase"
+          className={`font-bold text-lg tracking-widest uppercase transition-colors duration-300 ${
+            scrolled ? "text-[#D4AF37]" : "text-white"
+          }`}
         >
           BARRASS AI
         </a>
@@ -39,16 +43,20 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm tracking-wide text-[#111827]/55 hover:text-[#111827] transition-colors"
+              className={`text-sm tracking-wide transition-colors duration-300 ${
+                scrolled
+                  ? "text-[#111827]/55 hover:text-[#111827]"
+                  : "text-white/65 hover:text-white"
+              }`}
             >
               {l.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="bg-[#B8922A] hover:bg-[#a07824] text-white text-sm font-semibold px-5 py-2.5 rounded transition-colors tracking-wide"
+            className="bg-[#D4AF37] hover:bg-[#b8962d] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors tracking-wide"
           >
-            Book a Call
+            Get in Touch
           </a>
         </div>
 
@@ -61,10 +69,16 @@ export default function Nav() {
           {[1, 2, 3].map((n) => (
             <span
               key={n}
-              className={`block h-0.5 w-6 bg-[#111827] transition-all duration-200 ${
-                n === 1 && open ? "translate-y-2 rotate-45" :
-                n === 2 && open ? "opacity-0" :
-                n === 3 && open ? "-translate-y-2 -rotate-45" : ""
+              className={`block h-0.5 w-6 transition-all duration-200 ${
+                scrolled ? "bg-[#111827]" : "bg-white"
+              } ${
+                n === 1 && open
+                  ? "translate-y-2 rotate-45"
+                  : n === 2 && open
+                  ? "opacity-0"
+                  : n === 3 && open
+                  ? "-translate-y-2 -rotate-45"
+                  : ""
               }`}
             />
           ))}
@@ -73,13 +87,13 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-6 py-6 flex flex-col gap-5">
+        <div className="md:hidden bg-[#0D1B2A] border-t border-white/10 px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-[#111827]/70 hover:text-[#111827] text-base transition-colors"
+              className="text-white/70 hover:text-white text-base transition-colors"
             >
               {l.label}
             </a>
@@ -87,9 +101,9 @@ export default function Nav() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="bg-[#B8922A] text-white font-semibold px-5 py-3 rounded text-center mt-2"
+            className="bg-[#D4AF37] text-white font-semibold px-5 py-3 rounded-lg text-center mt-2"
           >
-            Book a Call
+            Get in Touch
           </a>
         </div>
       )}

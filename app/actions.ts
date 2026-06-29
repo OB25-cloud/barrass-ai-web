@@ -13,14 +13,12 @@ export async function submitContact(
   _prevState: ContactState,
   formData: FormData
 ): Promise<ContactState> {
-  const name = formData.get("name")?.toString().trim() ?? "";
-  const business = formData.get("business")?.toString().trim() ?? "";
-  const industry = formData.get("industry")?.toString().trim() ?? "";
-  const challenge = formData.get("challenge")?.toString().trim() ?? "";
-  const lookingFor = formData.get("looking_for")?.toString().trim() ?? "";
-  const email = formData.get("email")?.toString().trim() ?? "";
-  const phone = formData.get("phone")?.toString().trim() ?? "";
-  const context = formData.get("context")?.toString().trim() ?? "";
+  const name      = formData.get("name")?.toString().trim()      ?? "";
+  const email     = formData.get("email")?.toString().trim()     ?? "";
+  const industry  = formData.get("industry")?.toString().trim()  ?? "";
+  const objective = formData.get("objective")?.toString().trim() ?? "";
+  const headcount = formData.get("headcount")?.toString().trim() ?? "";
+  const context   = formData.get("context")?.toString().trim()   ?? "";
 
   if (!name || !email) {
     return { status: "error", message: "Please provide your name and email." };
@@ -32,22 +30,20 @@ export async function submitContact(
   }
 
   const row = (label: string, value: string) =>
-    `<tr><td style="padding:6px 0;font-weight:bold;width:160px;vertical-align:top;color:#555">${label}</td><td style="padding:6px 0;color:#111">${value || "—"}</td></tr>`;
+    `<tr><td style="padding:6px 0;font-weight:bold;width:180px;vertical-align:top;color:#555">${label}</td><td style="padding:6px 0;color:#111">${value || "—"}</td></tr>`;
 
   try {
     await resend.emails.send({
       from: "Barrass AI Website <onboarding@resend.dev>",
-      to: "obarrass@outlook.com",
+      to: "oliver@barrassai.com",
       replyTo: email,
-      subject: `New enquiry — ${name}${business ? `, ${business}` : ""}${industry ? ` (${industry})` : ""}`,
+      subject: `New enquiry — ${name}${industry ? ` (${industry})` : ""}`,
       text: [
         `Name: ${name}`,
-        `Business: ${business || "—"}`,
-        `Industry: ${industry || "—"}`,
-        `Biggest challenge: ${challenge || "—"}`,
-        `Looking for: ${lookingFor || "—"}`,
         `Email: ${email}`,
-        `Phone: ${phone || "—"}`,
+        `Industry: ${industry || "—"}`,
+        `Objective: ${objective || "—"}`,
+        `Team size: ${headcount || "—"}`,
         context ? `\nAdditional context:\n${context}` : "",
       ]
         .filter(Boolean)
@@ -57,12 +53,10 @@ export async function submitContact(
           <h2 style="color:#B8922A;margin-bottom:24px">New Enquiry — Barrass AI</h2>
           <table style="width:100%;border-collapse:collapse">
             ${row("Name", name)}
-            ${row("Business", business)}
-            ${row("Industry", industry)}
-            ${row("Biggest challenge", challenge)}
-            ${row("Looking for", lookingFor)}
             ${row("Email", `<a href="mailto:${email}" style="color:#B8922A">${email}</a>`)}
-            ${row("Phone", phone)}
+            ${row("Industry", industry)}
+            ${row("Objective", objective)}
+            ${row("Team size", headcount)}
           </table>
           ${
             context
@@ -82,7 +76,7 @@ export async function submitContact(
     return {
       status: "error",
       message:
-        "Something went wrong. Please email obarrass@outlook.com directly.",
+        "Something went wrong. Please email oliver@barrassai.com directly.",
     };
   }
 }
