@@ -57,7 +57,7 @@ function NavySection({ children }: { children: React.ReactNode }) {
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       />
@@ -90,24 +90,24 @@ function DashboardMockup() {
   ];
 
   const kpiColors = [
-    { topBorder: "rgba(212,175,55,0.55)",  labelColor: "rgba(212,175,55,0.65)"  },
-    { topBorder: "rgba(96,165,250,0.55)",  labelColor: "rgba(96,165,250,0.65)"  },
-    { topBorder: "rgba(74,222,128,0.55)",  labelColor: "rgba(74,222,128,0.65)"  },
-    { topBorder: "rgba(251,146,60,0.55)",  labelColor: "rgba(251,146,60,0.65)"  },
+    { topBorder: "rgba(212,175,55,0.7)",  labelColor: "rgba(212,175,55,0.75)"  },
+    { topBorder: "rgba(96,165,250,0.7)",  labelColor: "rgba(96,165,250,0.75)"  },
+    { topBorder: "rgba(74,222,128,0.7)",  labelColor: "rgba(74,222,128,0.75)"  },
+    { topBorder: "rgba(251,146,60,0.7)",  labelColor: "rgba(251,146,60,0.75)"  },
   ];
 
   const jobs = [
-    { ref: "#3041", client: "Meridian Group", type: "Site Inspection", assignee: "AK", status: "active" as const, time: "08:00" },
-    { ref: "#3042", client: "Pacific Holdings", type: "Installation", assignee: "MR", status: "scheduled" as const, time: "10:30" },
-    { ref: "#3043", client: "Summit Co.", type: "Maintenance", assignee: "JL", status: "complete" as const, time: "07:00" },
-    { ref: "#3044", client: "Lakeside Ops", type: "Consultation", assignee: "AK", status: "complete" as const, time: "09:00" },
-    { ref: "#3045", client: "Harwick Ltd", type: "Full Service", assignee: "TF", status: "scheduled" as const, time: "13:00" },
+    { ref: "#3041", client: "Remarkables Plumbing", type: "Site Inspection", assignee: "AK", status: "active" as const, time: "8:15 AM" },
+    { ref: "#3042", client: "Lakes Electrical", type: "Installation", assignee: "MR", status: "scheduled" as const, time: "10:30 AM" },
+    { ref: "#3043", client: "Southern Build", type: "Maintenance", assignee: "JL", status: "complete" as const, time: "7:00 AM" },
+    { ref: "#3044", client: "Queenstown Civil", type: "Consultation", assignee: "AK", status: "complete" as const, time: "9:00 AM" },
+    { ref: "#3045", client: "Alpine Excavation", type: "Full Service", assignee: "TF", status: "scheduled" as const, time: "1:00 PM" },
   ];
 
   const statusStyles = {
-    active:    { label: "Active",    bg: "rgba(212,175,55,0.12)",     color: "#D4AF37" },
-    scheduled: { label: "Scheduled", bg: "rgba(255,255,255,0.06)",     color: "rgba(255,255,255,0.42)" },
-    complete:  { label: "Complete",  bg: "rgba(74,222,128,0.08)",      color: "rgba(74,222,128,0.6)" },
+    active:    { label: "Active",    bg: "rgba(212,175,55,0.15)",     color: "#D4AF37" },
+    scheduled: { label: "Scheduled", bg: "rgba(96,165,250,0.08)",     color: "rgba(96,165,250,0.55)" },
+    complete:  { label: "Complete",  bg: "rgba(74,222,128,0.1)",      color: "rgba(74,222,128,0.7)" },
   };
 
   const assigneeColors: Record<string, { bg: string; color: string }> = {
@@ -135,20 +135,20 @@ function DashboardMockup() {
   const revenueData = [18, 24, 21, 32, 28, 36, 31, 42, 38, 46, 39, 44];
   const maxRev = Math.max(...revenueData);
 
-  const aiChips = ["Outstanding invoices", "Today's jobs", "Late quotes", "Revenue this month", "Tool locations", "Vehicle availability"];
+  const aiChips = ["Outstanding invoices", "Today's jobs", "Customer history", "Upcoming maintenance", "Late quotes", "Tool locations"];
 
   return (
-    <div style={{ fontFamily: ff, borderRadius: "16px", overflow: "hidden", background: "#0a1120", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}>
+    <div style={{ fontFamily: ff, borderRadius: "16px", overflow: "hidden", background: "#0c1427", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
 
       {/* Browser chrome */}
-      <div style={{ background: "#060c18", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "9px 14px", display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{ background: "#080f1e", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "9px 14px", display: "flex", alignItems: "center", gap: "10px" }}>
         <div style={{ display: "flex", gap: "5px" }}>
           {(["#FF5F57", "#FEBC2E", "#28C840"] as const).map((c) => (
             <div key={c} style={{ width: "8px", height: "8px", borderRadius: "50%", background: c }} />
           ))}
         </div>
         <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <div style={{ background: "#0d1a2e", borderRadius: "5px", padding: "3px 14px", display: "flex", alignItems: "center", gap: "5px", width: "240px" }}>
+          <div style={{ background: "#0f1e34", borderRadius: "5px", padding: "3px 14px", display: "flex", alignItems: "center", gap: "5px", width: "240px" }}>
             <svg width="8" height="8" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.3 }}>
               <circle cx="7" cy="7" r="5" stroke="white" strokeWidth="1.5" />
               <path d="M11 11l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
@@ -159,11 +159,11 @@ function DashboardMockup() {
       </div>
 
       {/* App shell */}
-      <div style={{ display: "flex", height: "550px" }}>
+      <div style={{ display: "flex", height: "580px" }}>
 
         {/* Sidebar */}
-        <div style={{ width: "118px", background: "#070d1a", borderRight: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-          <div style={{ padding: "12px 10px 10px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: "7px" }}>
+        <div style={{ width: "118px", background: "#090f1d", borderRight: "1px solid rgba(255,255,255,0.07)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
+          <div style={{ padding: "12px 10px 10px", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", gap: "7px" }}>
             <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "#D4AF37", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <span style={{ fontSize: "9px", fontWeight: 900, color: "#0D1B2A" }}>B</span>
             </div>
@@ -174,13 +174,13 @@ function DashboardMockup() {
           </div>
           <div style={{ flex: 1, padding: "8px 6px", display: "flex", flexDirection: "column", gap: "1px" }}>
             {navItems.map((item) => (
-              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", background: item.active ? "rgba(212,175,55,0.12)" : "transparent", color: item.active ? "#D4AF37" : "rgba(255,255,255,0.28)" }}>
+              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", background: item.active ? "rgba(212,175,55,0.14)" : "transparent", color: item.active ? "#D4AF37" : "rgba(255,255,255,0.32)" }}>
                 {item.icon}
                 <span style={{ fontSize: "8.5px", fontWeight: item.active ? 600 : 400 }}>{item.label}</span>
               </div>
             ))}
           </div>
-          <div style={{ padding: "8px 6px 12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+          <div style={{ padding: "8px 6px 12px", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", color: "rgba(255,255,255,0.22)" }}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/>
@@ -191,15 +191,15 @@ function DashboardMockup() {
         </div>
 
         {/* Main content */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#0a1120" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#0c1427" }}>
 
           {/* Top bar */}
-          <div style={{ height: "38px", background: "#0d1525", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", padding: "0 14px", gap: "10px", flexShrink: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "5px", padding: "3px 8px", borderRadius: "6px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
-              <div style={{ width: "13px", height: "13px", borderRadius: "3px", background: "rgba(212,175,55,0.18)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ height: "38px", background: "#0f1928", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", padding: "0 14px", gap: "10px", flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "5px", padding: "3px 8px", borderRadius: "6px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+              <div style={{ width: "13px", height: "13px", borderRadius: "3px", background: "rgba(212,175,55,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span style={{ fontSize: "6.5px", fontWeight: 800, color: "#D4AF37" }}>A</span>
               </div>
-              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.6)", fontWeight: 500 }}>Apex Operations</span>
+              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.65)", fontWeight: 500 }}>Altitude Landscaping</span>
               <svg width="8" height="8" viewBox="0 0 16 16" fill="none" style={{ color: "rgba(255,255,255,0.28)" }}>
                 <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
@@ -224,37 +224,37 @@ function DashboardMockup() {
           </div>
 
           {/* Content area */}
-          <div style={{ flex: 1, overflow: "hidden", padding: "12px 14px", display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ flex: 1, overflow: "hidden", padding: "14px 16px", display: "flex", flexDirection: "column", gap: "12px" }}>
 
             {/* KPI row */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", flexShrink: 0 }}>
               {kpis.map((kpi, i) => {
                 const kc = kpiColors[i];
                 return (
-                  <div key={kpi.label} style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderTop: `2px solid ${kc.topBorder}`, borderRadius: "10px", padding: "11px 14px" }}>
-                    <div style={{ fontSize: "7px", color: kc.labelColor, marginBottom: "7px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" as const }}>{kpi.label}</div>
-                    <div style={{ fontSize: i < 2 ? "22px" : "18px", fontWeight: 700, color: i < 2 ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.72)", lineHeight: 1, marginBottom: "5px", letterSpacing: "-0.02em" }}>{kpi.value}</div>
-                    <div style={{ fontSize: "7px", color: kpi.up ? "rgba(74,222,128,0.65)" : "rgba(251,146,60,0.7)" }}>{kpi.sub}</div>
+                  <div key={kpi.label} style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderTop: `2px solid ${kc.topBorder}`, borderRadius: "10px", padding: "13px 16px", boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
+                    <div style={{ fontSize: "7px", color: kc.labelColor, marginBottom: "8px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" as const }}>{kpi.label}</div>
+                    <div style={{ fontSize: i < 2 ? "23px" : "19px", fontWeight: 700, color: i < 2 ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.78)", lineHeight: 1, marginBottom: "6px", letterSpacing: "-0.02em" }}>{kpi.value}</div>
+                    <div style={{ fontSize: "7px", color: kpi.up ? "rgba(74,222,128,0.7)" : "rgba(251,146,60,0.75)" }}>{kpi.sub}</div>
                   </div>
                 );
               })}
             </div>
 
             {/* Middle row: jobs + right panel */}
-            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 38%", gap: "10px", minHeight: 0 }}>
+            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 38%", gap: "12px", minHeight: 0 }}>
 
               {/* Jobs panel */}
-              <div style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-                <div style={{ padding: "10px 14px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-                  <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>Upcoming Jobs</span>
-                  <span style={{ fontSize: "7.5px", color: "rgba(255,255,255,0.25)" }}>Today · 12 total</span>
+              <div style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
+                <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+                  <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>Upcoming Jobs</span>
+                  <span style={{ fontSize: "7.5px", color: "rgba(255,255,255,0.3)" }}>Today · 12 total</span>
                 </div>
                 <div style={{ flex: 1, overflow: "hidden" }}>
                   {jobs.map((job, i) => {
                     const s = statusStyles[job.status];
                     const ac = assigneeColors[job.assignee] ?? { bg: "rgba(212,175,55,0.15)", color: "#D4AF37" };
                     return (
-                      <div key={job.ref} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 22px 80px 38px", alignItems: "center", padding: "8px 14px", borderBottom: "1px solid rgba(255,255,255,0.03)", background: i === 0 ? "rgba(212,175,55,0.03)" : "transparent" }}>
+                      <div key={job.ref} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 22px 80px 52px", alignItems: "center", padding: "10px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)", background: i === 0 ? "rgba(212,175,55,0.04)" : "transparent" }}>
                         <span style={{ fontSize: "8.5px", fontWeight: 500, color: "rgba(255,255,255,0.82)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const, paddingRight: "10px" }}>{job.client}</span>
                         <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.32)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const, paddingRight: "8px" }}>{job.type}</span>
                         <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: ac.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "6.5px", fontWeight: 700, color: ac.color }}>{job.assignee}</div>
@@ -270,11 +270,11 @@ function DashboardMockup() {
               </div>
 
               {/* Right column */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px", minHeight: 0, overflow: "hidden" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", minHeight: 0, overflow: "hidden" }}>
 
                 {/* Business Pipeline */}
-                <div style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", padding: "8px 12px", flexShrink: 0 }}>
-                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)", marginBottom: "8px" }}>Business Pipeline</div>
+                <div style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", flexShrink: 0, boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
+                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: "8px" }}>Business Pipeline</div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
                     {pipeline.map((p) => (
                       <div key={p.stage} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -289,9 +289,9 @@ function DashboardMockup() {
                 </div>
 
                 {/* Revenue chart */}
-                <div style={{ flex: 1, background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", padding: "8px 12px", display: "flex", flexDirection: "column", minHeight: 0 }}>
+                <div style={{ flex: 1, background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", display: "flex", flexDirection: "column", minHeight: 0, boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px", flexShrink: 0 }}>
-                    <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)" }}>Revenue Trend</span>
+                    <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>Revenue Trend</span>
                     <span style={{ fontSize: "7.5px", color: "#D4AF37", fontWeight: 600 }}>Jun 2026</span>
                   </div>
                   <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "flex-end", gap: "3px" }}>
@@ -302,8 +302,8 @@ function DashboardMockup() {
                 </div>
 
                 {/* Staff availability */}
-                <div style={{ background: "#0f1826", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "10px", padding: "8px 12px", flexShrink: 0 }}>
-                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.78)", marginBottom: "7px" }}>Staff Availability</div>
+                <div style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", flexShrink: 0, boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
+                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: "7px" }}>Staff Availability</div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
                     {staffList.map((s) => (
                       <div key={s.initials} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -322,29 +322,29 @@ function DashboardMockup() {
             </div>
 
             {/* AI Search */}
-            <div style={{ flexShrink: 0, background: "linear-gradient(135deg, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.02) 100%)", border: "1px solid rgba(212,175,55,0.18)", borderRadius: "12px", padding: "14px 16px" }}>
+            <div style={{ flexShrink: 0, background: "linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(139,92,246,0.03) 100%)", border: "1px solid rgba(139,92,246,0.22)", borderRadius: "12px", padding: "14px 16px", boxShadow: "0 2px 20px rgba(139,92,246,0.06)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "7px", marginBottom: "10px" }}>
-                <div style={{ width: "16px", height: "16px", borderRadius: "4px", background: "rgba(212,175,55,0.16)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ width: "16px", height: "16px", borderRadius: "4px", background: "rgba(139,92,246,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z"/>
                   </svg>
                 </div>
-                <span style={{ fontSize: "9px", fontWeight: 700, color: "rgba(212,175,55,0.92)", letterSpacing: "0.04em", textTransform: "uppercase" as const }}>Business Search (AI)</span>
-                <span style={{ fontSize: "7px", color: "rgba(255,255,255,0.18)", marginLeft: "auto" }}>Business intelligence · Not a chatbot</span>
+                <span style={{ fontSize: "9px", fontWeight: 700, color: "rgba(167,139,250,0.95)", letterSpacing: "0.04em", textTransform: "uppercase" as const }}>Business Search (AI)</span>
+                <span style={{ fontSize: "7px", color: "rgba(255,255,255,0.2)", marginLeft: "auto" }}>Business intelligence · Not a chatbot</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(0,0,0,0.32)", border: "1px solid rgba(212,175,55,0.24)", borderRadius: "8px", padding: "9px 12px", marginBottom: "10px", boxShadow: "0 0 0 3px rgba(212,175,55,0.05)" }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.5)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(0,0,0,0.38)", border: "1px solid rgba(139,92,246,0.28)", borderRadius: "8px", padding: "10px 12px", marginBottom: "10px", boxShadow: "0 0 0 3px rgba(139,92,246,0.06), inset 0 1px 0 rgba(255,255,255,0.04)" }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,0.55)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                   <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
                 </svg>
-                <span style={{ fontSize: "8.5px", color: "rgba(255,255,255,0.22)", flex: 1 }}>Ask anything about your business...</span>
+                <span style={{ fontSize: "8.5px", color: "rgba(255,255,255,0.25)", flex: 1 }}>Ask anything about your business...</span>
                 <span className="cursor-blink" />
-                <div style={{ display: "flex", alignItems: "center", padding: "2px 7px", borderRadius: "4px", background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.22)" }}>
-                  <span style={{ fontSize: "7px", color: "#D4AF37", fontWeight: 600 }}>⌘K</span>
+                <div style={{ display: "flex", alignItems: "center", padding: "2px 7px", borderRadius: "4px", background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.24)" }}>
+                  <span style={{ fontSize: "7px", color: "#A78BFA", fontWeight: 600 }}>⌘K</span>
                 </div>
               </div>
               <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" as const }}>
                 {aiChips.map((chip) => (
-                  <div key={chip} style={{ padding: "3px 10px", borderRadius: "999px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)", fontSize: "7.5px", color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap" as const }}>{chip}</div>
+                  <div key={chip} style={{ padding: "3px 10px", borderRadius: "999px", background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.16)", fontSize: "7.5px", color: "rgba(167,139,250,0.6)", whiteSpace: "nowrap" as const }}>{chip}</div>
                 ))}
               </div>
             </div>
@@ -360,13 +360,13 @@ function DashboardMockup() {
 
 function Hero() {
   return (
-    <section className="relative bg-[#0D1B2A] overflow-hidden" style={{ minHeight: "100svh" }}>
-      <div className="pointer-events-none absolute inset-0">
+    <section className="relative bg-[#0D1B2A]" style={{ minHeight: "100svh" }}>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+              "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
             backgroundSize: "64px 64px",
           }}
         />
@@ -377,8 +377,8 @@ function Hero() {
             left: "-15%",
             width: "55%",
             height: "70%",
-            background: "radial-gradient(ellipse, rgba(212,175,55,0.07) 0%, transparent 65%)",
-            filter: "blur(60px)",
+            background: "radial-gradient(ellipse, rgba(212,175,55,0.06) 0%, transparent 65%)",
+            filter: "blur(70px)",
           }}
         />
         <div
@@ -388,13 +388,25 @@ function Hero() {
             right: "-10%",
             width: "60%",
             height: "90%",
-            background: "radial-gradient(ellipse, rgba(99,102,241,0.09) 0%, transparent 65%)",
-            filter: "blur(80px)",
+            background: "radial-gradient(ellipse, rgba(99,102,241,0.07) 0%, transparent 65%)",
+            filter: "blur(90px)",
+          }}
+        />
+        {/* Dashboard centre glow */}
+        <div
+          className="absolute"
+          style={{
+            top: "15%",
+            right: "0%",
+            width: "55%",
+            height: "75%",
+            background: "radial-gradient(ellipse at 50% 45%, rgba(99,102,241,0.08) 0%, rgba(212,175,55,0.05) 40%, transparent 70%)",
+            filter: "blur(64px)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 right-0"
-          style={{ height: "120px", background: "linear-gradient(to bottom, transparent, rgba(13,27,42,0.6))" }}
+          style={{ height: "120px", background: "linear-gradient(to bottom, transparent, rgba(13,27,42,0.5))" }}
         />
       </div>
 
@@ -485,23 +497,26 @@ function Hero() {
           </div>
 
           <div className="hidden lg:block relative">
-            {/* Ambient glow — gold primary, indigo secondary */}
-            <div className="absolute pointer-events-none" style={{ inset: "-100px", background: "radial-gradient(ellipse at 52% 44%, rgba(212,175,55,0.14) 0%, rgba(99,102,241,0.05) 45%, transparent 68%)", filter: "blur(64px)", zIndex: 0 }} />
-            <div className="absolute pointer-events-none" style={{ inset: "-30px", background: "radial-gradient(ellipse at 48% 36%, rgba(212,175,55,0.08) 0%, transparent 52%)", filter: "blur(32px)", zIndex: 0 }} />
-            {/* Layered shadow frame — closest to Apple/Stripe product render quality */}
-            <div className="relative" style={{ zIndex: 1, borderRadius: "20px", boxShadow: "0 0 0 1px rgba(255,255,255,0.07), 0 4px 8px rgba(0,0,0,0.3), 0 16px 40px rgba(0,0,0,0.45), 0 40px 80px rgba(0,0,0,0.4), 0 80px 120px rgba(0,0,0,0.25), 0 0 120px rgba(212,175,55,0.09)" }}>
-              {/* Crop + clip */}
-              <div className="relative overflow-hidden" style={{ borderRadius: "20px" }}>
-                {/* Very subtle tilt — 2° max */}
-                <div style={{ transform: "perspective(1800px) rotateY(-2deg) rotateX(1deg)", transformOrigin: "center center", willChange: "transform" }}>
-                  <DashboardMockup />
+            {/* Ambient glow — gold primary, purple secondary */}
+            <div className="absolute pointer-events-none" style={{ inset: "-120px", background: "radial-gradient(ellipse at 50% 48%, rgba(139,92,246,0.12) 0%, rgba(212,175,55,0.07) 40%, transparent 68%)", filter: "blur(72px)", zIndex: 0 }} />
+            <div className="absolute pointer-events-none" style={{ inset: "-40px", background: "radial-gradient(ellipse at 48% 38%, rgba(212,175,55,0.1) 0%, transparent 55%)", filter: "blur(36px)", zIndex: 0 }} />
+            {/* Scale wrapper — 5% size increase */}
+            <div style={{ transform: "scale(1.05)", transformOrigin: "center top" }}>
+              {/* Layered shadow frame with floating animation */}
+              <div className="dash-float relative" style={{ zIndex: 1, borderRadius: "20px", boxShadow: "0 0 0 1px rgba(255,255,255,0.09), 0 4px 8px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.55), 0 48px 96px rgba(0,0,0,0.45), 0 80px 140px rgba(0,0,0,0.3), 0 0 100px rgba(139,92,246,0.08), 0 0 160px rgba(212,175,55,0.06)" }}>
+                {/* Crop + clip */}
+                <div className="relative overflow-hidden" style={{ borderRadius: "20px" }}>
+                  {/* Very subtle tilt — 2° max */}
+                  <div style={{ transform: "perspective(1800px) rotateY(-2deg) rotateX(1deg)", transformOrigin: "center center", willChange: "transform" }}>
+                    <DashboardMockup />
+                  </div>
+                  {/* Glass reflection — diagonal top-left highlight */}
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.065) 0%, rgba(255,255,255,0.018) 22%, transparent 50%)", borderRadius: "20px", zIndex: 10 }} />
+                  {/* Right edge fade */}
+                  <div className="absolute inset-y-0 right-0 pointer-events-none" style={{ width: "22%", background: "linear-gradient(to right, transparent, #0D1B2A)" }} />
+                  {/* Bottom edge fade */}
+                  <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{ height: "18%", background: "linear-gradient(to bottom, transparent, rgba(13,27,42,0.85))" }} />
                 </div>
-                {/* Glass reflection — diagonal top-left highlight */}
-                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.015) 22%, transparent 50%)", borderRadius: "20px", zIndex: 10 }} />
-                {/* Right edge fade */}
-                <div className="absolute inset-y-0 right-0 pointer-events-none" style={{ width: "26%", background: "linear-gradient(to right, transparent, #0D1B2A)" }} />
-                {/* Bottom edge fade */}
-                <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{ height: "12%", background: "linear-gradient(to bottom, transparent, #0D1B2A)" }} />
               </div>
             </div>
           </div>
@@ -515,7 +530,7 @@ function Hero() {
   );
 }
 
-/* ─── 2. Trust strip (white) ─────────────────────────────────── */
+/* ─── 2. Trust strip (dark band) ────────────────────────────── */
 
 function TrustStrip() {
   const stats = [
@@ -524,24 +539,49 @@ function TrustStrip() {
     { value: "6 tools", label: "Replaced with one custom system" },
     { value: "Fixed price", label: "Always agreed before work begins" },
   ];
+
+  /* Border classes per grid position — 2-col mobile, 4-col desktop */
+  const borderClasses = [
+    "border-r border-b lg:border-b-0 border-white/10",
+    "border-b lg:border-r lg:border-b-0 border-white/10",
+    "border-r border-white/10",
+    "",
+  ];
+
   return (
-    <section className="bg-white border-b border-gray-100">
-      <div className="max-w-5xl mx-auto px-6 py-14 md:py-16">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+    <section style={{ background: "#0f1117", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="max-w-5xl mx-auto px-6 py-20 md:py-24">
+
+        {/* Eyebrow */}
+        <p
+          className="text-xs font-bold tracking-[0.2em] uppercase text-center mb-14"
+          style={{ color: "#D4AF37" }}
+        >
+          The Numbers
+        </p>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           {stats.map((s, i) => (
-            <AnimateOnScroll key={s.value} delay={i * 60}>
-              <div className="text-center lg:border-r lg:border-gray-100 lg:last:border-r-0 lg:px-6">
+            <AnimateOnScroll key={s.value} delay={i * 60} className={borderClasses[i]}>
+              <div className="flex flex-col items-center text-center px-6 py-6 lg:py-0">
                 <p
-                  className="font-bold text-[#0F172A] tracking-tight mb-2"
-                  style={{ fontSize: "clamp(1.6rem, 3vw, 2.25rem)" }}
+                  className="font-bold text-white tracking-tight mb-3"
+                  style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", letterSpacing: "-0.02em" }}
                 >
                   {s.value}
                 </p>
-                <p className="text-sm text-[#64748B] leading-relaxed">{s.label}</p>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "rgba(255,255,255,0.4)", maxWidth: "148px" }}
+                >
+                  {s.label}
+                </p>
               </div>
             </AnimateOnScroll>
           ))}
         </div>
+
       </div>
     </section>
   );
@@ -1269,84 +1309,119 @@ function About() {
         }}
       />
 
-      <div className="relative max-w-2xl mx-auto px-6">
+      <div className="relative max-w-5xl mx-auto px-6">
         <AnimateOnScroll>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 lg:items-center">
 
-          {/* Label */}
-          <p className="text-xs font-bold tracking-[0.2em] uppercase mb-6 text-center" style={{ color: "#D4AF37" }}>
-            About
-          </p>
+            {/* Text content */}
+            <div>
+              {/* Label */}
+              <p className="text-xs font-bold tracking-[0.2em] uppercase mb-6" style={{ color: "#D4AF37" }}>
+                The Founder
+              </p>
 
-          {/* Heading */}
-          <h2
-            className="font-bold text-white text-center tracking-tight mb-14"
-            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.1 }}
-          >
-            Understanding first.{" "}
-            <span style={{ color: "#D4AF37" }}>Software second.</span>
-          </h2>
+              {/* Heading */}
+              <h2
+                className="font-bold text-white tracking-tight mb-10"
+                style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.1 }}
+              >
+                Understanding first.{" "}
+                <span style={{ color: "#D4AF37" }}>Software second.</span>
+              </h2>
 
-          {/* Body — three-paragraph story arc */}
-          <div className="space-y-7">
-            <p
-              className="text-lg md:text-xl leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.72)" }}
-            >
-              Before I got into software, I spent years in recruitment — placing people inside trades companies, tourism operators, vehicle rental businesses and service businesses across New Zealand. That work put me inside a lot of companies, and I kept seeing the same thing.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.48)" }}
-            >
-              Good businesses being slowed down by software that didn&apos;t fit. Spreadsheets doing jobs they shouldn&apos;t be doing. Apps that didn&apos;t connect to each other. Manual admin eating through hours every week. People had tried the off-the-shelf fixes — they just didn&apos;t stick, because the software was built for the average business, not theirs.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.48)" }}
-            >
-              That&apos;s why I started Barrass AI. Every project starts before any code is written: spending real time understanding how the business actually works, talking to the people doing the work, and mapping processes as they really run — not how they&apos;re supposed to on paper. What gets built from that is software that fits the business as it already operates. Not the other way around.
-            </p>
-          </div>
-
-          {/* CTA */}
-          <div className="flex justify-center mt-12">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-lg transition-all text-base hover:-translate-y-0.5 active:translate-y-0"
-              style={{
-                background: "#D4AF37",
-                color: "#0D1B2A",
-                boxShadow: "0 4px 20px rgba(212,175,55,0.28)",
-              }}
-            >
-              Start a conversation
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-          </div>
-
-          {/* Trust indicators */}
-          <div
-            className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-16 pt-14"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-          >
-            {trustItems.map((item) => (
-              <div key={item} className="flex items-center gap-2.5">
-                <div
-                  className="flex-shrink-0 rounded-full"
-                  style={{ width: "5px", height: "5px", background: "#D4AF37", opacity: 0.55 }}
-                />
-                <span
-                  className="text-sm font-medium"
-                  style={{ color: "rgba(255,255,255,0.38)", letterSpacing: "0.01em" }}
-                >
-                  {item}
-                </span>
+              {/* Body */}
+              <div className="space-y-7">
+                <p className="text-lg md:text-xl leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  Before software, I spent years in recruitment and business development — hired to build a branch from scratch, and finished my first year at 147% of budget with two company awards along the way. But the part that actually shaped what I do now was being inside dozens of businesses week after week: trades companies, tourism operators, vehicle rental businesses, service businesses right across New Zealand.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.48)" }}>
+                  That&apos;s where I kept seeing the same thing. Good businesses being slowed down by software that didn&apos;t fit. Spreadsheets doing jobs they shouldn&apos;t be doing. Apps that didn&apos;t talk to each other. Manual admin quietly eating through hours every week. People had tried the off-the-shelf fixes — they just didn&apos;t stick, because the software was built for the average business, not theirs.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.48)" }}>
+                  That&apos;s why I started Barrass AI. Every project starts before any code gets written — spending real time understanding how the business actually works, talking to the people doing the work, and mapping processes as they really run, not how they&apos;re supposed to on paper. What comes out of that is software that fits the business as it already operates, not the other way around.
+                </p>
               </div>
-            ))}
-          </div>
 
+              {/* CTA */}
+              <div className="mt-12">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-lg transition-all text-base hover:-translate-y-0.5 active:translate-y-0"
+                  style={{
+                    background: "#D4AF37",
+                    color: "#0D1B2A",
+                    boxShadow: "0 4px 20px rgba(212,175,55,0.28)",
+                  }}
+                >
+                  Start a conversation
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* Trust indicators */}
+              <div
+                className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-16 pt-14"
+                style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+              >
+                {trustItems.map((item) => (
+                  <div key={item} className="flex items-center gap-2.5">
+                    <div
+                      className="flex-shrink-0 rounded-full"
+                      style={{ width: "5px", height: "5px", background: "#D4AF37", opacity: 0.55 }}
+                    />
+                    <span
+                      className="text-sm font-medium"
+                      style={{ color: "rgba(255,255,255,0.38)", letterSpacing: "0.01em" }}
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Photo */}
+            <div className="flex justify-center lg:justify-end">
+              <div
+                className="relative overflow-hidden rounded-2xl w-full"
+                style={{ aspectRatio: "3/4", maxWidth: "380px" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/oliver.jpg"
+                  alt="Oliver Barrass, founder of Barrass AI"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
+                />
+                {/* Location pill */}
+                <div className="absolute bottom-4 left-4 right-4 flex justify-center pointer-events-none">
+                  <div
+                    style={{
+                      background: "rgba(10,16,32,0.82)",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      borderRadius: "999px",
+                      padding: "7px 16px",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(212,175,55,0.85)" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.72)", fontWeight: 500, whiteSpace: "nowrap" as const }}>
+                      Queenstown, New Zealand
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </AnimateOnScroll>
       </div>
     </section>
