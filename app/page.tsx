@@ -82,10 +82,10 @@ function HeroDashboardImage() {
       }}
     >
       <Image
-        src="/images/fleet-dashboard.webp"
+        src="/images/fleet-dashboard.png"
         alt="Barrass AI fleet management dashboard"
         fill
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "cover", objectPosition: "top" }}
         sizes="(min-width: 1024px) 50vw, 100vw"
         priority
       />
