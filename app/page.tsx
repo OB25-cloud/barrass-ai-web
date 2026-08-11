@@ -1,4 +1,5 @@
-﻿import Nav from "./components/Nav";
+﻿import Image from "next/image";
+import Nav from "./components/Nav";
 import FAQ from "./components/FAQ";
 import ContactForm from "./components/ContactForm";
 import AnimateOnScroll from "./components/AnimateOnScroll";
@@ -66,292 +67,28 @@ function NavySection({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ─── Dashboard mock-up ──────────────────────────────────────── */
+/* ─── Hero dashboard screenshot ─────────────────────────────── */
 
-function DashboardMockup() {
-  const ff = "var(--font-geist-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif)";
-
-  const navItems = [
-    { label: "Dashboard", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg> },
-    { label: "Jobs", active: true, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg> },
-    { label: "Clients", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg> },
-    { label: "Schedule", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> },
-    { label: "CRM", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> },
-    { label: "Fleet", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg> },
-    { label: "Finance", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> },
-    { label: "Reports", active: false, icon: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg> },
-  ];
-
-  const kpis = [
-    { label: "Revenue This Month", value: "$28,430", sub: "+12% vs last month", up: true },
-    { label: "Jobs Today", value: "12", sub: "3 active now", up: true },
-    { label: "Active Clients", value: "46", sub: "+2 this week", up: true },
-    { label: "Outstanding", value: "$18,250", sub: "7 invoices pending", up: false },
-  ];
-
-  const kpiColors = [
-    { topBorder: "rgba(212,175,55,0.7)",  labelColor: "rgba(212,175,55,0.75)"  },
-    { topBorder: "rgba(96,165,250,0.7)",  labelColor: "rgba(96,165,250,0.75)"  },
-    { topBorder: "rgba(74,222,128,0.7)",  labelColor: "rgba(74,222,128,0.75)"  },
-    { topBorder: "rgba(251,146,60,0.7)",  labelColor: "rgba(251,146,60,0.75)"  },
-  ];
-
-  const jobs = [
-    { ref: "#3041", client: "Remarkables Plumbing", type: "Site Inspection", assignee: "AK", status: "active" as const, time: "8:15 AM" },
-    { ref: "#3042", client: "Lakes Electrical", type: "Installation", assignee: "MR", status: "scheduled" as const, time: "10:30 AM" },
-    { ref: "#3043", client: "Southern Build", type: "Maintenance", assignee: "JL", status: "complete" as const, time: "7:00 AM" },
-    { ref: "#3044", client: "Queenstown Civil", type: "Consultation", assignee: "AK", status: "complete" as const, time: "9:00 AM" },
-    { ref: "#3045", client: "Alpine Excavation", type: "Full Service", assignee: "TF", status: "scheduled" as const, time: "1:00 PM" },
-  ];
-
-  const statusStyles = {
-    active:    { label: "Active",    bg: "rgba(212,175,55,0.15)",     color: "#D4AF37" },
-    scheduled: { label: "Scheduled", bg: "rgba(96,165,250,0.08)",     color: "rgba(96,165,250,0.55)" },
-    complete:  { label: "Complete",  bg: "rgba(74,222,128,0.1)",      color: "rgba(74,222,128,0.7)" },
-  };
-
-  const assigneeColors: Record<string, { bg: string; color: string }> = {
-    AK: { bg: "rgba(212,175,55,0.15)",  color: "#D4AF37"  },
-    MR: { bg: "rgba(96,165,250,0.15)",  color: "#60A5FA"  },
-    JL: { bg: "rgba(74,222,128,0.15)",  color: "#4ADE80"  },
-    TF: { bg: "rgba(251,146,60,0.15)",  color: "#FB923C"  },
-  };
-
-  const pipeline = [
-    { stage: "Lead",        count: 8,  max: 8  },
-    { stage: "Quoted",      count: 5,  max: 8  },
-    { stage: "Confirmed",   count: 4,  max: 8  },
-    { stage: "In Progress", count: 3,  max: 8  },
-    { stage: "Complete",    count: 12, max: 12 },
-  ];
-
-  const staffList = [
-    { initials: "AK", name: "A. Kumar",   status: "On site",   active: true  },
-    { initials: "MR", name: "M. Reid",    status: "Available", active: true  },
-    { initials: "JL", name: "J. Liu",     status: "Break",     active: false },
-    { initials: "TF", name: "T. Foster",  status: "On site",   active: true  },
-  ];
-
-  const revenueData = [18, 24, 21, 32, 28, 36, 31, 42, 38, 46, 39, 44];
-  const maxRev = Math.max(...revenueData);
-
-  const aiChips = ["Outstanding invoices", "Today's jobs", "Customer history", "Upcoming maintenance", "Late quotes", "Tool locations"];
-
+function HeroDashboardImage() {
   return (
-    <div style={{ fontFamily: ff, borderRadius: "16px", overflow: "hidden", background: "#0c1427", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-
-      {/* Browser chrome */}
-      <div style={{ background: "#080f1e", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "9px 14px", display: "flex", alignItems: "center", gap: "10px" }}>
-        <div style={{ display: "flex", gap: "5px" }}>
-          {(["#FF5F57", "#FEBC2E", "#28C840"] as const).map((c) => (
-            <div key={c} style={{ width: "8px", height: "8px", borderRadius: "50%", background: c }} />
-          ))}
-        </div>
-        <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <div style={{ background: "#0f1e34", borderRadius: "5px", padding: "3px 14px", display: "flex", alignItems: "center", gap: "5px", width: "240px" }}>
-            <svg width="8" height="8" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.3 }}>
-              <circle cx="7" cy="7" r="5" stroke="white" strokeWidth="1.5" />
-              <path d="M11 11l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.28)" }}>app.barrassai.co.nz/dashboard</span>
-          </div>
-        </div>
-      </div>
-
-      {/* App shell */}
-      <div style={{ display: "flex", height: "580px" }}>
-
-        {/* Sidebar */}
-        <div style={{ width: "118px", background: "#090f1d", borderRight: "1px solid rgba(255,255,255,0.07)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-          <div style={{ padding: "12px 10px 10px", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", gap: "7px" }}>
-            <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "#D4AF37", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <span style={{ fontSize: "9px", fontWeight: 900, color: "#0D1B2A" }}>B</span>
-            </div>
-            <div>
-              <div style={{ fontSize: "9px", fontWeight: 700, color: "rgba(255,255,255,0.88)", lineHeight: 1 }}>Barrass OS</div>
-              <div style={{ fontSize: "7px", color: "rgba(255,255,255,0.28)", marginTop: "2px" }}>Business Suite</div>
-            </div>
-          </div>
-          <div style={{ flex: 1, padding: "8px 6px", display: "flex", flexDirection: "column", gap: "1px" }}>
-            {navItems.map((item) => (
-              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", background: item.active ? "rgba(212,175,55,0.14)" : "transparent", color: item.active ? "#D4AF37" : "rgba(255,255,255,0.32)" }}>
-                {item.icon}
-                <span style={{ fontSize: "8.5px", fontWeight: item.active ? 600 : 400 }}>{item.label}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ padding: "8px 6px 12px", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "7px", padding: "5px 8px", borderRadius: "6px", color: "rgba(255,255,255,0.22)" }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/>
-              </svg>
-              <span style={{ fontSize: "8.5px" }}>Settings</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Main content */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#0c1427" }}>
-
-          {/* Top bar */}
-          <div style={{ height: "38px", background: "#0f1928", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", padding: "0 14px", gap: "10px", flexShrink: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "5px", padding: "3px 8px", borderRadius: "6px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
-              <div style={{ width: "13px", height: "13px", borderRadius: "3px", background: "rgba(212,175,55,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: "6.5px", fontWeight: 800, color: "#D4AF37" }}>A</span>
-              </div>
-              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.65)", fontWeight: 500 }}>Altitude Landscaping</span>
-              <svg width="8" height="8" viewBox="0 0 16 16" fill="none" style={{ color: "rgba(255,255,255,0.28)" }}>
-                <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </div>
-            <div style={{ flex: 1, maxWidth: "180px", display: "flex", alignItems: "center", gap: "5px", padding: "4px 10px", borderRadius: "6px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <svg width="9" height="9" viewBox="0 0 16 16" fill="none" style={{ color: "rgba(255,255,255,0.22)", flexShrink: 0 }}>
-                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-              <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.2)" }}>Search...</span>
-            </div>
-            <div style={{ flex: 1 }} />
-            <div style={{ position: "relative", width: "26px", height: "26px", borderRadius: "7px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.38)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
-              </svg>
-              <div style={{ position: "absolute", top: "5px", right: "5px", width: "5px", height: "5px", borderRadius: "50%", background: "#D4AF37" }} />
-            </div>
-            <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "rgba(212,175,55,0.18)", border: "1px solid rgba(212,175,55,0.28)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: "8px", fontWeight: 700, color: "#D4AF37" }}>OB</span>
-            </div>
-          </div>
-
-          {/* Content area */}
-          <div style={{ flex: 1, overflow: "hidden", padding: "14px 16px", display: "flex", flexDirection: "column", gap: "12px" }}>
-
-            {/* KPI row */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", flexShrink: 0 }}>
-              {kpis.map((kpi, i) => {
-                const kc = kpiColors[i];
-                return (
-                  <div key={kpi.label} style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderTop: `2px solid ${kc.topBorder}`, borderRadius: "10px", padding: "13px 16px", boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
-                    <div style={{ fontSize: "7px", color: kc.labelColor, marginBottom: "8px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" as const }}>{kpi.label}</div>
-                    <div style={{ fontSize: i < 2 ? "23px" : "19px", fontWeight: 700, color: i < 2 ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.78)", lineHeight: 1, marginBottom: "6px", letterSpacing: "-0.02em" }}>{kpi.value}</div>
-                    <div style={{ fontSize: "7px", color: kpi.up ? "rgba(74,222,128,0.7)" : "rgba(251,146,60,0.75)" }}>{kpi.sub}</div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Middle row: jobs + right panel */}
-            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 38%", gap: "12px", minHeight: 0 }}>
-
-              {/* Jobs panel */}
-              <div style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
-                <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-                  <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>Upcoming Jobs</span>
-                  <span style={{ fontSize: "7.5px", color: "rgba(255,255,255,0.3)" }}>Today · 12 total</span>
-                </div>
-                <div style={{ flex: 1, overflow: "hidden" }}>
-                  {jobs.map((job, i) => {
-                    const s = statusStyles[job.status];
-                    const ac = assigneeColors[job.assignee] ?? { bg: "rgba(212,175,55,0.15)", color: "#D4AF37" };
-                    return (
-                      <div key={job.ref} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 22px 80px 52px", alignItems: "center", padding: "10px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)", background: i === 0 ? "rgba(212,175,55,0.04)" : "transparent" }}>
-                        <span style={{ fontSize: "8.5px", fontWeight: 500, color: "rgba(255,255,255,0.82)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const, paddingRight: "10px" }}>{job.client}</span>
-                        <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.32)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const, paddingRight: "8px" }}>{job.type}</span>
-                        <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: ac.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "6.5px", fontWeight: 700, color: ac.color }}>{job.assignee}</div>
-                        <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 7px", borderRadius: "999px", background: s.bg }}>
-                          <div style={{ width: "3.5px", height: "3.5px", borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                          <span style={{ fontSize: "7px", color: s.color, fontWeight: 600 }}>{s.label}</span>
-                        </div>
-                        <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.28)", textAlign: "right" as const }}>{job.time}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Right column */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px", minHeight: 0, overflow: "hidden" }}>
-
-                {/* Business Pipeline */}
-                <div style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", flexShrink: 0, boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
-                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: "8px" }}>Business Pipeline</div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                    {pipeline.map((p) => (
-                      <div key={p.stage} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
-                        <span style={{ fontSize: "7px", color: "rgba(255,255,255,0.32)", width: "54px", flexShrink: 0 }}>{p.stage}</span>
-                        <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
-                          <div style={{ height: "100%", width: `${(p.count / p.max) * 100}%`, borderRadius: "2px", background: "rgba(212,175,55,0.5)" }} />
-                        </div>
-                        <span style={{ fontSize: "7.5px", color: "rgba(255,255,255,0.42)", width: "14px", textAlign: "right" as const, flexShrink: 0 }}>{p.count}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Revenue chart */}
-                <div style={{ flex: 1, background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", display: "flex", flexDirection: "column", minHeight: 0, boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px", flexShrink: 0 }}>
-                    <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>Revenue Trend</span>
-                    <span style={{ fontSize: "7.5px", color: "#D4AF37", fontWeight: 600 }}>Jun 2026</span>
-                  </div>
-                  <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "flex-end", gap: "3px" }}>
-                    {revenueData.map((v, i) => (
-                      <div key={i} style={{ flex: 1, height: `${(v / maxRev) * 100}%`, borderRadius: "2px 2px 0 0", background: i === revenueData.length - 1 ? "#D4AF37" : "rgba(212,175,55,0.22)", minHeight: "2px" }} />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Staff availability */}
-                <div style={{ background: "#121b2c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", padding: "10px 14px", flexShrink: 0, boxShadow: "0 2px 12px rgba(0,0,0,0.35)" }}>
-                  <div style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: "7px" }}>Staff Availability</div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                    {staffList.map((s) => (
-                      <div key={s.initials} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
-                        <div style={{ position: "relative", flexShrink: 0 }}>
-                          <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: "rgba(212,175,55,0.14)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "6.5px", fontWeight: 700, color: "#D4AF37" }}>{s.initials}</div>
-                          <div style={{ position: "absolute", bottom: "0", right: "0", width: "5px", height: "5px", borderRadius: "50%", background: s.active ? "rgba(74,222,128,0.85)" : "rgba(255,255,255,0.22)", border: "1px solid #0f1826" }} />
-                        </div>
-                        <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.58)", flex: 1 }}>{s.name}</span>
-                        <span style={{ fontSize: "7px", color: s.active ? "rgba(74,222,128,0.6)" : "rgba(255,255,255,0.22)" }}>{s.status}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* AI Search */}
-            <div style={{ flexShrink: 0, background: "linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(139,92,246,0.03) 100%)", border: "1px solid rgba(139,92,246,0.22)", borderRadius: "12px", padding: "14px 16px", boxShadow: "0 2px 20px rgba(139,92,246,0.06)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "7px", marginBottom: "10px" }}>
-                <div style={{ width: "16px", height: "16px", borderRadius: "4px", background: "rgba(139,92,246,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z"/>
-                  </svg>
-                </div>
-                <span style={{ fontSize: "9px", fontWeight: 700, color: "rgba(167,139,250,0.95)", letterSpacing: "0.04em", textTransform: "uppercase" as const }}>Business Search (AI)</span>
-                <span style={{ fontSize: "7px", color: "rgba(255,255,255,0.2)", marginLeft: "auto" }}>Business intelligence · Not a chatbot</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(0,0,0,0.38)", border: "1px solid rgba(139,92,246,0.28)", borderRadius: "8px", padding: "10px 12px", marginBottom: "10px", boxShadow: "0 0 0 3px rgba(139,92,246,0.06), inset 0 1px 0 rgba(255,255,255,0.04)" }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,0.55)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-                </svg>
-                <span style={{ fontSize: "8.5px", color: "rgba(255,255,255,0.25)", flex: 1 }}>Ask anything about your business...</span>
-                <span className="cursor-blink" />
-                <div style={{ display: "flex", alignItems: "center", padding: "2px 7px", borderRadius: "4px", background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.24)" }}>
-                  <span style={{ fontSize: "7px", color: "#A78BFA", fontWeight: 600 }}>⌘K</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" as const }}>
-                {aiChips.map((chip) => (
-                  <div key={chip} style={{ padding: "3px 10px", borderRadius: "999px", background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.16)", fontSize: "7.5px", color: "rgba(167,139,250,0.6)", whiteSpace: "nowrap" as const }}>{chip}</div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+    <div
+      style={{
+        position: "relative",
+        height: "580px",
+        borderRadius: "16px",
+        overflow: "hidden",
+        background: "#0c1427",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+      }}
+    >
+      <Image
+        src="/images/fleet-dashboard.png"
+        alt="Barrass AI fleet management dashboard"
+        fill
+        style={{ objectFit: "cover" }}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        priority
+      />
     </div>
   );
 }
@@ -492,7 +229,7 @@ function Hero() {
               ))}
             </div>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)", letterSpacing: "0.01em" }}>
-              Trusted by businesses across landscaping, vehicle rental, hospitality and trades.
+              Trusted by businesses across Queenstown — vehicle rental, motor groups, trades and services.
             </p>
           </div>
 
@@ -508,7 +245,7 @@ function Hero() {
                 <div className="relative overflow-hidden" style={{ borderRadius: "20px" }}>
                   {/* Very subtle tilt — 2° max */}
                   <div style={{ transform: "perspective(1800px) rotateY(-2deg) rotateX(1deg)", transformOrigin: "center center", willChange: "transform" }}>
-                    <DashboardMockup />
+                    <HeroDashboardImage />
                   </div>
                   {/* Glass reflection — diagonal top-left highlight */}
                   <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.065) 0%, rgba(255,255,255,0.018) 22%, transparent 50%)", borderRadius: "20px", zIndex: 10 }} />
@@ -522,7 +259,7 @@ function Hero() {
           </div>
 
           <div className="block lg:hidden">
-            <DashboardMockup />
+            <HeroDashboardImage />
           </div>
         </div>
       </div>
@@ -751,6 +488,29 @@ function WhatWeBuild() {
                 </div>
                 <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <p style={{ fontSize: "12px", fontWeight: 700, color: "#22D3EE" }}>Leads captured 24/7 without manual follow-up</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 7: Automotive Dealerships */}
+          <AnimateOnScroll delay={540} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #2DD4BF 0%, rgba(45,212,191,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#2DD4BF" }}>Automotive &middot; Dealerships</p>
+                <h3 className="text-white font-bold text-xl leading-snug mb-3">Dealer Fleet Management</h3>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  Stock tracking, compliance management, PDI &amp; WoF boards, and yard audits — built for dealerships running multiple entities with mixed new and used vehicle inventory.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
+                  <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
+                  <Chip label="PDI Board" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
+                  <Chip label="Yard Audit" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#2DD4BF" }}>130+ vehicles managed across two entities</p>
                 </div>
               </div>
             </div>
@@ -1000,7 +760,6 @@ function SolutionSection() {
 
 function CaseStudies() {
   const completeBadge = { background: "rgba(74,222,128,0.1)", color: "#4ADE80" };
-  const inProgressBadge = { background: "rgba(212,175,55,0.1)", color: "#D4AF37" };
 
   return (
     <section id="work" className="py-24 md:py-36" style={{ background: "#0D1B2A" }}>
@@ -1056,7 +815,7 @@ function CaseStudies() {
                   <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
                 </div>
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  A full operations platform covering fleet compliance, staff timesheets, fine management, and vehicle audits — replacing multiple disconnected tools with one custom system.
+                  A full operations platform for a NZ car rental company — fleet compliance, staff timesheets, rostering, fine management, vehicle audits, and weekly board reporting. Replacing multiple disconnected tools with one custom system.
                 </p>
                 <div className="grid grid-cols-2 gap-2 mb-7">
                   <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
@@ -1065,44 +824,18 @@ function CaseStudies() {
                   <Chip label="Vehicle Audits" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
                   <Chip label="AI Inspections" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
                   <Chip label="Roster Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
+                  <Chip label="Weekly Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>} />
+                  <Chip label="Board Dashboard" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
                 </div>
                 <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#60A5FA" }}>6 disconnected tools replaced</p>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#60A5FA" }}>6+ disconnected tools replaced</p>
                 </div>
               </div>
             </div>
           </AnimateOnScroll>
 
-          {/* Card 3: Kitchen Management */}
+          {/* Card 3: Operations Dashboard */}
           <AnimateOnScroll delay={160} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #34D399 0%, rgba(52,211,153,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#34D399" }}>Hospitality &middot; Queenstown</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">Kitchen Management System</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={inProgressBadge}>In progress</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  AI-powered kitchen management tracking stock levels, expiry dates, and wastage in real time — giving staff instant visibility over what they have, what&apos;s running low, and what needs action.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
-                  <Chip label="Stock Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
-                  <Chip label="Expiry Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
-                  <Chip label="Wastage Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>} />
-                  <Chip label="AI Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z" /></svg>} />
-                  <Chip label="Staff Dashboard" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
-                  <Chip label="Supplier Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#34D399" }}>Replacing manual stock checks entirely</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Card 4: Operations Dashboard */}
-          <AnimateOnScroll delay={240} className="flex">
             <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
               <div style={{ height: "2px", background: "linear-gradient(90deg, #FB923C 0%, rgba(251,146,60,0) 100%)" }} />
               <div className="flex flex-col flex-1 p-7">
@@ -1129,36 +862,8 @@ function CaseStudies() {
             </div>
           </AnimateOnScroll>
 
-          {/* Card 5: Social Media Engine */}
-          <AnimateOnScroll delay={320} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #A78BFA 0%, rgba(167,139,250,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#A78BFA" }}>E-commerce &middot; Online</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">AI Social Media Engine</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  Custom automation system built from scratch — content scanning, post scheduling, lead tracking, and performance analytics all running without manual input across multiple platforms.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
-                  <Chip label="Content Auto" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>} />
-                  <Chip label="Post Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
-                  <Chip label="Lead Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
-                  <Chip label="Analytics" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>} />
-                  <Chip label="Multi-Platform" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>} />
-                  <Chip label="Zero Manual Input" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#A78BFA" }}>10–15 hrs saved per week</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Card 6: Custom Website */}
-          <AnimateOnScroll delay={400} className="flex">
+          {/* Card 4: Custom Website */}
+          <AnimateOnScroll delay={240} className="flex">
             <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
               <div style={{ height: "2px", background: "linear-gradient(90deg, #22D3EE 0%, rgba(34,211,238,0) 100%)" }} />
               <div className="flex flex-col flex-1 p-7">
@@ -1180,6 +885,34 @@ function CaseStudies() {
                 </div>
                 <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <p style={{ fontSize: "12px", fontWeight: 700, color: "#22D3EE" }}>Leads captured 24/7 without manual follow-up</p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Card 5: Dealer Fleet Management */}
+          <AnimateOnScroll delay={320} className="flex">
+            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
+              <div style={{ height: "2px", background: "linear-gradient(90deg, #2DD4BF 0%, rgba(45,212,191,0) 100%)" }} />
+              <div className="flex flex-col flex-1 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#2DD4BF" }}>Automotive &middot; Dealership</p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-white font-bold text-xl leading-snug">Dealer Fleet Management System</h3>
+                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
+                  A full dealer fleet management platform built for a Queenstown motor group — covering stock management, compliance tracking, PDI &amp; WoF boards, yard audits, and AI-powered plate scanning across two dealership entities.
+                </p>
+                <div className="grid grid-cols-2 gap-2 mb-7">
+                  <Chip label="Stock Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
+                  <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
+                  <Chip label="AI Scanning" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
+                  <Chip label="PDI Board" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
+                  <Chip label="Yard Audit" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
+                  <Chip label="Mobile PWA" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
+                </div>
+                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#2DD4BF" }}>130+ vehicles managed across two entities</p>
                 </div>
               </div>
             </div>
