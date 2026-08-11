@@ -97,7 +97,7 @@ function HeroDashboardImage() {
 
 function Hero() {
   return (
-    <section className="relative bg-[#0D1B2A]" style={{ minHeight: "100svh" }}>
+    <section className="relative bg-[#0D1B2A] overflow-x-hidden" style={{ minHeight: "100svh" }}>
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0"
@@ -237,8 +237,8 @@ function Hero() {
             {/* Ambient glow — gold primary, purple secondary */}
             <div className="absolute pointer-events-none" style={{ inset: "-120px", background: "radial-gradient(ellipse at 50% 48%, rgba(139,92,246,0.12) 0%, rgba(212,175,55,0.07) 40%, transparent 68%)", filter: "blur(72px)", zIndex: 0 }} />
             <div className="absolute pointer-events-none" style={{ inset: "-40px", background: "radial-gradient(ellipse at 48% 38%, rgba(212,175,55,0.1) 0%, transparent 55%)", filter: "blur(36px)", zIndex: 0 }} />
-            {/* Scale wrapper — 5% size increase */}
-            <div style={{ transform: "scale(1.05)", transformOrigin: "center top" }}>
+            {/* Scale wrapper — enlarged for a dominant, front-and-centre feel */}
+            <div style={{ transform: "scale(1.25)", transformOrigin: "center top" }}>
               {/* Layered shadow frame with floating animation */}
               <div className="dash-float relative" style={{ zIndex: 1, borderRadius: "20px", boxShadow: "0 0 0 1px rgba(255,255,255,0.09), 0 4px 8px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.55), 0 48px 96px rgba(0,0,0,0.45), 0 80px 140px rgba(0,0,0,0.3), 0 0 100px rgba(139,92,246,0.08), 0 0 160px rgba(212,175,55,0.06)" }}>
                 {/* Crop + clip */}
