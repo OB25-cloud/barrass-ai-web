@@ -74,7 +74,7 @@ function HeroDashboardImage() {
     <div
       style={{
         position: "relative",
-        height: "580px",
+        aspectRatio: "1400 / 559",
         borderRadius: "16px",
         overflow: "hidden",
         background: "#0c1427",
@@ -85,7 +85,7 @@ function HeroDashboardImage() {
         src="/images/fleet-dashboard.png"
         alt="Barrass AI fleet management dashboard"
         fill
-        style={{ objectFit: "cover", objectPosition: "top" }}
+        style={{ objectFit: "cover" }}
         sizes="(min-width: 1024px) 50vw, 100vw"
         priority
       />
