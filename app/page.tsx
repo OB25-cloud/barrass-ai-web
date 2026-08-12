@@ -353,7 +353,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A complete job management platform built around how a landscaping business actually runs — from first quote through to invoice.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
                   <Chip label="CRM" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>} />
                   <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
@@ -378,7 +378,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A custom fleet management system focused on the physical fleet — tracking compliance, inspections, kilometre logs, and damage across every vehicle.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
                   <Chip label="COF & Rego Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
                   <Chip label="AI Inspections" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
@@ -403,7 +403,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   End-to-end job management for trades businesses — from scheduling crew to sending invoices, without the manual admin.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
                   <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
                   <Chip label="Progress Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>} />
@@ -428,7 +428,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   AI-powered kitchen management tracking stock levels, expiry dates, and wastage in real time — giving staff instant visibility over what they have, what&apos;s running low, and what needs action.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Stock Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
                   <Chip label="Expiry Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
                   <Chip label="Wastage Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>} />
@@ -453,7 +453,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A real-time management dashboard giving full visibility over staff scheduling, timesheets, and operational compliance — accessible from any device, for any role.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Staff Timesheets" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>} />
                   <Chip label="Roster Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
                   <Chip label="Role-Based Access" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>} />
@@ -478,7 +478,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   Fully custom websites built around how the business actually works — not templates. AI-powered lead capture, after-hours chatbot, and owner-editable content mean the site keeps working even when you&apos;re not.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="AI Chatbot" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>} />
                   <Chip label="Lead Capture" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
                   <Chip label="Contact Forms" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
@@ -494,7 +494,7 @@ function WhatWeBuild() {
           </AnimateOnScroll>
 
           {/* Card 7: Automotive Dealerships */}
-          <AnimateOnScroll delay={540} className="flex">
+          <AnimateOnScroll delay={540} className="flex lg:col-start-2">
             <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0D1B2A", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
               <div style={{ height: "2px", background: "linear-gradient(90deg, #2DD4BF 0%, rgba(45,212,191,0) 100%)" }} />
               <div className="flex flex-col flex-1 p-7">
@@ -503,7 +503,7 @@ function WhatWeBuild() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   Stock tracking, compliance management, PDI &amp; WoF boards, and yard audits — built for dealerships running multiple entities with mixed new and used vehicle inventory.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
                   <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
                   <Chip label="PDI Board" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
@@ -789,7 +789,7 @@ function CaseStudies() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   Running 30+ jobs a day on $600/month software that didn&apos;t talk to anything. Built a complete job management platform with Xero integration, automated scheduling, and real-time job visibility.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
                   <Chip label="CRM" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>} />
                   <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
@@ -817,7 +817,7 @@ function CaseStudies() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A full operations platform for a NZ car rental company — fleet compliance, staff timesheets, rostering, fine management, vehicle audits, and weekly board reporting. Replacing multiple disconnected tools with one custom system.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
                   <Chip label="Fine Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>} />
                   <Chip label="Staff Timesheets" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>} />
@@ -847,7 +847,7 @@ function CaseStudies() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A real-time management dashboard giving full visibility across fleet compliance, staff scheduling, infringement fines, and vehicle audits — all accessible from any device.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Live Fleet View" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
                   <Chip label="Staff Roster" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
                   <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
@@ -875,7 +875,7 @@ function CaseStudies() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A fully custom website built around the business — not a template. AI chatbot for after-hours enquiries, lead capture automation, and CMS so the owner can update content without touching code.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="AI Chatbot" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>} />
                   <Chip label="Lead Capture" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
                   <Chip label="Contact Forms" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
@@ -903,7 +903,7 @@ function CaseStudies() {
                 <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
                   A full dealer fleet management platform built for a Queenstown motor group — covering stock management, compliance tracking, PDI &amp; WoF boards, yard audits, and AI-powered plate scanning across two dealership entities.
                 </p>
-                <div className="grid grid-cols-2 gap-2 mb-7">
+                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
                   <Chip label="Stock Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
                   <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
                   <Chip label="AI Scanning" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
@@ -1166,7 +1166,7 @@ function About() {
 function FAQSection() {
   return (
     <section className="bg-[#F8FAFC] py-24 md:py-36">
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         <AnimateOnScroll>
           <Label>Common questions</Label>
           <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] leading-tight mb-16 md:mb-20 max-w-xs">
@@ -1291,7 +1291,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <p className="text-[#D4AF37] font-bold tracking-widest uppercase text-sm">BARRASS AI</p>
         <p className="text-white/25 text-xs">
-          &copy; {new Date().getFullYear()} Barrass AI &middot; Queenstown, New Zealand
+          {`© ${new Date().getFullYear()} Barrass AI · Queenstown, New Zealand`}
         </p>
         <div className="flex gap-6 text-white/30 text-xs">
           {[
