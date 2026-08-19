@@ -34,7 +34,7 @@ export async function submitContact(
 
   try {
     await resend.emails.send({
-      from: "Barrass AI Website <onboarding@resend.dev>",
+      from: "Barrass AI Website <contact@barrassai.com>",
       to: "oliver@barrassai.com",
       replyTo: email,
       subject: `New enquiry — ${name}${industry ? ` (${industry})` : ""}`,
