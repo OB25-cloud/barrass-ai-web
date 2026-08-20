@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Do you work outside Queenstown?",
-    a: "Yes. Most of our work happens remotely, so location is rarely a constraint. We're Queenstown-based and work with businesses across New Zealand — trades in Canterbury, tourism operators in Rotorua, professional services in Auckland. If you need us in person, we can usually make that work too.",
+    a: "Yes. Most of our work happens remotely, so location is rarely a constraint. We're NZ-based and work with businesses across New Zealand — trades in Canterbury, tourism operators in Rotorua, professional services in Auckland. If you need us in person, we can usually make that work too.",
   },
   {
     q: "Who owns the software?",

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Barrass AI — Custom software built around your business.",
     description:
-      "Custom software, workflow automation and business systems for NZ SMEs. Fixed price, no lock-in, Queenstown-based.",
+      "Custom software, workflow automation and business systems for NZ SMEs. Fixed price, no lock-in, NZ-based.",
     siteName: "Barrass AI",
   },
 };

@@ -164,7 +164,7 @@ function Hero() {
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" style={{ boxShadow: "0 0 6px rgba(212,175,55,0.8)" }} />
               <span className="text-[#D4AF37] text-xs font-medium tracking-wide">
-                Queenstown, NZ &middot; Serving businesses nationwide
+                NZ-based &middot; Serving businesses nationwide
               </span>
             </div>
 
@@ -181,7 +181,7 @@ function Hero() {
               className="text-lg md:text-xl leading-relaxed mb-14 max-w-lg"
               style={{ color: "rgba(255,255,255,0.52)" }}
             >
-              We design software around the way your business actually operates — replacing disconnected apps with one intelligent system that connects your team, customers and existing tools like Xero.
+              One system, built around your business. You own it outright.
             </p>
 
             <div className="flex flex-wrap gap-4 mb-10">
@@ -201,11 +201,11 @@ function Hero() {
               </a>
               <a
                 href="#work"
-                className="inline-flex items-center gap-2 font-semibold text-base px-7 py-3.5 rounded-lg transition-all hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 font-bold text-base px-7 py-3.5 rounded-lg transition-all tracking-wide hover:-translate-y-0.5 active:translate-y-0"
                 style={{
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  color: "rgba(255,255,255,0.75)",
+                  background: "transparent",
+                  border: "1.5px solid rgba(255,255,255,0.85)",
+                  color: "#ffffff",
                 }}
               >
                 View Our Work
@@ -229,7 +229,7 @@ function Hero() {
               ))}
             </div>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)", letterSpacing: "0.01em" }}>
-              Trusted by businesses across Queenstown — vehicle rental, motor groups, trades and services.
+              Trusted by businesses across New Zealand — vehicle rental, motor groups, trades and services.
             </p>
           </div>
 
@@ -319,6 +319,60 @@ function TrustStrip() {
           ))}
         </div>
 
+      </div>
+    </section>
+  );
+}
+
+/* ─── 1b. Free AI Audit CTA (navy) ───────────────────────────── */
+
+function AuditCallout() {
+  return (
+    <section className="relative overflow-hidden" style={{ background: "#0D1B2A", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          top: "-40%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "55%",
+          height: "180%",
+          background: "radial-gradient(ellipse, rgba(212,175,55,0.1) 0%, transparent 70%)",
+          filter: "blur(80px)",
+        }}
+      />
+      <div className="relative max-w-3xl mx-auto px-6 py-20 md:py-24 text-center">
+        <AnimateOnScroll>
+          <Label>Free Offer</Label>
+          <h2
+            className="font-bold text-white leading-[1.05] tracking-tight mb-5"
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)" }}
+          >
+            Free AI Audit
+          </h2>
+          <p
+            className="text-base md:text-lg leading-relaxed mb-10 mx-auto"
+            style={{ color: "rgba(255,255,255,0.52)", maxWidth: "560px" }}
+          >
+            We&apos;ll identify exactly where your business is losing time and money — and give you a written report. No obligation, no pitch.
+          </p>
+          <a
+            href="https://calendly.com/oliver-barrassai/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-bold text-base px-7 py-3.5 rounded-lg transition-all tracking-wide hover:-translate-y-0.5 active:translate-y-0"
+            style={{
+              background: "#D4AF37",
+              color: "#0D1B2A",
+              boxShadow: "0 4px 20px rgba(212,175,55,0.35), 0 1px 3px rgba(0,0,0,0.3)",
+            }}
+          >
+            Book Your Free Audit
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </AnimateOnScroll>
       </div>
     </section>
   );
@@ -1147,7 +1201,7 @@ function About() {
                       <circle cx="12" cy="10" r="3"/>
                     </svg>
                     <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.72)", fontWeight: 500, whiteSpace: "nowrap" as const }}>
-                      Queenstown, New Zealand
+                      New Zealand-based
                     </span>
                   </div>
                 </div>
@@ -1266,7 +1320,7 @@ function Contact() {
                 <div>
                   <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.28)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "3px" }}>Location</p>
                   <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "15px", fontWeight: 500 }}>
-                    Queenstown, New Zealand
+                    New Zealand-based
                   </p>
                 </div>
               </div>
@@ -1291,7 +1345,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <p className="text-[#D4AF37] font-bold tracking-widest uppercase text-sm">BARRASS AI</p>
         <p className="text-white/25 text-xs">
-          {`© ${new Date().getFullYear()} Barrass AI · Queenstown, New Zealand`}
+          {`© ${new Date().getFullYear()} Barrass AI · New Zealand-based`}
         </p>
         <div className="flex gap-6 text-white/30 text-xs">
           {[
@@ -1318,6 +1372,7 @@ export default function Page() {
       <Nav />
       <main>
         <Hero />
+        <AuditCallout />
         <TrustStrip />
         <WhatWeBuild />
         <ProblemSection />
