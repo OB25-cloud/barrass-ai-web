@@ -815,33 +815,90 @@ function SolutionSection() {
 const CASE_STUDY_GOLD = "#B8922A";
 const CASE_STUDY_TEAL = "#2DD4BF";
 
-function CaseStudyImage({ accent }: { accent: string }) {
+function CaseStudyImage({ accent, image }: { accent: string; image?: CaseStudyImageData }) {
+  const height = image?.height ?? 350;
+  const objectFit = image?.objectFit ?? "cover";
+  const objectPosition = image?.objectPosition ?? "top center";
+
   return (
     <div
-      className="relative flex items-center justify-center shrink-0"
+      className="relative flex flex-col shrink-0 w-full overflow-hidden"
       style={{
-        height: "200px",
-        background: `linear-gradient(135deg, ${accent}29 0%, rgba(13,27,42,0.75) 100%)`,
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        height: `${height}px`,
+        background: "#1a1a2e",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <circle cx="8.5" cy="8.5" r="1.5" />
-        <path d="M21 15l-5-5L5 21" />
-      </svg>
-      <span
-        className="absolute bottom-3 right-3 text-[10px] font-semibold uppercase tracking-[0.15em]"
-        style={{ color: "rgba(255,255,255,0.22)" }}
+      {/* Browser chrome bar */}
+      <div
+        className="flex items-center gap-3 px-3 shrink-0"
+        style={{ height: "30px", background: "#15152540", borderBottom: "1px solid rgba(255,255,255,0.07)" }}
       >
-        Preview
-      </span>
+        <div className="flex items-center gap-[5px]">
+          <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FF5F56" }} />
+          <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FFBD2E" }} />
+          <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#27C93F" }} />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <div
+            style={{
+              width: "55%",
+              height: "12px",
+              borderRadius: "4px",
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.05)",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Content area */}
+      <div
+        className="relative flex-1 flex items-center justify-center overflow-hidden"
+        style={{
+          background:
+            image?.background ??
+            (objectFit === "contain"
+              ? "#0d0f1a"
+              : `linear-gradient(135deg, ${accent}29 0%, rgba(13,27,42,0.75) 100%)`),
+        }}
+      >
+        {image ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            style={{ objectFit, objectPosition }}
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        ) : (
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
+        )}
+        <span
+          className="absolute bottom-3 right-3 text-[10px] font-semibold uppercase tracking-[0.15em]"
+          style={{ color: "rgba(255,255,255,0.22)" }}
+        >
+          Preview
+        </span>
+      </div>
     </div>
   );
 }
 
 type CaseStudyTag = { label: string; icon: React.ReactNode };
 type CaseStudyButton = { label: string; href: string; external?: boolean };
+type CaseStudyImageData = {
+  src: string;
+  alt: string;
+  objectPosition?: string;
+  objectFit?: "cover" | "contain";
+  height?: number;
+  background?: string;
+};
 
 function CaseStudyCard({
   accent,
@@ -852,6 +909,7 @@ function CaseStudyCard({
   result,
   button,
   featured = false,
+  image,
 }: {
   accent: "gold" | "teal";
   category: string;
@@ -861,6 +919,7 @@ function CaseStudyCard({
   result: string;
   button?: CaseStudyButton;
   featured?: boolean;
+  image?: CaseStudyImageData;
 }) {
   const accentColor = accent === "gold" ? CASE_STUDY_GOLD : CASE_STUDY_TEAL;
   const hoverClasses =
@@ -873,7 +932,7 @@ function CaseStudyCard({
       className={`rounded-2xl overflow-hidden flex flex-col w-full border border-white/[0.07] shadow-[0_8px_32px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 ${hoverClasses} ${featured ? "md:col-span-2" : ""}`}
       style={{ background: "#0f1117" }}
     >
-      <CaseStudyImage accent={accentColor} />
+      <CaseStudyImage accent={accentColor} image={image} />
       <div className="flex flex-col flex-1 p-7">
         <p className="text-xs font-bold uppercase tracking-[0.15em] mb-4" style={{ color: accentColor }}>
           {category}
@@ -943,27 +1002,11 @@ const softwareCaseStudies: {
   result: string;
   button?: CaseStudyButton;
   featured?: boolean;
+  image?: CaseStudyImageData;
 }[] = [
   {
     accent: "gold",
     featured: true,
-    category: "Automotive · Dealership",
-    name: "Dealer Fleet Management System",
-    description:
-      "Full fleet management platform for a Queenstown motor group. Stock management, compliance tracking, PDI & WoF boards, yard audits, and AI-powered plate scanning across two dealership entities.",
-    tags: [
-      { label: "Stock Management", icon: csIcon.stockManagement },
-      { label: "Compliance Alerts", icon: csIcon.complianceAlerts },
-      { label: "AI Scanning", icon: csIcon.aiScanning },
-      { label: "PDI Board", icon: csIcon.pdiBoard },
-      { label: "Yard Audit", icon: csIcon.yardAudit },
-      { label: "Mobile PWA", icon: csIcon.mobilePwa },
-    ],
-    result: "130+ vehicles managed across two entities",
-    button: { label: "View Demo", href: "https://qmg-smg-fleet.vercel.app/demo", external: true },
-  },
-  {
-    accent: "gold",
     category: "Vehicle Rental · Operations",
     name: "BCR Connect",
     description:
@@ -978,6 +1021,38 @@ const softwareCaseStudies: {
     ],
     result: "6+ disconnected tools replaced",
     button: { label: "View Demo", href: "https://bcr-connect.vercel.app/demo", external: true },
+    image: {
+      src: "/case-studies/bcr-connect.png",
+      alt: "BCR Connect operations dashboard showing fleet utilisation and ins & outs charts",
+      objectFit: "cover",
+      objectPosition: "0px -60px",
+      height: 350,
+    },
+  },
+  {
+    accent: "gold",
+    category: "Automotive · Dealership",
+    name: "Dealer Fleet Management System",
+    description:
+      "Full fleet management platform for a Queenstown motor group. Stock management, compliance tracking, PDI & WoF boards, yard audits, and AI-powered plate scanning across two dealership entities.",
+    tags: [
+      { label: "Stock Management", icon: csIcon.stockManagement },
+      { label: "Compliance Alerts", icon: csIcon.complianceAlerts },
+      { label: "AI Scanning", icon: csIcon.aiScanning },
+      { label: "PDI Board", icon: csIcon.pdiBoard },
+      { label: "Yard Audit", icon: csIcon.yardAudit },
+      { label: "Mobile PWA", icon: csIcon.mobilePwa },
+    ],
+    result: "130+ vehicles managed across two entities",
+    button: { label: "View Demo", href: "https://qmg-smg-fleet.vercel.app/demo", external: true },
+    image: {
+      src: "/case-studies/dealer-fleet.png",
+      alt: "Dealer Fleet Management System dashboard showing stock and compliance tracking",
+      objectFit: "contain",
+      objectPosition: "center top",
+      height: 350,
+      background: "#0D1B2A",
+    },
   },
   {
     accent: "gold",
@@ -993,6 +1068,14 @@ const softwareCaseStudies: {
       { label: "Role Permissions", icon: csIcon.roleBasedAccess },
     ],
     result: "$40k+ in annual value identified",
+    image: {
+      src: "/case-studies/landscaping.png",
+      alt: "Landscaping Operations Platform job management dashboard",
+      objectFit: "contain",
+      objectPosition: "center top",
+      height: 350,
+      background: "#0D1B2A",
+    },
   },
 ];
 
@@ -1004,6 +1087,7 @@ const websiteCaseStudies: {
   tags: CaseStudyTag[];
   result: string;
   button?: CaseStudyButton;
+  image?: CaseStudyImageData;
 }[] = [
   {
     accent: "teal",
@@ -1019,6 +1103,13 @@ const websiteCaseStudies: {
     ],
     result: "Live and trading",
     button: { label: "Visit Site", href: "https://petescustomcreations.co.nz", external: true },
+    image: {
+      src: "/case-studies/petes-custom-creations.png",
+      alt: "Pete's Custom Creations website homepage",
+      objectFit: "contain",
+      objectPosition: "top center",
+      height: 320,
+    },
   },
   {
     accent: "teal",
@@ -1034,6 +1125,13 @@ const websiteCaseStudies: {
     ],
     result: "Live and trading",
     button: { label: "Visit Site", href: "https://angeenokahairandbridal.com", external: true },
+    image: {
+      src: "/case-studies/ange-enoka.png",
+      alt: "Ange Enoka Hair & Bridal website homepage",
+      objectFit: "contain",
+      objectPosition: "top center",
+      height: 320,
+    },
   },
   {
     accent: "teal",
@@ -1049,6 +1147,13 @@ const websiteCaseStudies: {
     ],
     result: "Live and trading",
     button: { label: "Visit Site", href: "https://alignwithin.co.nz", external: true },
+    image: {
+      src: "/case-studies/align-within.png",
+      alt: "Align Within website homepage",
+      objectFit: "contain",
+      objectPosition: "top center",
+      height: 320,
+    },
   },
 ];
 
