@@ -960,7 +960,7 @@ const softwareCaseStudies: {
       { label: "Mobile PWA", icon: csIcon.mobilePwa },
     ],
     result: "130+ vehicles managed across two entities",
-    button: { label: "View Demo", href: "/demo" },
+    button: { label: "View Demo", href: "https://qmg-smg-fleet.vercel.app/demo", external: true },
   },
   {
     accent: "gold",
