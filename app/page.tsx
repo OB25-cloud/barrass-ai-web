@@ -977,7 +977,7 @@ const softwareCaseStudies: {
       { label: "Offline PWA", icon: csIcon.mobilePwa },
     ],
     result: "6+ disconnected tools replaced",
-    button: { label: "View Demo", href: "/demo/bcr" },
+    button: { label: "View Demo", href: "https://bcr-connect.vercel.app/demo", external: true },
   },
   {
     accent: "gold",
