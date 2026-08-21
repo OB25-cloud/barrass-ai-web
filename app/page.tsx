@@ -812,9 +812,247 @@ function SolutionSection() {
 
 /* ─── 6. Case studies (navy dark cards) ─────────────────────── */
 
-function CaseStudies() {
-  const completeBadge = { background: "rgba(74,222,128,0.1)", color: "#4ADE80" };
+const CASE_STUDY_GOLD = "#B8922A";
+const CASE_STUDY_TEAL = "#2DD4BF";
 
+function CaseStudyImage({ accent }: { accent: string }) {
+  return (
+    <div
+      className="relative flex items-center justify-center shrink-0"
+      style={{
+        height: "200px",
+        background: `linear-gradient(135deg, ${accent}29 0%, rgba(13,27,42,0.75) 100%)`,
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <path d="M21 15l-5-5L5 21" />
+      </svg>
+      <span
+        className="absolute bottom-3 right-3 text-[10px] font-semibold uppercase tracking-[0.15em]"
+        style={{ color: "rgba(255,255,255,0.22)" }}
+      >
+        Preview
+      </span>
+    </div>
+  );
+}
+
+type CaseStudyTag = { label: string; icon: React.ReactNode };
+type CaseStudyButton = { label: string; href: string; external?: boolean };
+
+function CaseStudyCard({
+  accent,
+  category,
+  name,
+  description,
+  tags,
+  result,
+  button,
+  featured = false,
+}: {
+  accent: "gold" | "teal";
+  category: string;
+  name: string;
+  description: string;
+  tags: CaseStudyTag[];
+  result: string;
+  button?: CaseStudyButton;
+  featured?: boolean;
+}) {
+  const accentColor = accent === "gold" ? CASE_STUDY_GOLD : CASE_STUDY_TEAL;
+  const hoverClasses =
+    accent === "gold"
+      ? "hover:border-[#B8922A66] hover:shadow-[0_14px_44px_rgba(184,146,42,0.18)]"
+      : "hover:border-[#2DD4BF66] hover:shadow-[0_14px_44px_rgba(45,212,191,0.18)]";
+
+  return (
+    <div
+      className={`rounded-2xl overflow-hidden flex flex-col w-full border border-white/[0.07] shadow-[0_8px_32px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 ${hoverClasses} ${featured ? "md:col-span-2" : ""}`}
+      style={{ background: "#0f1117" }}
+    >
+      <CaseStudyImage accent={accentColor} />
+      <div className="flex flex-col flex-1 p-7">
+        <p className="text-xs font-bold uppercase tracking-[0.15em] mb-4" style={{ color: accentColor }}>
+          {category}
+        </p>
+        <h3 className={`text-white font-bold leading-snug mb-3 ${featured ? "text-2xl md:text-3xl" : "text-2xl"}`}>
+          {name}
+        </h3>
+        <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.44)" }}>
+          {description}
+        </p>
+        <div className={`grid ${featured ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2"} gap-2 mb-7 flex-1 content-start`}>
+          {tags.map((t) => (
+            <Chip key={t.label} label={t.label} icon={t.icon} />
+          ))}
+        </div>
+        <div
+          className="mt-auto pt-5 flex items-center justify-between gap-4 flex-wrap"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+        >
+          <p style={{ fontSize: "12px", fontWeight: 700, color: CASE_STUDY_GOLD }}>{result}</p>
+          {button && (
+            <a
+              href={button.href}
+              {...(button.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-lg border-[1.5px] border-[#B8922A] text-[#B8922A] bg-transparent hover:bg-[#B8922A] hover:text-[#0D1B2A] transition-colors duration-200"
+            >
+              {button.label}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Shared tag icons — 12x12, matches Chip icon convention used across the site */
+const csIcon = {
+  stockManagement: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>,
+  complianceAlerts: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>,
+  aiScanning: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>,
+  pdiBoard: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>,
+  yardAudit: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>,
+  mobilePwa: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>,
+  fineTracking: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>,
+  roleBasedAccess: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>,
+  clock: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>,
+  billing: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" /></svg>,
+  scheduling: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>,
+  crm: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>,
+  quoting: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>,
+  search: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>,
+  contactForm: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
+  mobileResponsive: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>,
+  gallery: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg>,
+  testimonials: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>,
+};
+
+const softwareCaseStudies: {
+  accent: "gold" | "teal";
+  category: string;
+  name: string;
+  description: string;
+  tags: CaseStudyTag[];
+  result: string;
+  button?: CaseStudyButton;
+  featured?: boolean;
+}[] = [
+  {
+    accent: "gold",
+    featured: true,
+    category: "Automotive · Dealership",
+    name: "Dealer Fleet Management System",
+    description:
+      "Full fleet management platform for a Queenstown motor group. Stock management, compliance tracking, PDI & WoF boards, yard audits, and AI-powered plate scanning across two dealership entities.",
+    tags: [
+      { label: "Stock Management", icon: csIcon.stockManagement },
+      { label: "Compliance Alerts", icon: csIcon.complianceAlerts },
+      { label: "AI Scanning", icon: csIcon.aiScanning },
+      { label: "PDI Board", icon: csIcon.pdiBoard },
+      { label: "Yard Audit", icon: csIcon.yardAudit },
+      { label: "Mobile PWA", icon: csIcon.mobilePwa },
+    ],
+    result: "130+ vehicles managed across two entities",
+    button: { label: "View Demo", href: "/demo" },
+  },
+  {
+    accent: "gold",
+    category: "Vehicle Rental · Operations",
+    name: "BCR Connect",
+    description:
+      "Complete operations platform for a NZ car rental business — fleet compliance, staff timesheets, rostering, fine tracking, provider billing, and a full management dashboard.",
+    tags: [
+      { label: "Fleet Compliance", icon: csIcon.complianceAlerts },
+      { label: "Timesheets", icon: csIcon.clock },
+      { label: "Fine Tracking", icon: csIcon.fineTracking },
+      { label: "Provider Billing", icon: csIcon.billing },
+      { label: "Role-Based Access", icon: csIcon.roleBasedAccess },
+      { label: "Offline PWA", icon: csIcon.mobilePwa },
+    ],
+    result: "6+ disconnected tools replaced",
+    button: { label: "View Demo", href: "/demo/bcr" },
+  },
+  {
+    accent: "gold",
+    category: "Landscaping & Grounds",
+    name: "Landscaping Operations Platform",
+    description:
+      "Custom CRM and job management platform built for a multi-crew landscaping business in Queenstown. Replaced disconnected spreadsheets and manual scheduling with a single system covering drag and drop job management, purchase orders, client history, and AI-powered search across the entire operation.",
+    tags: [
+      { label: "Job Scheduling", icon: csIcon.scheduling },
+      { label: "Client CRM", icon: csIcon.crm },
+      { label: "Purchase Orders", icon: csIcon.quoting },
+      { label: "AI Search", icon: csIcon.search },
+      { label: "Role Permissions", icon: csIcon.roleBasedAccess },
+    ],
+    result: "$40k+ in annual value identified",
+  },
+];
+
+const websiteCaseStudies: {
+  accent: "gold" | "teal";
+  category: string;
+  name: string;
+  description: string;
+  tags: CaseStudyTag[];
+  result: string;
+  button?: CaseStudyButton;
+}[] = [
+  {
+    accent: "teal",
+    category: "Web & Digital · Trade",
+    name: "Pete's Custom Creations",
+    description:
+      "Custom website for a Whanganui metal fabrication business. Gallery, project showcase, contact form, and mobile-first design.",
+    tags: [
+      { label: "Gallery", icon: csIcon.gallery },
+      { label: "Contact Form", icon: csIcon.contactForm },
+      { label: "Mobile Responsive", icon: csIcon.mobileResponsive },
+      { label: "SEO Optimised", icon: csIcon.search },
+    ],
+    result: "Live and trading",
+    button: { label: "Visit Site", href: "https://petescustomcreations.co.nz", external: true },
+  },
+  {
+    accent: "teal",
+    category: "Web & Digital · Beauty",
+    name: "Ange Enoka Hair & Bridal",
+    description:
+      "Premium bridal hair studio website with gallery, testimonials, and enquiry form.",
+    tags: [
+      { label: "Gallery", icon: csIcon.gallery },
+      { label: "Testimonials", icon: csIcon.testimonials },
+      { label: "Contact Form", icon: csIcon.contactForm },
+      { label: "Mobile Responsive", icon: csIcon.mobileResponsive },
+    ],
+    result: "Live and trading",
+    button: { label: "Visit Site", href: "https://angeenokahairandbridal.com", external: true },
+  },
+  {
+    accent: "teal",
+    category: "Web & Digital · Wellness",
+    name: "Align Within",
+    description:
+      "EFT therapy practice website for a Wellington based practitioner. Services, testimonials, and contact form.",
+    tags: [
+      { label: "Contact Form", icon: csIcon.contactForm },
+      { label: "Testimonials", icon: csIcon.testimonials },
+      { label: "Mobile Responsive", icon: csIcon.mobileResponsive },
+      { label: "SEO Optimised", icon: csIcon.search },
+    ],
+    result: "Live and trading",
+    button: { label: "Visit Site", href: "https://alignwithin.co.nz", external: true },
+  },
+];
+
+function CaseStudies() {
   return (
     <section id="work" className="py-24 md:py-36" style={{ background: "#0D1B2A" }}>
       <div className="max-w-5xl mx-auto px-6">
@@ -824,154 +1062,26 @@ function CaseStudies() {
             Real businesses. Real outcomes.
           </h2>
           <p className="text-base md:text-lg mb-16 md:mb-20" style={{ color: "rgba(255,255,255,0.44)" }}>
-            Names withheld by agreement.
+            Built for real businesses. Deployed and running.
           </p>
         </AnimateOnScroll>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        {/* Software projects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-6">
+          {softwareCaseStudies.map((study, i) => (
+            <AnimateOnScroll key={study.name} delay={i * 90} className={study.featured ? "flex md:col-span-2" : "flex"}>
+              <CaseStudyCard {...study} />
+            </AnimateOnScroll>
+          ))}
+        </div>
 
-          {/* Card 1: Landscaping CRM */}
-          <AnimateOnScroll delay={0} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #D4AF37 0%, rgba(212,175,55,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#D4AF37" }}>Landscaping &amp; Grounds</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">Job Management Platform</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  Running 30+ jobs a day on $600/month software that didn&apos;t talk to anything. Built a complete job management platform with Xero integration, automated scheduling, and real-time job visibility.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
-                  <Chip label="Scheduling" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>} />
-                  <Chip label="CRM" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>} />
-                  <Chip label="Quoting" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /><rect x="9" y="3" width="6" height="4" rx="1" /><path d="M9 12h6M9 16h4" /></svg>} />
-                  <Chip label="Job Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="3" /></svg>} />
-                  <Chip label="AI Assistant" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.88 5.79a1 1 0 00.95.69H21l-4.94 3.6a1 1 0 00-.36 1.12L17.56 20 12 16.4 6.44 20l1.86-5.8a1 1 0 00-.36-1.12L3 9.48h6.17a1 1 0 00.95-.69L12 3z" /></svg>} />
-                  <Chip label="Xero Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#D4AF37" }}>$40k+ in annual value identified</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Card 2: Vehicle Rental Fleet */}
-          <AnimateOnScroll delay={80} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #60A5FA 0%, rgba(96,165,250,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#60A5FA" }}>Vehicle Rental</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">Fleet &amp; Compliance System</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  A full operations platform for a NZ car rental company — fleet compliance, staff timesheets, rostering, fine management, vehicle audits, and weekly board reporting. Replacing multiple disconnected tools with one custom system.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
-                  <Chip label="Fleet Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
-                  <Chip label="Fine Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>} />
-                  <Chip label="Staff Timesheets" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>} />
-                  <Chip label="Vehicle Audits" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
-                  <Chip label="AI Inspections" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
-                  <Chip label="Roster Mgmt" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
-                  <Chip label="Weekly Reports" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>} />
-                  <Chip label="Board Dashboard" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#60A5FA" }}>6+ disconnected tools replaced</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Card 3: Operations Dashboard */}
-          <AnimateOnScroll delay={160} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #FB923C 0%, rgba(251,146,60,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#FB923C" }}>Vehicle Rental</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">Operations Dashboard</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  A real-time management dashboard giving full visibility across fleet compliance, staff scheduling, infringement fines, and vehicle audits — all accessible from any device.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
-                  <Chip label="Live Fleet View" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 17H3a2 2 0 01-2-2V7a2 2 0 012-2h11l4 4v7a2 2 0 01-2 2h-1" /><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /></svg>} />
-                  <Chip label="Staff Roster" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" /></svg>} />
-                  <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
-                  <Chip label="Fine Tracking" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" /><path d="M1 10h22" /></svg>} />
-                  <Chip label="Mobile Access" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
-                  <Chip label="Role-Based Access" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#FB923C" }}>Full operational visibility in one place</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Card 4: Custom Website */}
-          <AnimateOnScroll delay={240} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #22D3EE 0%, rgba(34,211,238,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#22D3EE" }}>Web &amp; Digital</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">Custom Website with AI Integration</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  A fully custom website built around the business — not a template. AI chatbot for after-hours enquiries, lead capture automation, and CMS so the owner can update content without touching code.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
-                  <Chip label="AI Chatbot" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>} />
-                  <Chip label="Lead Capture" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" /></svg>} />
-                  <Chip label="Contact Forms" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} />
-                  <Chip label="SEO Optimised" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>} />
-                  <Chip label="Mobile Responsive" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
-                  <Chip label="CMS Integration" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 10h16M4 14h8" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#22D3EE" }}>Leads captured 24/7 without manual follow-up</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
-          {/* Card 5: Dealer Fleet Management */}
-          <AnimateOnScroll delay={320} className="flex">
-            <div className="rounded-2xl overflow-hidden flex flex-col w-full" style={{ background: "#0f1117", border: "1px solid rgba(255,255,255,0.07)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-              <div style={{ height: "2px", background: "linear-gradient(90deg, #2DD4BF 0%, rgba(45,212,191,0) 100%)" }} />
-              <div className="flex flex-col flex-1 p-7">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] mb-5" style={{ color: "#2DD4BF" }}>Automotive &middot; Dealership</p>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-bold text-xl leading-snug">Dealer Fleet Management System</h3>
-                  <span className="ml-3 shrink-0 text-xs font-bold px-3 py-1.5 rounded-full" style={completeBadge}>Complete</span>
-                </div>
-                <p className="text-sm leading-relaxed mb-7" style={{ color: "rgba(255,255,255,0.44)" }}>
-                  A full dealer fleet management platform built for a Queenstown motor group — covering stock management, compliance tracking, PDI &amp; WoF boards, yard audits, and AI-powered plate scanning across two dealership entities.
-                </p>
-                <div className="grid grid-cols-2 gap-2 mb-7 flex-1 content-center">
-                  <Chip label="Stock Management" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" /></svg>} />
-                  <Chip label="Compliance Alerts" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" /></svg>} />
-                  <Chip label="AI Scanning" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>} />
-                  <Chip label="PDI Board" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /></svg>} />
-                  <Chip label="Yard Audit" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>} />
-                  <Chip label="Mobile PWA" icon={<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>} />
-                </div>
-                <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#2DD4BF" }}>130+ vehicles managed across two entities</p>
-                </div>
-              </div>
-            </div>
-          </AnimateOnScroll>
-
+        {/* Website projects */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          {websiteCaseStudies.map((study, i) => (
+            <AnimateOnScroll key={study.name} delay={i * 90} className="flex">
+              <CaseStudyCard {...study} />
+            </AnimateOnScroll>
+          ))}
         </div>
       </div>
     </section>
@@ -1372,12 +1482,12 @@ export default function Page() {
       <Nav />
       <main>
         <Hero />
+        <CaseStudies />
         <AuditCallout />
         <TrustStrip />
         <WhatWeBuild />
         <ProblemSection />
         <SolutionSection />
-        <CaseStudies />
         <HowItWorks />
         <About />
         <FAQSection />
