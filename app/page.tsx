@@ -1025,7 +1025,7 @@ const softwareCaseStudies: {
       src: "/case-studies/landscaping.png",
       alt: "Operify field service management dashboard",
       objectFit: "cover",
-      objectPosition: "0px -60px",
+      objectPosition: "top",
       height: 350,
     },
   },
@@ -1098,7 +1098,7 @@ const softwareCaseStudies: {
       alt: "Pete's Custom Creations website homepage",
       objectFit: "contain",
       objectPosition: "top center",
-      height: 320,
+      height: 350,
     },
   },
 ];
@@ -1132,7 +1132,7 @@ const websiteCaseStudies: {
       alt: "Ange Enoka Hair & Bridal website homepage",
       objectFit: "contain",
       objectPosition: "top center",
-      height: 320,
+      height: 350,
     },
   },
   {
@@ -1154,7 +1154,7 @@ const websiteCaseStudies: {
       alt: "Align Within website homepage",
       objectFit: "contain",
       objectPosition: "top center",
-      height: 320,
+      height: 350,
     },
   },
 ];
@@ -1183,7 +1183,7 @@ function CaseStudies() {
         </div>
 
         {/* Website projects */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
           {websiteCaseStudies.map((study, i) => (
             <AnimateOnScroll key={study.name} delay={i * 90} className="flex">
               <CaseStudyCard {...study} />
