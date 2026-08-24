@@ -1006,6 +1006,31 @@ const softwareCaseStudies: {
 }[] = [
   {
     accent: "gold",
+    category: "Field Service · Operations",
+    name: "Operify",
+    description:
+      "Custom field service management platform for trades and landscaping businesses. Replaces disconnected spreadsheets with one complete system covering job scheduling, drag and drop calendar, quotes, invoices, purchase orders, staff management, client CRM, and AI-powered business search.",
+    tags: [
+      { label: "Job Scheduling", icon: csIcon.scheduling },
+      { label: "Client CRM", icon: csIcon.crm },
+      { label: "Quote to Invoice", icon: csIcon.quoting },
+      { label: "Staff Management", icon: csIcon.roleBasedAccess },
+      { label: "AI Search", icon: csIcon.search },
+      { label: "Purchase Orders", icon: csIcon.quoting },
+    ],
+    result: "133 jobs managed · $33k revenue tracked",
+    button: { label: "View Demo", href: "https://operify.vercel.app/demo", external: true },
+    image: {
+      src: "/case-studies/landscaping.png",
+      alt: "Operify field service management dashboard",
+      objectFit: "contain",
+      objectPosition: "center top",
+      height: 350,
+      background: "#0D1B2A",
+    },
+  },
+  {
+    accent: "gold",
     featured: true,
     category: "Vehicle Rental · Operations",
     name: "BCR Connect",
@@ -1048,29 +1073,6 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/dealer-fleet.png",
       alt: "Dealer Fleet Management System dashboard showing stock and compliance tracking",
-      objectFit: "contain",
-      objectPosition: "center top",
-      height: 350,
-      background: "#0D1B2A",
-    },
-  },
-  {
-    accent: "gold",
-    category: "Landscaping & Grounds",
-    name: "Landscaping Operations Platform",
-    description:
-      "Custom CRM and job management platform built for a multi-crew landscaping business in Queenstown. Replaced disconnected spreadsheets and manual scheduling with a single system covering drag and drop job management, purchase orders, client history, and AI-powered search across the entire operation.",
-    tags: [
-      { label: "Job Scheduling", icon: csIcon.scheduling },
-      { label: "Client CRM", icon: csIcon.crm },
-      { label: "Purchase Orders", icon: csIcon.quoting },
-      { label: "AI Search", icon: csIcon.search },
-      { label: "Role Permissions", icon: csIcon.roleBasedAccess },
-    ],
-    result: "$40k+ in annual value identified",
-    image: {
-      src: "/case-studies/landscaping.png",
-      alt: "Landscaping Operations Platform job management dashboard",
       objectFit: "contain",
       objectPosition: "center top",
       height: 350,
