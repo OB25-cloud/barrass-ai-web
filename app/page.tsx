@@ -1079,18 +1079,6 @@ const softwareCaseStudies: {
       background: "#0D1B2A",
     },
   },
-];
-
-const websiteCaseStudies: {
-  accent: "gold" | "teal";
-  category: string;
-  name: string;
-  description: string;
-  tags: CaseStudyTag[];
-  result: string;
-  button?: CaseStudyButton;
-  image?: CaseStudyImageData;
-}[] = [
   {
     accent: "teal",
     category: "Web & Digital · Trade",
@@ -1113,6 +1101,18 @@ const websiteCaseStudies: {
       height: 320,
     },
   },
+];
+
+const websiteCaseStudies: {
+  accent: "gold" | "teal";
+  category: string;
+  name: string;
+  description: string;
+  tags: CaseStudyTag[];
+  result: string;
+  button?: CaseStudyButton;
+  image?: CaseStudyImageData;
+}[] = [
   {
     accent: "teal",
     category: "Web & Digital · Beauty",
