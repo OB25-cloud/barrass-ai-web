@@ -1006,6 +1006,7 @@ const softwareCaseStudies: {
 }[] = [
   {
     accent: "gold",
+    featured: true,
     category: "Field Service · Operations",
     name: "Operify",
     description:
