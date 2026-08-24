@@ -1023,10 +1023,9 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/landscaping.png",
       alt: "Operify field service management dashboard",
-      objectFit: "contain",
-      objectPosition: "center top",
+      objectFit: "cover",
+      objectPosition: "0px -60px",
       height: 350,
-      background: "#0D1B2A",
     },
   },
   {
