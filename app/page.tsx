@@ -1020,7 +1020,7 @@ const softwareCaseStudies: {
       { label: "Purchase Orders", icon: csIcon.quoting },
     ],
     result: "133 jobs managed · $33k revenue tracked",
-    button: { label: "View Demo", href: "https://operify.vercel.app/demo", external: true },
+    button: { label: "View Demo", href: "https://simofy.vercel.app/demo", external: true },
     image: {
       src: "/case-studies/landscaping.png",
       alt: "Operify field service management dashboard",
