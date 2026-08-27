@@ -17,6 +17,15 @@ export const metadata: Metadata = {
       "Custom software, workflow automation and business systems for NZ SMEs. Fixed price, no lock-in, NZ-based.",
     siteName: "Barrass AI",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icon-192.png", sizes: "192x192", type: "image/png" }],
+  },
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({
