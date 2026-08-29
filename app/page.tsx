@@ -1214,11 +1214,21 @@ function CaseStudies() {
 
         {/* Website projects */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-          {websiteCaseStudies.map((study, i) => (
-            <AnimateOnScroll key={study.name} delay={i * 90} className="flex">
-              <CaseStudyCard {...study} />
-            </AnimateOnScroll>
-          ))}
+          {websiteCaseStudies.map((study, i) => {
+            const isCenteredLast =
+              i === websiteCaseStudies.length - 1 && websiteCaseStudies.length % 2 === 1;
+            return (
+              <AnimateOnScroll
+                key={study.name}
+                delay={i * 90}
+                className={isCenteredLast ? "flex md:col-span-2 md:justify-center" : "flex"}
+              >
+                <div className={isCenteredLast ? "w-full md:max-w-[calc(50%_-_12px)]" : "w-full flex"}>
+                  <CaseStudyCard {...study} />
+                </div>
+              </AnimateOnScroll>
+            );
+          })}
         </div>
       </div>
     </section>
