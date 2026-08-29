@@ -991,6 +991,12 @@ const csIcon = {
   mobileResponsive: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M12 18h.01" /></svg>,
   gallery: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg>,
   testimonials: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>,
+  oneTapCheckin: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 12l3 3 5-6" /></svg>,
+  vanRouting: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7h11v8H3z" /><path d="M14 10h4l3 3v2h-7z" /><circle cx="7" cy="17" r="1.5" /><circle cx="17" cy="17" r="1.5" /></svg>,
+  clientPortal: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="3" /><path d="M7 19c0-2.5 2-4 5-4s5 1.5 5 4" /></svg>,
+  aiVisitNotes: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><path d="M14 2v6h6" /><path d="M9 13h6M9 17h4" /></svg>,
+  vaccinationTracking: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2l4 4M12.5 7.5l4 4M3 21l6-2 9-9-4-4-9 9-2 6z" /></svg>,
+  automatedComms: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 01-3.46 0" /></svg>,
 };
 
 const softwareCaseStudies: {
@@ -1004,6 +1010,31 @@ const softwareCaseStudies: {
   featured?: boolean;
   image?: CaseStudyImageData;
 }[] = [
+  {
+    accent: "teal",
+    featured: true,
+    category: "Pet Care · Operations",
+    name: "Pet Management Platform",
+    description:
+      "Custom management platform built for a Wellington dog daycare — replacing disconnected tools with one system built around how the business actually operates. One-tap check-ins with dog photos, smart van run routing with automated SMS ETAs, vaccination tracking, AI-generated visit notes, client portal, and automated comms across every touchpoint.",
+    tags: [
+      { label: "One-tap Check-in", icon: csIcon.oneTapCheckin },
+      { label: "Van Run Routing", icon: csIcon.vanRouting },
+      { label: "Client Portal", icon: csIcon.clientPortal },
+      { label: "AI Visit Notes", icon: csIcon.aiVisitNotes },
+      { label: "Vaccination Tracking", icon: csIcon.vaccinationTracking },
+      { label: "Automated SMS & Email", icon: csIcon.automatedComms },
+    ],
+    result: "Built for a 14-staff Wellington dog daycare · Currently in build",
+    button: { label: "View Demo", href: "https://pawly-orpin.vercel.app/demo", external: true },
+    image: {
+      src: "/case-studies/pet-management.png",
+      alt: "Pet Management Platform dashboard showing check-ins and van run routing",
+      objectFit: "cover",
+      objectPosition: "top",
+      height: 380,
+    },
+  },
   {
     accent: "gold",
     featured: true,
@@ -1031,7 +1062,6 @@ const softwareCaseStudies: {
   },
   {
     accent: "gold",
-    featured: true,
     category: "Vehicle Rental · Operations",
     name: "BCR Connect",
     description:
@@ -1077,28 +1107,6 @@ const softwareCaseStudies: {
       objectPosition: "center top",
       height: 350,
       background: "#0D1B2A",
-    },
-  },
-  {
-    accent: "teal",
-    category: "Web & Digital · Trade",
-    name: "Pete's Custom Creations",
-    description:
-      "Custom website for a Whanganui metal fabrication business. Gallery, project showcase, contact form, and mobile-first design.",
-    tags: [
-      { label: "Gallery", icon: csIcon.gallery },
-      { label: "Contact Form", icon: csIcon.contactForm },
-      { label: "Mobile Responsive", icon: csIcon.mobileResponsive },
-      { label: "SEO Optimised", icon: csIcon.search },
-    ],
-    result: "Live and trading",
-    button: { label: "Visit Site", href: "https://petescustomcreations.co.nz", external: true },
-    image: {
-      src: "/case-studies/petes-custom-creations.png",
-      alt: "Pete's Custom Creations website homepage",
-      objectFit: "contain",
-      objectPosition: "top center",
-      height: 350,
     },
   },
 ];
@@ -1152,6 +1160,28 @@ const websiteCaseStudies: {
     image: {
       src: "/case-studies/align-within.png",
       alt: "Align Within website homepage",
+      objectFit: "contain",
+      objectPosition: "top center",
+      height: 350,
+    },
+  },
+  {
+    accent: "teal",
+    category: "Web & Digital · Trade",
+    name: "Pete's Custom Creations",
+    description:
+      "Custom website for a Whanganui metal fabrication business. Gallery, project showcase, contact form, and mobile-first design.",
+    tags: [
+      { label: "Gallery", icon: csIcon.gallery },
+      { label: "Contact Form", icon: csIcon.contactForm },
+      { label: "Mobile Responsive", icon: csIcon.mobileResponsive },
+      { label: "SEO Optimised", icon: csIcon.search },
+    ],
+    result: "Live and trading",
+    button: { label: "Visit Site", href: "https://petescustomcreations.co.nz", external: true },
+    image: {
+      src: "/case-studies/petes-custom-creations.png",
+      alt: "Pete's Custom Creations website homepage",
       objectFit: "contain",
       objectPosition: "top center",
       height: 350,
