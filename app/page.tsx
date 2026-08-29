@@ -1025,7 +1025,7 @@ const softwareCaseStudies: {
       { label: "Vaccination Tracking", icon: csIcon.vaccinationTracking },
       { label: "Automated SMS & Email", icon: csIcon.automatedComms },
     ],
-    result: "Built for a 14-staff Wellington dog daycare · Currently in build",
+    result: "Wellington dog daycare · Demo live",
     button: { label: "View Demo", href: "https://pawly-orpin.vercel.app/demo", external: true },
     image: {
       src: "/case-studies/pet-management.png",
