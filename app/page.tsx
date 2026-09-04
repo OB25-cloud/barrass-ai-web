@@ -816,15 +816,11 @@ const CASE_STUDY_GOLD = "#B8922A";
 const CASE_STUDY_TEAL = "#2DD4BF";
 
 function CaseStudyImage({ accent, image }: { accent: string; image?: CaseStudyImageData }) {
-  const height = image?.height ?? 350;
-  const objectFit = image?.objectFit ?? "cover";
-  const objectPosition = image?.objectPosition ?? "top center";
-
   return (
     <div
       className="relative flex flex-col shrink-0 w-full overflow-hidden"
       style={{
-        height: `${height}px`,
+        aspectRatio: "16 / 10",
         background: "#1a1a2e",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
       }}
@@ -856,11 +852,7 @@ function CaseStudyImage({ accent, image }: { accent: string; image?: CaseStudyIm
       <div
         className="relative flex-1 flex items-center justify-center overflow-hidden"
         style={{
-          background:
-            image?.background ??
-            (objectFit === "contain"
-              ? "#0d0f1a"
-              : `linear-gradient(135deg, ${accent}29 0%, rgba(13,27,42,0.75) 100%)`),
+          background: `linear-gradient(135deg, ${accent}29 0%, rgba(13,27,42,0.75) 100%)`,
         }}
       >
         {image ? (
@@ -868,7 +860,7 @@ function CaseStudyImage({ accent, image }: { accent: string; image?: CaseStudyIm
             src={image.src}
             alt={image.alt}
             fill
-            style={{ objectFit, objectPosition }}
+            style={{ objectFit: "cover", objectPosition: "top" }}
             sizes="(min-width: 768px) 50vw, 100vw"
           />
         ) : (
@@ -894,10 +886,6 @@ type CaseStudyButton = { label: string; href: string; external?: boolean };
 type CaseStudyImageData = {
   src: string;
   alt: string;
-  objectPosition?: string;
-  objectFit?: "cover" | "contain";
-  height?: number;
-  background?: string;
 };
 
 function CaseStudyCard({
@@ -1030,9 +1018,6 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/pet-management.png",
       alt: "Pet Management Platform dashboard showing check-ins and van run routing",
-      objectFit: "cover",
-      objectPosition: "top",
-      height: 350,
     },
   },
   {
@@ -1055,9 +1040,6 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/operify.png",
       alt: "Operify field service management dashboard",
-      objectFit: "cover",
-      objectPosition: "top",
-      height: 350,
     },
   },
   {
@@ -1079,9 +1061,6 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/bcr-connect.png",
       alt: "BCR Connect operations dashboard showing fleet utilisation and ins & outs charts",
-      objectFit: "cover",
-      objectPosition: "0px -60px",
-      height: 350,
     },
   },
   {
@@ -1103,9 +1082,6 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/dealer-fleet.png",
       alt: "Dealer Fleet Management System dashboard showing stock and compliance tracking",
-      objectFit: "cover",
-      objectPosition: "top",
-      height: 350,
     },
   },
 ];
@@ -1137,9 +1113,6 @@ const websiteCaseStudies: {
     image: {
       src: "/case-studies/ange-enoka.png",
       alt: "Ange Enoka Hair & Bridal website homepage",
-      objectFit: "contain",
-      objectPosition: "top center",
-      height: 350,
     },
   },
   {
@@ -1159,9 +1132,6 @@ const websiteCaseStudies: {
     image: {
       src: "/case-studies/align-within.png",
       alt: "Align Within website homepage",
-      objectFit: "contain",
-      objectPosition: "top center",
-      height: 350,
     },
   },
   {
@@ -1181,9 +1151,6 @@ const websiteCaseStudies: {
     image: {
       src: "/case-studies/petes-custom-creations.png",
       alt: "Pete's Custom Creations website homepage",
-      objectFit: "contain",
-      objectPosition: "top center",
-      height: 350,
     },
   },
 ];
