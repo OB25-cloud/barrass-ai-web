@@ -1032,7 +1032,7 @@ const softwareCaseStudies: {
       alt: "Pet Management Platform dashboard showing check-ins and van run routing",
       objectFit: "cover",
       objectPosition: "top",
-      height: 380,
+      height: 350,
     },
   },
   {
@@ -1103,10 +1103,9 @@ const softwareCaseStudies: {
     image: {
       src: "/case-studies/dealer-fleet.png",
       alt: "Dealer Fleet Management System dashboard showing stock and compliance tracking",
-      objectFit: "contain",
-      objectPosition: "center top",
+      objectFit: "cover",
+      objectPosition: "top",
       height: 350,
-      background: "#0D1B2A",
     },
   },
 ];
