@@ -11,16 +11,15 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full font-bold py-4 px-8 rounded-xl text-base tracking-wide transition-all"
+      className="w-full font-medium py-3.5 px-8 rounded-lg text-[15px] transition-all"
       style={{
-        background: "#D4AF37",
-        color: "#0D1B2A",
+        background: "#ffffff",
+        color: "#0A0A0A",
         opacity: pending ? 0.6 : 1,
         cursor: pending ? "not-allowed" : "pointer",
-        boxShadow: pending ? "none" : "0 4px 20px rgba(212,175,55,0.3)",
       }}
     >
-      {pending ? "Sending…" : "Send Message"}
+      {pending ? "Sending…" : "Send message"}
     </button>
   );
 }
@@ -30,7 +29,7 @@ const initial: ContactState = { status: "idle", message: "" };
 const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: "13px",
-  color: "rgba(255,255,255,0.42)",
+  color: "rgba(255,255,255,0.5)",
   fontWeight: 500,
   marginBottom: "7px",
 };
@@ -44,7 +43,7 @@ export default function ContactForm() {
   };
 
   const selectColor = (name: string): React.CSSProperties => ({
-    color: filled[name] ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.28)",
+    color: filled[name] ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)",
   });
 
   if (state.status === "success") {
@@ -53,24 +52,18 @@ export default function ContactForm() {
         <div
           className="flex items-center justify-center rounded-full mb-5"
           style={{
-            width: "52px",
-            height: "52px",
-            background: "rgba(212,175,55,0.15)",
-            border: "1px solid rgba(212,175,55,0.3)",
+            width: "48px",
+            height: "48px",
+            background: "rgba(16,185,129,0.12)",
+            border: "1px solid rgba(16,185,129,0.3)",
           }}
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M5 13l4 4L19 7"
-              stroke="#D4AF37"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M5 13l4 4L19 7" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <p className="text-white font-semibold text-lg mb-2">{state.message}</p>
-        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>
+        <p className="text-white font-medium text-lg mb-2">{state.message}</p>
+        <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px" }}>
           We&apos;ll be in touch within one business day.
         </p>
       </div>
@@ -79,36 +72,21 @@ export default function ContactForm() {
 
   return (
     <form action={action} className="flex flex-col gap-5">
-
-      {/* Name + Email — side by side on sm+ */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label style={labelStyle}>
-            Name <span style={{ color: "#D4AF37" }}>*</span>
+            Name <span style={{ color: "#10B981" }}>*</span>
           </label>
-          <input
-            type="text"
-            name="name"
-            required
-            placeholder="Your name"
-            className="dark-input"
-          />
+          <input type="text" name="name" required placeholder="Your name" className="dark-input" />
         </div>
         <div>
           <label style={labelStyle}>
-            Email <span style={{ color: "#D4AF37" }}>*</span>
+            Email <span style={{ color: "#10B981" }}>*</span>
           </label>
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="you@business.co.nz"
-            className="dark-input"
-          />
+          <input type="email" name="email" required placeholder="you@business.co.nz" className="dark-input" />
         </div>
       </div>
 
-      {/* Industry */}
       <div>
         <label style={labelStyle}>What best describes your business?</label>
         <select
@@ -119,17 +97,17 @@ export default function ContactForm() {
           style={selectColor("industry")}
         >
           <option value="" disabled>Select your industry</option>
+          <option>Pet Services</option>
           <option>Trades &amp; Construction</option>
           <option>Landscaping &amp; Grounds</option>
+          <option>Automotive &amp; Dealerships</option>
+          <option>Vehicle Rental &amp; Fleet</option>
           <option>Hospitality &amp; Food</option>
-          <option>Vehicle Rental</option>
-          <option>Retail &amp; E-commerce</option>
           <option>Professional Services</option>
           <option>Other</option>
         </select>
       </div>
 
-      {/* Objective */}
       <div>
         <label style={labelStyle}>What are you looking to do?</label>
         <select
@@ -140,14 +118,13 @@ export default function ContactForm() {
           style={selectColor("objective")}
         >
           <option value="" disabled>Select your goal</option>
-          <option>Replace existing software that doesn't fit</option>
+          <option>Replace existing software that doesn&apos;t fit</option>
           <option>Automate manual admin and repetitive tasks</option>
           <option>Build something new from scratch</option>
           <option>Not sure yet — just want to explore</option>
         </select>
       </div>
 
-      {/* Headcount */}
       <div>
         <label style={labelStyle}>Roughly how many staff?</label>
         <select
@@ -165,18 +142,15 @@ export default function ContactForm() {
         </select>
       </div>
 
-      {/* Optional context */}
       <div>
         <label style={labelStyle}>
           Anything else we should know?{" "}
-          <span style={{ color: "rgba(255,255,255,0.22)", fontWeight: 400 }}>
-            (optional)
-          </span>
+          <span style={{ color: "rgba(255,255,255,0.25)", fontWeight: 400 }}>(optional)</span>
         </label>
         <textarea
           name="context"
           rows={4}
-          placeholder="Any extra context — current tools you use, biggest pain points, timelines."
+          placeholder="Current tools, biggest pain points, timelines."
           className="dark-input"
           style={{ resize: "none" }}
         />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geist = Geist({
@@ -7,14 +7,19 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Barrass AI — Custom Software for NZ Businesses",
   description:
-    "We build custom software, automation and business systems for trades, construction, tourism and SMEs across New Zealand. Fixed price. You own the code.",
+    "Bespoke, AI-powered management platforms for New Zealand businesses. Fixed price, delivered in weeks, and you own the code outright.",
   openGraph: {
-    title: "Barrass AI — Custom software built around your business.",
+    title: "Barrass AI — Replace the spreadsheets. Own the software.",
     description:
-      "Custom software, workflow automation and business systems for NZ SMEs. Fixed price, no lock-in, NZ-based.",
+      "Bespoke, AI-powered management platforms for New Zealand businesses. Fixed price, delivered in weeks, yours outright.",
     siteName: "Barrass AI",
   },
   icons: {
@@ -34,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} h-full`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

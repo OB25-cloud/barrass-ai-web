@@ -37,43 +37,40 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-gray-100">
-      {faqs.map((item, i) => (
-        <div key={i}>
-          <button
-            className="w-full text-left py-5 flex items-center justify-between gap-4 group"
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            aria-expanded={openIndex === i}
-          >
-            <span className="text-[#0F172A] font-semibold text-base md:text-lg group-hover:text-[#D4AF37] transition-colors">
-              {item.q}
-            </span>
-            <span
-              className={`flex-shrink-0 w-6 h-6 rounded-full border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] transition-transform duration-200 ${
-                openIndex === i ? "rotate-45" : ""
+    <div className="divide-y divide-black/[0.07] border-y border-black/[0.07]">
+      {faqs.map((item, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <div key={i}>
+            <button
+              className="w-full text-left py-6 flex items-start justify-between gap-6 group"
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              aria-expanded={isOpen}
+            >
+              <span className="text-[#0A0A0A] font-medium text-[16px] md:text-[17px] leading-snug tracking-[-0.01em] group-hover:text-[#0A0A0A]/70 transition-colors">
+                {item.q}
+              </span>
+              <span
+                className={`flex-shrink-0 mt-0.5 w-5 h-5 flex items-center justify-center text-[#0A0A0A]/40 transition-transform duration-200 ${
+                  isOpen ? "rotate-45" : ""
+                }`}
+                aria-hidden
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+                </svg>
+              </span>
+            </button>
+            <div
+              className={`overflow-hidden transition-[max-height,padding] duration-300 ease-out ${
+                isOpen ? "max-h-96 pb-6" : "max-h-0"
               }`}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M6 1v10M1 6h10"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-          </button>
-          <div
-            className={`overflow-hidden transition-all duration-300 ${
-              openIndex === i ? "max-h-96 pb-5" : "max-h-0"
-            }`}
-          >
-            <p className="text-[#64748B] leading-relaxed text-base">
-              {item.a}
-            </p>
+              <p className="text-[#52525B] leading-relaxed text-[15px] max-w-2xl">{item.a}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
