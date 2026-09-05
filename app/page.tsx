@@ -343,14 +343,14 @@ const platforms: CaseStudy[] = [
   },
   {
     category: "Landscaping & trades",
-    name: "Operify",
+    name: "Runsite",
     description:
       "Job scheduling, quote-to-invoice, purchase orders, staff and CRM for field service businesses — with natural-language search across the whole operation.",
     features: ["Job scheduling", "Quote to invoice", "Purchase orders", "Client CRM", "AI search"],
     result: "133 jobs · $33k tracked",
     href: "https://simofy.vercel.app/demo",
     cta: "View demo",
-    image: { src: "/case-studies/operify.png", alt: "Operify dashboard", width: 1918, height: 991, url: "operify.app" },
+    image: { src: "/case-studies/runsite.png", alt: "Runsite dashboard", width: 1881, height: 997, url: "runsite.app" },
   },
 ];
 
