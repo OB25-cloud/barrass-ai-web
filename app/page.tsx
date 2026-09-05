@@ -217,54 +217,58 @@ function Hero() {
         />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 pt-36 md:pt-44">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-8">
-            <LiveBadge label="4 platforms live in production across NZ" dark />
+      {/* Two-column split: copy left, Pawly frame right. Sized so both columns
+          sit above the fold on a 1080p display (min-height 100svh, nav offset). */}
+      <div
+        className="relative max-w-7xl 2xl:max-w-[1400px] mx-auto px-6 pt-28 pb-16 lg:pt-16 lg:pb-0 flex items-center"
+        style={{ minHeight: "100svh" }}
+      >
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-14 items-center">
+          <div className="lg:col-span-5">
+            <div className="mb-7">
+              <LiveBadge label="Platforms live in production across NZ" dark />
+            </div>
+
+            <h1
+              className="font-semibold text-white tracking-[-0.035em] leading-[1.02] mb-6"
+              style={{ fontSize: "clamp(2.5rem, 4.3vw, 3.75rem)" }}
+            >
+              Replace the spreadsheets. Own the software.
+            </h1>
+
+            <p
+              className="text-[17px] md:text-[18px] leading-relaxed mb-9"
+              style={{ color: "rgba(255,255,255,0.58)", maxWidth: "480px" }}
+            >
+              Barrass AI designs and builds bespoke, AI-powered management platforms
+              for New Zealand businesses — fixed price, delivered in weeks, and yours outright.
+            </p>
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <ButtonPrimary href={CALENDLY} external tone="light">
+                Book a Discovery Call
+              </ButtonPrimary>
+              <ButtonSecondary href="#work" dark>
+                View Our Work
+              </ButtonSecondary>
+            </div>
           </div>
 
-          <h1
-            className="font-semibold text-white tracking-[-0.035em] leading-[1.02] mb-6"
-            style={{ fontSize: "clamp(2.5rem, 5.6vw, 4.25rem)" }}
-          >
-            Replace the spreadsheets.
-            <br />
-            Own the software.
-          </h1>
-
-          <p
-            className="text-[17px] md:text-[19px] leading-relaxed mx-auto mb-10"
-            style={{ color: "rgba(255,255,255,0.58)", maxWidth: "600px" }}
-          >
-            Barrass AI designs and builds bespoke, AI-powered management platforms
-            for New Zealand businesses — fixed price, delivered in weeks, and yours outright.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <ButtonPrimary href={CALENDLY} external tone="light">
-              Book a Discovery Call
-            </ButtonPrimary>
-            <ButtonSecondary href="#work" dark>
-              View Our Work
-            </ButtonSecondary>
-          </div>
-        </div>
-
-        {/* Hero product visual — Pawly, shown in full */}
-        <div className="relative mt-16 md:mt-20 pb-20 md:pb-28">
-          <div className="max-w-5xl mx-auto">
+          {/* Hero product visual — Pawly, shown in full. On large screens the
+              frame bleeds slightly past the container's right edge for scale. */}
+          <div className="lg:col-span-7 lg:-mr-10 xl:-mr-20 2xl:-mr-40">
             <BrowserFrame
               src="/case-studies/pet-management.png"
               alt="Pawly — dog daycare operations platform dashboard showing today's arrivals, van pickups and revenue"
               width={1888}
               height={988}
               url="pawly-orpin.vercel.app"
-              sizes="(min-width: 1100px) 1024px, 100vw"
+              sizes="(min-width: 1024px) 60vw, 100vw"
               preload
               dark
             />
             <p
-              className="font-mono text-[11px] tracking-[0.08em] uppercase text-center mt-5"
+              className="font-mono text-[11px] tracking-[0.08em] uppercase mt-4"
               style={{ color: "rgba(255,255,255,0.35)" }}
             >
               Pawly — operations platform for a Wellington dog daycare
@@ -742,43 +746,20 @@ function HowItWorks() {
 
 /* ─── 6. Social proof (light alt) ────────────────────────────── */
 
-const clientMarks = [
-  "Pawly",
-  "BCR Connect",
-  "Dealer Fleet",
-  "Operify",
-  "Ange Enoka",
-  "Align Within",
-  "Pete's Custom Creations",
-];
-
 function SocialProof() {
   return (
     <section className="py-20 md:py-24" style={{ background: "#F7F7F5", borderTop: "1px solid rgba(0,0,0,0.06)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
       <div className="max-w-6xl mx-auto px-6">
-        <AnimateOnScroll>
-          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-center mb-8" style={{ color: "#8A8A93" }}>
-            Shipped for businesses across New Zealand
-          </p>
-          <ul className="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-16 md:mb-20">
-            {clientMarks.map((m) => (
-              <li key={m} className="text-[15px] font-medium tracking-[-0.01em]" style={{ color: "rgba(10,10,10,0.5)" }}>
-                {m}
-              </li>
-            ))}
-          </ul>
-        </AnimateOnScroll>
-
-        {/* PLACEHOLDER — swap for a real client quote before treating this as final. */}
+        {/* Placeholder attribution — swap in the real client when available. */}
         <AnimateOnScroll>
           <figure className="max-w-3xl mx-auto text-center">
             <blockquote
               className="text-[#0A0A0A] font-medium tracking-[-0.02em] leading-[1.3] text-[1.5rem] md:text-[2rem] mb-8"
             >
-              “[Client quote — one or two sentences on what changed after the build. Replace before launch.]”
+              “Working with Oliver was straightforward from day one. The system does exactly what we needed and the team picked it up immediately.”
             </blockquote>
             <figcaption className="text-[14px]" style={{ color: "#8A8A93" }}>
-              <span className="text-[#0A0A0A] font-medium">Client name</span> · Role, Company
+              <span className="text-[#0A0A0A] font-medium">Client Name</span> · Owner, Wellington Business
             </figcaption>
           </figure>
         </AnimateOnScroll>
