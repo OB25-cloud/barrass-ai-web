@@ -36,12 +36,12 @@ export default function Nav() {
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         <a
           href="#"
-          className={`flex items-center gap-2.5 font-semibold text-[15px] tracking-tight transition-colors duration-300 ${
+          className={`flex items-center gap-2.5 font-bold text-[17px] tracking-[0.06em] uppercase transition-colors duration-300 ${
             onDark ? "text-white" : "text-[#0A0A0A]"
           }`}
         >
           <span
-            className="inline-block w-2 h-2 rounded-[2px]"
+            className="inline-block w-2.5 h-2.5 rounded-full"
             style={{ background: "#10B981" }}
             aria-hidden
           />
