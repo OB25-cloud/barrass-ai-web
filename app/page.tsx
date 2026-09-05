@@ -262,7 +262,7 @@ function Hero() {
               alt="Pawly — dog daycare operations platform dashboard showing today's arrivals, van pickups and revenue"
               width={1888}
               height={988}
-              url="pawly-orpin.vercel.app"
+              url="pawly.app"
               sizes="(min-width: 1024px) 60vw, 100vw"
               preload
               dark
@@ -273,43 +273,6 @@ function Hero() {
             >
               Pawly — operations platform for a Wellington dog daycare
             </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 2. Trust bar (dark) ────────────────────────────────────── */
-
-const deployed = [
-  { name: "Pawly", vertical: "Pet services" },
-  { name: "BCR Connect", vertical: "Vehicle rental" },
-  { name: "Dealer Fleet", vertical: "Automotive" },
-  { name: "Operify", vertical: "Landscaping & trades" },
-];
-
-function TrustBar() {
-  return (
-    <section style={{ background: "#0A0C10", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-      <div className="max-w-6xl mx-auto px-6 py-8 md:py-9">
-        <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
-          <p
-            className="font-mono text-[11px] tracking-[0.14em] uppercase shrink-0"
-            style={{ color: "rgba(255,255,255,0.4)" }}
-          >
-            Live and deployed
-          </p>
-          <div className="grid grid-cols-2 md:flex md:flex-1 md:justify-between gap-y-5 gap-x-8">
-            {deployed.map((d) => (
-              <div key={d.name} className="flex items-center gap-3">
-                <span className="live-dot" />
-                <div className="leading-tight">
-                  <p className="text-white text-[15px] font-medium tracking-[-0.01em]">{d.name}</p>
-                  <p className="text-[12px]" style={{ color: "rgba(255,255,255,0.4)" }}>{d.vertical}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -351,7 +314,7 @@ const featured: CaseStudy = {
     alt: "Pawly dashboard",
     width: 1888,
     height: 988,
-    url: "pawly-orpin.vercel.app",
+    url: "pawly.app",
   },
 };
 
@@ -365,7 +328,7 @@ const platforms: CaseStudy[] = [
     result: "6+ tools replaced",
     href: "https://bcr-connect.vercel.app/demo",
     cta: "View demo",
-    image: { src: "/case-studies/bcr-connect.png", alt: "BCR Connect dashboard", width: 1917, height: 1013, url: "bcr-connect.vercel.app" },
+    image: { src: "/case-studies/bcr-connect.png", alt: "BCR Connect dashboard", width: 1917, height: 1013, url: "bcrconnect.co.nz" },
   },
   {
     category: "Automotive",
@@ -376,7 +339,7 @@ const platforms: CaseStudy[] = [
     result: "130+ vehicles · 2 entities",
     href: "https://qmg-smg-fleet.vercel.app/demo",
     cta: "View demo",
-    image: { src: "/case-studies/dealer-fleet.png", alt: "Dealer Fleet dashboard", width: 1897, height: 870, url: "qmg-smg-fleet.vercel.app" },
+    image: { src: "/case-studies/dealer-fleet.png", alt: "Dealer Fleet dashboard", width: 1897, height: 870, url: "dealerfleet.co.nz" },
   },
   {
     category: "Landscaping & trades",
@@ -387,7 +350,7 @@ const platforms: CaseStudy[] = [
     result: "133 jobs · $33k tracked",
     href: "https://simofy.vercel.app/demo",
     cta: "View demo",
-    image: { src: "/case-studies/operify.png", alt: "Operify dashboard", width: 1918, height: 991, url: "simofy.vercel.app" },
+    image: { src: "/case-studies/operify.png", alt: "Operify dashboard", width: 1918, height: 991, url: "operify.app" },
   },
 ];
 
@@ -400,7 +363,7 @@ const websites: CaseStudy[] = [
     result: "Live",
     href: "https://angeenokahairandbridal.com",
     cta: "Visit site",
-    image: { src: "/case-studies/ange-enoka.png", alt: "Ange Enoka Hair & Bridal homepage", width: 1889, height: 988, url: "angeenokahairandbridal.com" },
+    image: { src: "/case-studies/ange-enoka.png", alt: "Ange Enoka Hair & Bridal homepage", width: 1889, height: 988, url: "angeenoka.co.nz" },
   },
   {
     category: "Wellness",
@@ -997,7 +960,6 @@ export default function Page() {
       <Nav />
       <main>
         <Hero />
-        <TrustBar />
         <CaseStudies />
         <Services />
         <HowItWorks />
