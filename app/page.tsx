@@ -245,8 +245,8 @@ function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <ButtonPrimary href={CALENDLY} external tone="light">
-                Book a Discovery Call
+              <ButtonPrimary href="/audit" tone="light">
+                Get your free AI audit
               </ButtonPrimary>
               <ButtonSecondary href="#work" dark>
                 View Our Work

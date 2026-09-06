@@ -126,6 +126,41 @@ iframe {
   }
 }
 
+/* ─── Free AI audit ────────────────────────────────────────── */
+
+@keyframes auditEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.audit-enter {
+  animation: auditEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes auditPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45); }
+  70%      { box-shadow: 0 0 0 18px rgba(16, 185, 129, 0); }
+}
+
+.audit-pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #10b981;
+  animation: auditPulse 1.8s ease-out infinite;
+}
+
+/* The generated report carries its own inline styles; just keep long
+   strings from breaking the card on narrow screens. */
+.audit-report {
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audit-enter { animation: none; }
+  .audit-pulse { animation: none; }
+}
+
 /* ─── Live status dot ──────────────────────────────────────── */
 
 @keyframes livePulse {
