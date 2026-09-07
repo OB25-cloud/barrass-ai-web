@@ -109,7 +109,7 @@ export async function POST(request: Request) {
       insertAuditLead(answers, reportHtml),
       resend.emails.send({
         from: "Barrass AI Website <contact@barrassai.com>",
-        to: "oliver@barrassai.com",
+        to: ["oliver@barrassai.com", "hello@barrassai.com"],
         replyTo: answers.email,
         subject: `New audit lead — ${answers.businessType} — ${answers.name}`,
         html: buildLeadNotificationHtml(answers, reportHtml),
