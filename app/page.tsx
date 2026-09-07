@@ -328,7 +328,7 @@ const platforms: CaseStudy[] = [
     result: "6+ tools replaced",
     href: "https://bcr-connect.vercel.app/demo",
     cta: "View demo",
-    image: { src: "/case-studies/bcr-connect.png", alt: "BCR Connect dashboard", width: 1917, height: 1013, url: "bcrconnect.co.nz" },
+    image: { src: "/case-studies/bcr-connect.png", alt: "BCR Connect dashboard", width: 1906, height: 943, url: "bcrconnect.co.nz" },
   },
   {
     category: "Automotive",
