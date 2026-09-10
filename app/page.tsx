@@ -27,13 +27,21 @@ function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?:
   );
 }
 
-function LiveBadge({ label = "Live", dark = false }: { label?: string; dark?: boolean }) {
+function LiveBadge({ label = "Live", dark = false, live = true }: { label?: string; dark?: boolean; live?: boolean }) {
   return (
     <span
       className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] uppercase"
       style={{ color: dark ? "rgba(255,255,255,0.6)" : "#52525B" }}
     >
-      <span className="live-dot" />
+      {live ? (
+        <span className="live-dot" />
+      ) : (
+        <span
+          className="inline-block rounded-full"
+          style={{ width: "6px", height: "6px", background: dark ? "rgba(255,255,255,0.3)" : "#A1A1AA" }}
+          aria-hidden
+        />
+      )}
       {label}
     </span>
   );
@@ -288,8 +296,8 @@ type CaseStudy = {
   description: string;
   features: string[];
   result: string;
-  href: string;
-  cta: string;
+  href?: string;
+  cta?: string;
   image: { src: string; alt: string; width: number; height: number; url: string };
 };
 
@@ -321,14 +329,18 @@ const featured: CaseStudy = {
 const platforms: CaseStudy[] = [
   {
     category: "Vehicle rental",
-    name: "BCR Connect",
+    name: "Car Rental Manager",
     description:
-      "Fleet compliance, timesheets, rostering, fine tracking and provider billing for a NZ car rental operator — with an offline-capable app for staff on the yard.",
+      "Fleet compliance, timesheets, rostering, fine tracking and provider billing built for a NZ car rental company — with an offline-capable app for staff on the yard.",
     features: ["Fleet compliance", "Timesheets & rosters", "Fine tracking", "Provider billing", "Offline PWA"],
     result: "6+ tools replaced",
-    href: "https://bcr-connect.vercel.app/demo",
-    cta: "View demo",
-    image: { src: "/case-studies/bcr-connect.png", alt: "BCR Connect dashboard", width: 1906, height: 943, url: "bcrconnect.co.nz" },
+    image: {
+      src: "/case-studies/car-rental-manager.png",
+      alt: "Car Rental Manager dashboard screenshot",
+      width: 1906,
+      height: 943,
+      url: "Case study",
+    },
   },
   {
     category: "Automotive",
@@ -405,20 +417,25 @@ function FeatureList({ items, compact = false }: { items: string[]; compact?: bo
 }
 
 function CaseStudyCard({ study, sizes }: { study: CaseStudy; sizes: string }) {
+  const frame = (
+    <BrowserFrame
+      src={study.image.src}
+      alt={study.image.alt}
+      width={study.image.width}
+      height={study.image.height}
+      url={study.image.url}
+      sizes={sizes}
+    />
+  );
   return (
     <article className="flex flex-col h-full">
-      <a href={study.href} target="_blank" rel="noopener noreferrer" className="block group" aria-label={`${study.name} — ${study.cta}`}>
-        <div className="transition-transform duration-300 group-hover:-translate-y-1">
-          <BrowserFrame
-            src={study.image.src}
-            alt={study.image.alt}
-            width={study.image.width}
-            height={study.image.height}
-            url={study.image.url}
-            sizes={sizes}
-          />
-        </div>
-      </a>
+      {study.href ? (
+        <a href={study.href} target="_blank" rel="noopener noreferrer" className="block group" aria-label={`${study.name} — ${study.cta}`}>
+          <div className="transition-transform duration-300 group-hover:-translate-y-1">{frame}</div>
+        </a>
+      ) : (
+        frame
+      )}
       <div className="flex flex-col flex-1 pt-6">
         <p className="font-mono text-[11px] tracking-[0.12em] uppercase mb-2.5" style={{ color: "#8A8A93" }}>
           {study.category}
@@ -431,16 +448,22 @@ function CaseStudyCard({ study, sizes }: { study: CaseStudy; sizes: string }) {
           <FeatureList items={study.features} compact />
         </div>
         <div className="mt-auto flex items-center justify-between gap-4 pt-4" style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }}>
-          <a
-            href={study.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0A0A0A] hover:opacity-70 transition-opacity"
-          >
-            {study.cta}
-            <ExternalArrow />
-          </a>
-          <LiveBadge label={study.result} />
+          {study.href ? (
+            <a
+              href={study.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0A0A0A] hover:opacity-70 transition-opacity"
+            >
+              {study.cta}
+              <ExternalArrow />
+            </a>
+          ) : (
+            <span className="text-[14px] font-medium" style={{ color: "#8A8A93" }}>
+              Case study
+            </span>
+          )}
+          <LiveBadge label={study.result} live={!!study.href} />
         </div>
       </div>
     </article>
@@ -458,7 +481,8 @@ function CaseStudies() {
               Built, shipped, and in use every day.
             </h2>
             <p className="text-[17px] leading-relaxed" style={{ color: "#52525B" }}>
-              Every platform below is live in production. Open a demo and use it yourself.
+              Most platforms below are live in production — open a demo and use it yourself. Past
+              engagements are shown as case studies.
             </p>
           </div>
         </AnimateOnScroll>
@@ -485,7 +509,7 @@ function CaseStudies() {
                 <FeatureList items={featured.features} />
               </div>
               <div className="flex items-center gap-5 flex-wrap">
-                <ButtonPrimary href={featured.href} external>
+                <ButtonPrimary href={featured.href!} external>
                   {featured.cta}
                 </ButtonPrimary>
                 <LiveBadge label="Wellington dog daycare · Live" />
