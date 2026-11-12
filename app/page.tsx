@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
-import { SceneScreen, WalkthroughButton } from "./components/SceneScreen";
+import { SceneScreen } from "./components/SceneScreen";
 
 const CALENDLY = "https://calendly.com/oliver-barrassai/30min";
 
@@ -19,8 +19,6 @@ interface Product {
   link?: { href: string; label: string };
   ad?: string;
   poster?: string;
-  walkthrough?: string;
-  walkthroughPoster?: string;
   still?: string;
   pendingNote?: string;
 }
@@ -43,10 +41,8 @@ const products: Product[] = [
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://mockmonkey.app", label: "Visit mockmonkey.app" },
-    ad: "/reel/mockmonkey-ad.mp4",
-    poster: "/reel/mockmonkey-ad.jpg",
-    walkthrough: "/reel/mockmonkey-walkthrough.mp4",
-    walkthroughPoster: "/reel/mockmonkey-walkthrough.jpg",
+    ad: "/reel/mockmonkey-film.mp4",
+    poster: "/reel/mockmonkey-film.jpg",
   },
   {
     id: "title-wave",
@@ -84,7 +80,8 @@ const products: Product[] = [
       ["Integrates with", "Stripe, fal, Modal, Fly.io, Cloudflare R2, AI agents"],
     ],
     link: { href: "https://shorts-app-web.vercel.app", label: "See the preview site" },
-    still: "/reel/shorts-still.jpg",
+    ad: "/reel/shorts-film.mp4",
+    poster: "/reel/shorts-film.jpg",
   },
   {
     id: "zaminka",
@@ -222,16 +219,11 @@ export default function Home() {
                       </div>
                     ))}
                   </dl>
-                  {(p.link || p.walkthrough) && (
+                  {p.link && (
                     <div className="actions">
-                      {p.link && (
-                        <a className="reel-btn hue" href={p.link.href} target="_blank" rel="noopener noreferrer">
-                          {p.link.label}
-                        </a>
-                      )}
-                      {p.walkthrough && (
-                        <WalkthroughButton name={p.name} src={p.walkthrough} poster={p.walkthroughPoster} />
-                      )}
+                      <a className="reel-btn hue" href={p.link.href} target="_blank" rel="noopener noreferrer">
+                        {p.link.label}
+                      </a>
                     </div>
                   )}
                 </div>
