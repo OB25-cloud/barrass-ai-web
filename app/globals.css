@@ -180,3 +180,562 @@ iframe {
 @media (prefers-reduced-motion: reduce) {
   .live-dot { animation: none; }
 }
+
+/* ─── Showreel homepage (Nov 2026 rebrand) ────────────────────
+   Lobby (base):  #EEF0F3 surface · #10141A ink · #5B6470 muted · #2B3FFF signal
+   Each product scene sets its own --bg / --fg / --dim / --hue.
+   Display: Bricolage Grotesque · Text: Geist
+──────────────────────────────────────────────────────────────── */
+
+.reel {
+  --lobby: #eef0f3;
+  --ink: #10141a;
+  --muted: #5b6470;
+  --rule: #d3d8df;
+  --signal: #2b3fff;
+  background: var(--lobby);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.reel .display {
+  font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.reel-wrap {
+  width: min(100% - 48px, 1240px);
+  margin-inline: auto;
+}
+
+.reel a:focus-visible,
+.reel button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Nav */
+.reel-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  mix-blend-mode: difference;
+  color: #fff;
+  pointer-events: none;
+}
+.reel-nav > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.reel-nav a {
+  pointer-events: auto;
+  color: inherit;
+  text-decoration: none;
+}
+.reel-nav .mark {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+.reel-nav nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 14.5px;
+}
+.reel-nav nav a.plain {
+  opacity: 0.75;
+}
+.reel-nav nav a.plain:hover {
+  opacity: 1;
+}
+.reel-nav nav a.call {
+  border: 1.5px solid #fff;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 500;
+}
+.reel-nav nav a.call:hover {
+  background: #fff;
+  color: #000;
+}
+@media (max-width: 640px) {
+  .reel-nav nav a.plain {
+    display: none;
+  }
+}
+
+/* Hero */
+.reel-hero {
+  padding: 148px 0 56px;
+}
+.reel-hero h1 {
+  font-size: clamp(3.4rem, 10.2vw, 9.5rem);
+  max-width: 11ch;
+}
+.reel-hero .lede {
+  display: grid;
+  grid-template-columns: minmax(0, 34rem) auto;
+  gap: 32px;
+  align-items: end;
+  justify-content: space-between;
+  margin-top: 44px;
+}
+.reel-hero .lede p {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--muted);
+}
+.reel-hero .lede p strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+@media (max-width: 760px) {
+  .reel-hero {
+    padding-top: 120px;
+  }
+  .reel-hero .lede {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+.reel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 15px 26px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background-color 0.18s, color 0.18s, border-color 0.18s;
+}
+.reel-btn.solid {
+  background: var(--signal);
+  color: #fff;
+}
+.reel-btn.solid:hover {
+  background: var(--ink);
+}
+
+/* Index: the four products as a contents list */
+.reel-index {
+  margin-top: 72px;
+  border-top: 1.5px solid var(--ink);
+  list-style: none;
+  padding: 0;
+}
+.reel-index li {
+  border-bottom: 1px solid var(--rule);
+}
+.reel-index a {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) 15rem;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 0;
+  color: inherit;
+  text-decoration: none;
+  transition: padding-left 0.2s, color 0.2s;
+}
+.reel-index a:hover {
+  padding-left: 14px;
+  color: var(--hue);
+}
+.reel-index .name {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
+}
+.reel-index .what {
+  color: var(--muted);
+  font-size: 1.02rem;
+}
+.reel-index .state {
+  justify-self: end;
+  font-size: 0.92rem;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.reel-index .state i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hue);
+}
+@media (max-width: 760px) {
+  .reel-index a {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .reel-index .state {
+    justify-self: start;
+  }
+}
+
+/* Product scenes */
+.scene {
+  background: var(--bg);
+  color: var(--fg);
+  padding: clamp(72px, 10vw, 140px) 0;
+  scroll-margin-top: 0;
+}
+.scene .screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 7%, var(--bg));
+  box-shadow: 0 40px 120px -40px color-mix(in srgb, var(--hue) 55%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--fg) 12%, transparent);
+}
+.scene .screen video,
+.scene .screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.scene .pending {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 10px;
+  background: radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--hue) 38%, transparent), transparent 70%);
+}
+.scene .pending span {
+  color: var(--dim);
+  font-size: 1rem;
+}
+.scene .body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 6vw, 96px);
+  margin-top: clamp(36px, 5vw, 64px);
+  align-items: start;
+}
+.scene h2 {
+  font-size: clamp(2.6rem, 5.4vw, 4.8rem);
+}
+.scene .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  color: var(--dim);
+  font-size: 0.98rem;
+}
+.scene .status i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hue);
+}
+.scene .build {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+}
+.scene .result {
+  margin-top: 18px;
+  color: var(--dim);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 56ch;
+}
+.scene dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 10px 28px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid color-mix(in srgb, var(--fg) 16%, transparent);
+  font-size: 0.97rem;
+}
+.scene dt {
+  color: var(--dim);
+}
+.scene .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+.scene .reel-btn.hue {
+  background: var(--hue);
+  color: var(--on-hue, #000);
+}
+.scene .reel-btn.hue:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+.scene .reel-btn.line {
+  border-color: color-mix(in srgb, var(--fg) 35%, transparent);
+  color: var(--fg);
+  background: transparent;
+}
+.scene .reel-btn.line:hover {
+  border-color: var(--fg);
+}
+@media (max-width: 860px) {
+  .scene .body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Walkthrough dialog */
+.reel-dialog {
+  width: min(96vw, 1280px);
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: #000;
+  overflow: hidden;
+  margin: auto;
+}
+.reel-dialog::backdrop {
+  background: rgba(8, 10, 14, 0.82);
+  backdrop-filter: blur(6px);
+}
+.reel-dialog video {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+.reel-dialog button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Reviews */
+.reel-reviews {
+  padding: clamp(80px, 10vw, 150px) 0;
+}
+.reel-reviews header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.reel-reviews h2 {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+}
+.reel-reviews .score {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+.reel-reviews .score b {
+  color: var(--ink);
+}
+.reel-reviews .lead {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.6vw, 3rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  max-width: 24ch;
+}
+.reel-reviews .grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+}
+.reel-reviews .rest {
+  display: grid;
+  gap: 28px;
+}
+.reel-reviews blockquote {
+  margin: 0;
+}
+.reel-reviews .rest blockquote {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+}
+.reel-reviews .rest blockquote:last-child {
+  border-bottom: 0;
+}
+.reel-reviews .rest p {
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+.reel-reviews cite {
+  display: block;
+  margin-top: 14px;
+  font-style: normal;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.reel-reviews cite b {
+  color: var(--ink);
+  font-weight: 500;
+}
+@media (max-width: 860px) {
+  .reel-reviews .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Earlier work */
+.reel-earlier {
+  padding-bottom: clamp(80px, 10vw, 140px);
+}
+.reel-earlier h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 20px;
+}
+.reel-earlier ul {
+  list-style: none;
+  padding: 0;
+  border-top: 1.5px solid var(--ink);
+}
+.reel-earlier li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.02rem;
+}
+.reel-earlier li span {
+  color: var(--muted);
+}
+@media (max-width: 640px) {
+  .reel-earlier li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* About + contact (dark) */
+.reel-close {
+  background: var(--ink);
+  color: #f3f5f8;
+  padding: clamp(80px, 10vw, 150px) 0 40px;
+}
+.reel-about {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+.reel-about .photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.reel-about h2 {
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+}
+.reel-about p {
+  margin-top: 22px;
+  color: rgba(243, 245, 248, 0.68);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+.reel-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+  margin-top: clamp(80px, 10vw, 150px);
+  padding-top: clamp(48px, 6vw, 80px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.reel-contact h2 {
+  font-size: clamp(2.6rem, 6.4vw, 5.6rem);
+}
+.reel-contact .side p {
+  margin: 22px 0 30px;
+  color: rgba(243, 245, 248, 0.68);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 40ch;
+}
+.reel-close .reel-btn.solid:hover {
+  background: #fff;
+  color: var(--ink);
+}
+.reel-contact .mail {
+  display: block;
+  margin-top: 22px;
+  color: rgba(243, 245, 248, 0.68);
+}
+.reel-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 80px;
+  color: rgba(243, 245, 248, 0.45);
+  font-size: 0.9rem;
+}
+@media (max-width: 860px) {
+  .reel-about,
+  .reel-contact {
+    grid-template-columns: 1fr;
+  }
+  .reel-about .photo {
+    max-width: 360px;
+  }
+}
+
+/* One load sequence: the headline rises, then the lede and index follow. */
+@keyframes reelRise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reel-hero h1 span {
+  display: block;
+  animation: reelRise 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.reel-hero h1 span:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.reel-hero .lede,
+.reel-hero .reel-index {
+  animation: reelRise 0.9s 0.35s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reel-hero h1 span,
+  .reel-hero .lede,
+  .reel-hero .reel-index {
+    animation: none;
+  }
+  .reel-index a {
+    transition: none;
+  }
+}

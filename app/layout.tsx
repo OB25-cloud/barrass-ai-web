@@ -1,10 +1,15 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geist = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const display = Bricolage_Grotesque({
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
@@ -14,13 +19,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Barrass AI — Custom Software for NZ Businesses",
+  title: "Barrass AI: software products, built and shipped",
   description:
-    "Bespoke, AI-powered management platforms for New Zealand businesses. Fixed price, delivered in weeks, and you own the code outright.",
+    "Ollie Barrass designs, builds and launches software products: MockMonkey, Title Wave, a Shorts editing engine and the platform that runs Zaminka Dog Motels.",
   openGraph: {
-    title: "Barrass AI — Replace the spreadsheets. Own the software.",
+    title: "Barrass AI: software products, built and shipped",
     description:
-      "Bespoke, AI-powered management platforms for New Zealand businesses. Fixed price, delivered in weeks, yours outright.",
+      "MockMonkey, Title Wave, a Shorts editing engine and the platform that runs Zaminka Dog Motels. Watch them work.",
     siteName: "Barrass AI",
   },
   icons: {
@@ -40,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} h-full`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${display.variable} h-full`}>
       <body className="min-h-full">
         {children}
         <Analytics />

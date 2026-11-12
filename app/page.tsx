@@ -1,998 +1,344 @@
 import Image from "next/image";
-import Nav from "./components/Nav";
-import FAQ from "./components/FAQ";
 import ContactForm from "./components/ContactForm";
-import AnimateOnScroll from "./components/AnimateOnScroll";
-
-/* ─── Design system
-   Ink (dark):   #0A0C10 base · #111318 raised
-   Paper:        #FFFFFF base · #F7F7F5 alt
-   Text (light): #0A0A0A heading · #52525B body · #8A8A93 muted
-   Accent:       #10B981 — used only for live-status dots and the audit CTA
-   Width:        max-w-6xl · Section rhythm: py-24 md:py-32
-──────────────────────────────────────────────────────────────────── */
+import { SceneScreen, WalkthroughButton } from "./components/SceneScreen";
 
 const CALENDLY = "https://calendly.com/oliver-barrassai/30min";
 
-/* ─── Shared primitives ──────────────────────────────────────── */
-
-function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
-  return (
-    <p
-      className="font-mono text-[11px] tracking-[0.14em] uppercase mb-5"
-      style={{ color: dark ? "rgba(255,255,255,0.45)" : "#8A8A93" }}
-    >
-      {children}
-    </p>
-  );
+/* Each product is a scene in its own colours. `indexHue` is the same hue
+   darkened enough to read as text on the light lobby background. */
+interface Product {
+  id: string;
+  name: string;
+  what: string;
+  state: string;
+  indexHue: string;
+  colors: { bg: string; fg: string; dim: string; hue: string; onHue: string };
+  build: string;
+  result: string;
+  facts: [string, string][];
+  link?: { href: string; label: string };
+  ad?: string;
+  poster?: string;
+  walkthrough?: string;
+  walkthroughPoster?: string;
+  pendingNote?: string;
 }
 
-function LiveBadge({ label = "Live", dark = false, live = true }: { label?: string; dark?: boolean; live?: boolean }) {
-  return (
-    <span
-      className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] uppercase"
-      style={{ color: dark ? "rgba(255,255,255,0.6)" : "#52525B" }}
-    >
-      {live ? (
-        <span className="live-dot" />
-      ) : (
-        <span
-          className="inline-block rounded-full"
-          style={{ width: "6px", height: "6px", background: dark ? "rgba(255,255,255,0.3)" : "#A1A1AA" }}
-          aria-hidden
-        />
-      )}
-      {label}
-    </span>
-  );
-}
+const products: Product[] = [
+  {
+    id: "mockmonkey",
+    name: "MockMonkey",
+    what: "Bulk product mockups from a seller's own Photoshop files",
+    state: "Waitlist open",
+    indexHue: "#b06f00",
+    colors: { bg: "#191714", fg: "#f6f1e7", dim: "#a59d8e", hue: "#f2a516", onHue: "#191714" },
+    build:
+      "A batch render pipeline that places every design inside the smart objects of a seller's own Photoshop mockups, so the curve, shadow and shine of the original survive.",
+    result:
+      "Etsy and print-on-demand sellers drop in their designs, pick their mockups and get every combination back as sorted ZIPs. Fifty designs on twenty mockups is a thousand listing photos from one click.",
+    facts: [
+      ["My part", "Product design, build, launch site and films"],
+      ["Built with", "Next.js, Supabase"],
+      ["Made with", "The Etsy Accelerator community"],
+    ],
+    link: { href: "https://mockmonkey.app", label: "Visit mockmonkey.app" },
+    ad: "/reel/mockmonkey-ad.mp4",
+    poster: "/reel/mockmonkey-ad.jpg",
+    walkthrough: "/reel/mockmonkey-walkthrough.mp4",
+    walkthroughPoster: "/reel/mockmonkey-walkthrough.jpg",
+  },
+  {
+    id: "title-wave",
+    name: "Title Wave",
+    what: "Etsy titles and tags written from a product photo",
+    state: "Live, taking subscriptions",
+    indexHue: "#1668d6",
+    colors: { bg: "#061024", fg: "#eaf2ff", dim: "#8fa3c4", hue: "#4fa8ff", onHue: "#061024" },
+    build:
+      "Vision and language models read a product photo, fill in the listing details and write a title built from what buyers search for, with all 13 tags, ten products at a time.",
+    result:
+      "A seller goes from a photo to a listing they can paste straight into Etsy. Subscriptions, monthly limits and free access for community members all run on the same billing system.",
+    facts: [
+      ["My part", "Product design, build, billing"],
+      ["Built with", "Claude, Supabase, Stripe"],
+      ["Made with", "The Etsy Accelerator community"],
+    ],
+    link: { href: "https://titlewaveseo.com", label: "Visit titlewaveseo.com" },
+    pendingNote: "Film in production",
+  },
+  {
+    id: "shorts",
+    name: "Shorts engine",
+    what: "Raw clips edited into finished YouTube Shorts",
+    state: "In build, waitlist open",
+    indexHue: "#5b3fe0",
+    colors: { bg: "#0d1333", fg: "#f1eeff", dim: "#9a9bc6", hue: "#8b6cff", onHue: "#0d1333" },
+    build:
+      "An editing engine that finds the story in a raw clip, reframes it to vertical, writes and times the captions, designs the sound and checks its own work before it exports.",
+    result:
+      "Built with a YouTube Shorts creator for faceless channels. The creator approves the story plan before anything renders, then asks for changes in plain language.",
+    facts: [
+      ["My part", "Web app, accounts, payments, infrastructure"],
+      ["Built with", "Claude, a Python render engine, Supabase"],
+    ],
+    link: { href: "https://shorts-app-web.vercel.app", label: "See the preview site" },
+    pendingNote: "Film in production",
+  },
+  {
+    id: "zaminka",
+    name: "Zaminka",
+    what: "The platform a working dog motel runs on",
+    state: "Live since October 2026",
+    indexHue: "#d9560b",
+    colors: { bg: "#000000", fg: "#ffffff", dim: "#a3a3a3", hue: "#ff7a1a", onHue: "#000000" },
+    build:
+      "A boarding and daycare management platform designed around how one family-run dog motel works, deployed to the client's own accounts so they own it outright.",
+    result:
+      "It replaced the kennel's previous booking software. 110 live bookings were migrated ahead of launch and the business switched over on 14 October 2026.",
+    facts: [
+      ["My part", "Scoping, design, build, data migration, handover"],
+      ["Built with", "Next.js, Supabase"],
+      ["Client", "Zaminka Dog Motels, Ōtaki, New Zealand"],
+    ],
+    pendingNote: "Film in production",
+  },
+];
 
-function Arrow({ size = 14 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+const earlier: [string, string][] = [
+  ["Dealer Fleet", "Stock and compliance tracking for a two-site motor group, with plate and VIN scanning"],
+  ["Ange Enoka Hair & Bridal", "Website"],
+  ["Align Within", "Website"],
+  ["Pete's Custom Creations", "Website"],
+];
 
-function ExternalArrow({ size = 13 }: { size?: number }) {
+export default function Home() {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-/* Browser-frame presentation. The image is rendered at its intrinsic aspect
-   ratio (width/height from the file) so the full screenshot is always visible —
-   nothing is cropped. */
-function BrowserFrame({
-  src,
-  alt,
-  width,
-  height,
-  url,
-  sizes,
-  preload = false,
-  dark = false,
-}: {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  url: string;
-  sizes: string;
-  preload?: boolean;
-  dark?: boolean;
-}) {
-  return (
-    <div
-      className="w-full overflow-hidden rounded-xl"
-      style={{
-        background: dark ? "#111318" : "#ffffff",
-        border: dark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.08)",
-        boxShadow: dark
-          ? "0 1px 0 rgba(255,255,255,0.04) inset, 0 30px 80px -20px rgba(0,0,0,0.7)"
-          : "0 1px 2px rgba(0,0,0,0.04), 0 20px 50px -20px rgba(0,0,0,0.18)",
-      }}
-    >
-      <div
-        className="flex items-center gap-3 px-3.5"
-        style={{
-          height: "34px",
-          borderBottom: dark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.06)",
-          background: dark ? "#0F1116" : "#FAFAF9",
-        }}
-      >
-        <div className="flex items-center gap-1.5" aria-hidden>
-          {[0, 1, 2].map((n) => (
-            <span
-              key={n}
-              className="block rounded-full"
-              style={{ width: "8px", height: "8px", background: dark ? "rgba(255,255,255,0.14)" : "rgba(0,0,0,0.12)" }}
-            />
-          ))}
+    <div className="reel">
+      <header className="reel-nav">
+        <div className="reel-wrap">
+          <a href="#top" className="mark">
+            Barrass AI
+          </a>
+          <nav aria-label="Main">
+            <a className="plain" href="#work">
+              Work
+            </a>
+            <a className="plain" href="#reviews">
+              Reviews
+            </a>
+            <a className="plain" href="#about">
+              About
+            </a>
+            <a className="call" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+              Book a call
+            </a>
+          </nav>
         </div>
-        <div className="flex-1 flex justify-center">
-          <span
-            className="font-mono text-[10.5px] tracking-[0.02em] truncate px-3 py-[3px] rounded-md"
-            style={{
-              color: dark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.42)",
-              background: dark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)",
-              maxWidth: "60%",
-            }}
-          >
-            {url}
-          </span>
-        </div>
-        <div style={{ width: "38px" }} aria-hidden />
-      </div>
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        sizes={sizes}
-        preload={preload}
-        style={{ width: "100%", height: "auto", display: "block" }}
-      />
-    </div>
-  );
-}
+      </header>
 
-function ButtonPrimary({
-  href,
-  children,
-  external = false,
-  tone = "dark",
-}: {
-  href: string;
-  children: React.ReactNode;
-  external?: boolean;
-  tone?: "dark" | "light" | "accent";
-}) {
-  const styles: Record<string, React.CSSProperties> = {
-    dark: { background: "#0A0A0A", color: "#ffffff" },
-    light: { background: "#ffffff", color: "#0A0A0A" },
-    accent: { background: "#10B981", color: "#062B1F" },
-  };
-  return (
-    <a
-      href={href}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="inline-flex items-center justify-center gap-2 font-medium text-[15px] px-5 py-3 rounded-lg transition-[transform,opacity] duration-200 hover:opacity-90 active:translate-y-px"
-      style={styles[tone]}
-    >
-      {children}
-      <Arrow />
-    </a>
-  );
-}
-
-function ButtonSecondary({
-  href,
-  children,
-  external = false,
-  dark = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  external?: boolean;
-  dark?: boolean;
-}) {
-  return (
-    <a
-      href={href}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="inline-flex items-center justify-center gap-2 font-medium text-[15px] px-5 py-3 rounded-lg transition-colors duration-200"
-      style={{
-        border: dark ? "1px solid rgba(255,255,255,0.16)" : "1px solid rgba(0,0,0,0.12)",
-        color: dark ? "rgba(255,255,255,0.85)" : "#0A0A0A",
-        background: "transparent",
-      }}
-    >
-      {children}
-    </a>
-  );
-}
-
-/* ─── 1. Hero (dark) ─────────────────────────────────────────── */
-
-function Hero() {
-  return (
-    <section className="relative overflow-hidden" style={{ background: "#0A0C10" }}>
-      {/* Faint grid + single cool glow behind the screenshot */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-            maskImage: "radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)",
-          }}
-        />
-        <div
-          className="absolute left-1/2 -translate-x-1/2"
-          style={{
-            top: "42%",
-            width: "70%",
-            height: "40%",
-            background: "radial-gradient(ellipse, rgba(16,185,129,0.14) 0%, transparent 65%)",
-            filter: "blur(80px)",
-          }}
-        />
-      </div>
-
-      {/* Two-column split: copy left, Pawly frame right. Sized so both columns
-          sit above the fold on a 1080p display (min-height 100svh, nav offset). */}
-      <div
-        className="relative max-w-7xl 2xl:max-w-[1400px] mx-auto px-6 pt-28 pb-16 lg:pt-16 lg:pb-0 flex items-center"
-        style={{ minHeight: "100svh" }}
-      >
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-14 items-center">
-          <div className="lg:col-span-5">
-            <div className="mb-7">
-              <LiveBadge label="Platforms live in production across NZ" dark />
-            </div>
-
-            <h1
-              className="font-semibold text-white tracking-[-0.035em] leading-[1.02] mb-6"
-              style={{ fontSize: "clamp(2.5rem, 4.3vw, 3.75rem)" }}
-            >
-              Replace the spreadsheets. Own the software.
+      <main id="top">
+        <section className="reel-hero">
+          <div className="reel-wrap">
+            <h1 className="display">
+              <span>Products</span>
+              <span>that ship.</span>
             </h1>
 
-            <p
-              className="text-[17px] md:text-[18px] leading-relaxed mb-9"
-              style={{ color: "rgba(255,255,255,0.58)", maxWidth: "480px" }}
-            >
-              Barrass AI designs and builds bespoke, AI-powered management platforms
-              for New Zealand businesses — fixed price, delivered in weeks, and yours outright.
-            </p>
-
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <ButtonPrimary href="/audit" tone="light">
-                Get your free AI audit
-              </ButtonPrimary>
-              <ButtonSecondary href="#work" dark>
-                View Our Work
-              </ButtonSecondary>
-            </div>
-          </div>
-
-          {/* Hero product visual — Pawly, shown in full. On large screens the
-              frame bleeds slightly past the container's right edge for scale. */}
-          <div className="lg:col-span-7 lg:-mr-10 xl:-mr-20 2xl:-mr-40">
-            <BrowserFrame
-              src="/case-studies/pet-management.png"
-              alt="Pawly — dog daycare operations platform dashboard showing today's arrivals, van pickups and revenue"
-              width={1888}
-              height={988}
-              url="pawly.app"
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              preload
-              dark
-            />
-            <p
-              className="font-mono text-[11px] tracking-[0.08em] uppercase mt-4"
-              style={{ color: "rgba(255,255,255,0.35)" }}
-            >
-              Pawly — operations platform for a Wellington dog daycare
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 3. Case studies (light) ────────────────────────────────── */
-
-type CaseStudy = {
-  category: string;
-  name: string;
-  description: string;
-  features: string[];
-  result: string;
-  href?: string;
-  cta?: string;
-  image: { src: string; alt: string; width: number; height: number; url: string };
-};
-
-const featured: CaseStudy = {
-  category: "Pet services · Flagship platform",
-  name: "Pawly",
-  description:
-    "A complete operations platform for a Wellington dog daycare. One-tap check-ins with photos, van-run routing with automated SMS ETAs, vaccination tracking, AI-written visit notes and a client portal — five disconnected tools replaced by one system the team actually enjoys using.",
-  features: [
-    "One-tap check-in",
-    "Van run routing",
-    "AI visit notes",
-    "Client portal",
-    "Vaccination tracking",
-    "Automated SMS & email",
-  ],
-  result: "Demo live",
-  href: "https://pawly-orpin.vercel.app/demo",
-  cta: "Open the live demo",
-  image: {
-    src: "/case-studies/pet-management.png",
-    alt: "Pawly dashboard",
-    width: 1888,
-    height: 988,
-    url: "pawly.app",
-  },
-};
-
-const platforms: CaseStudy[] = [
-  {
-    category: "Vehicle rental",
-    name: "Car Rental Manager",
-    description:
-      "Fleet compliance, timesheets, rostering, fine tracking and provider billing built for a NZ car rental company — with an offline-capable app for staff on the yard.",
-    features: ["Fleet compliance", "Timesheets & rosters", "Fine tracking", "Provider billing", "Offline PWA"],
-    result: "6+ tools replaced",
-    image: {
-      src: "/case-studies/car-rental-manager.png",
-      alt: "Car Rental Manager dashboard screenshot",
-      width: 1906,
-      height: 943,
-      url: "Case study",
-    },
-  },
-  {
-    category: "Automotive",
-    name: "Dealer Fleet",
-    description:
-      "Stock, compliance, PDI & WoF boards, yard audits and AI number-plate scanning across two dealership entities for a Queenstown motor group.",
-    features: ["Stock management", "Compliance alerts", "AI plate scanning", "PDI & WoF boards", "Yard audit"],
-    result: "130+ vehicles · 2 entities",
-    href: "https://qmg-smg-fleet.vercel.app/demo",
-    cta: "View demo",
-    image: { src: "/case-studies/dealer-fleet.png", alt: "Dealer Fleet dashboard", width: 1897, height: 870, url: "dealerfleet.co.nz" },
-  },
-  {
-    category: "Landscaping & trades",
-    name: "Runsite",
-    description:
-      "Job scheduling, quote-to-invoice, purchase orders, staff and CRM for field service businesses — with natural-language search across the whole operation.",
-    features: ["Job scheduling", "Quote to invoice", "Purchase orders", "Client CRM", "AI search"],
-    result: "133 jobs · $33k tracked",
-    href: "https://simofy.vercel.app/demo",
-    cta: "View demo",
-    image: { src: "/case-studies/runsite.png", alt: "Runsite dashboard", width: 1881, height: 997, url: "runsite.app" },
-  },
-];
-
-const websites: CaseStudy[] = [
-  {
-    category: "Beauty",
-    name: "Ange Enoka Hair & Bridal",
-    description: "Premium bridal hair studio — gallery, testimonials and a clean enquiry flow.",
-    features: ["Gallery", "Testimonials", "Enquiry form"],
-    result: "Live",
-    href: "https://angeenokahairandbridal.com",
-    cta: "Visit site",
-    image: { src: "/case-studies/ange-enoka.png", alt: "Ange Enoka Hair & Bridal homepage", width: 1889, height: 988, url: "angeenoka.co.nz" },
-  },
-  {
-    category: "Wellness",
-    name: "Align Within",
-    description: "EFT tapping therapy practice in Wellington — services, testimonials and booking.",
-    features: ["Services", "Booking", "SEO"],
-    result: "Live",
-    href: "https://alignwithin.co.nz",
-    cta: "Visit site",
-    image: { src: "/case-studies/align-within.png", alt: "Align Within homepage", width: 1892, height: 981, url: "alignwithin.co.nz" },
-  },
-  {
-    category: "Trade",
-    name: "Pete's Custom Creations",
-    description: "Metal fabrication showcase for a Whanganui craftsman — projects, gallery, mobile-first enquiry.",
-    features: ["Project showcase", "Gallery", "Mobile-first"],
-    result: "Live",
-    href: "https://petescustomcreations.co.nz",
-    cta: "Visit site",
-    image: { src: "/case-studies/petes-custom-creations.png", alt: "Pete's Custom Creations homepage", width: 1897, height: 991, url: "petescustomcreations.co.nz" },
-  },
-];
-
-function FeatureList({ items, compact = false }: { items: string[]; compact?: boolean }) {
-  return (
-    <ul className={`flex flex-wrap ${compact ? "gap-x-3 gap-y-1.5" : "gap-x-4 gap-y-2"}`}>
-      {items.map((f) => (
-        <li
-          key={f}
-          className={`inline-flex items-center gap-1.5 ${compact ? "text-[12.5px]" : "text-[13.5px]"}`}
-          style={{ color: "#52525B" }}
-        >
-          <span className="inline-block rounded-full" style={{ width: "4px", height: "4px", background: "#A1A1AA" }} aria-hidden />
-          {f}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function CaseStudyCard({ study, sizes }: { study: CaseStudy; sizes: string }) {
-  const frame = (
-    <BrowserFrame
-      src={study.image.src}
-      alt={study.image.alt}
-      width={study.image.width}
-      height={study.image.height}
-      url={study.image.url}
-      sizes={sizes}
-    />
-  );
-  return (
-    <article className="flex flex-col h-full">
-      {study.href ? (
-        <a href={study.href} target="_blank" rel="noopener noreferrer" className="block group" aria-label={`${study.name} — ${study.cta}`}>
-          <div className="transition-transform duration-300 group-hover:-translate-y-1">{frame}</div>
-        </a>
-      ) : (
-        frame
-      )}
-      <div className="flex flex-col flex-1 pt-6">
-        <p className="font-mono text-[11px] tracking-[0.12em] uppercase mb-2.5" style={{ color: "#8A8A93" }}>
-          {study.category}
-        </p>
-        <h3 className="text-[#0A0A0A] font-semibold text-[19px] tracking-[-0.02em] mb-2.5">{study.name}</h3>
-        <p className="text-[14.5px] leading-relaxed mb-5" style={{ color: "#52525B" }}>
-          {study.description}
-        </p>
-        <div className="mb-6">
-          <FeatureList items={study.features} compact />
-        </div>
-        <div className="mt-auto flex items-center justify-between gap-4 pt-4" style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }}>
-          {study.href ? (
-            <a
-              href={study.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0A0A0A] hover:opacity-70 transition-opacity"
-            >
-              {study.cta}
-              <ExternalArrow />
-            </a>
-          ) : (
-            <span className="text-[14px] font-medium" style={{ color: "#8A8A93" }}>
-              Case study
-            </span>
-          )}
-          <LiveBadge label={study.result} live={!!study.href} />
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function CaseStudies() {
-  return (
-    <section id="work" className="py-24 md:py-32" style={{ background: "#FFFFFF" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <AnimateOnScroll>
-          <div className="max-w-2xl mb-14 md:mb-20">
-            <Eyebrow>Selected work</Eyebrow>
-            <h2 className="text-[#0A0A0A] font-semibold tracking-[-0.03em] leading-[1.05] text-[2.25rem] md:text-[3rem] mb-5">
-              Built, shipped, and in use every day.
-            </h2>
-            <p className="text-[17px] leading-relaxed" style={{ color: "#52525B" }}>
-              Most platforms below are live in production — open a demo and use it yourself. Past
-              engagements are shown as case studies.
-            </p>
-          </div>
-        </AnimateOnScroll>
-
-        {/* Featured — Pawly */}
-        <AnimateOnScroll>
-          <article
-            className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center rounded-2xl p-6 md:p-10 mb-6"
-            style={{ background: "#F7F7F5", border: "1px solid rgba(0,0,0,0.06)" }}
-          >
-            <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="flex items-center gap-4 mb-5">
-                <p className="font-mono text-[11px] tracking-[0.12em] uppercase" style={{ color: "#8A8A93" }}>
-                  {featured.category}
-                </p>
-              </div>
-              <h3 className="text-[#0A0A0A] font-semibold tracking-[-0.03em] text-[2rem] md:text-[2.5rem] leading-[1.05] mb-4">
-                {featured.name}
-              </h3>
-              <p className="text-[15.5px] leading-relaxed mb-7" style={{ color: "#52525B" }}>
-                {featured.description}
-              </p>
-              <div className="mb-8">
-                <FeatureList items={featured.features} />
-              </div>
-              <div className="flex items-center gap-5 flex-wrap">
-                <ButtonPrimary href={featured.href!} external>
-                  {featured.cta}
-                </ButtonPrimary>
-                <LiveBadge label="Wellington dog daycare · Live" />
-              </div>
-            </div>
-            <div className="lg:col-span-7 order-1 lg:order-2">
-              <BrowserFrame
-                src={featured.image.src}
-                alt={featured.image.alt}
-                width={featured.image.width}
-                height={featured.image.height}
-                url={featured.image.url}
-                sizes="(min-width: 1024px) 640px, 100vw"
-              />
-            </div>
-          </article>
-        </AnimateOnScroll>
-
-        {/* Platforms */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-14 mt-14 md:mt-20">
-          {platforms.map((s, i) => (
-            <AnimateOnScroll key={s.name} delay={i * 70} className="flex">
-              <CaseStudyCard study={s} sizes="(min-width: 768px) 360px, 100vw" />
-            </AnimateOnScroll>
-          ))}
-        </div>
-
-        {/* Websites */}
-        <div className="mt-20 md:mt-28 pt-14 md:pt-16" style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }}>
-          <AnimateOnScroll>
-            <div className="flex items-end justify-between gap-6 mb-10 md:mb-12">
-              <div>
-                <Eyebrow>Websites</Eyebrow>
-                <h3 className="text-[#0A0A0A] font-semibold tracking-[-0.02em] text-[1.5rem] md:text-[1.75rem]">
-                  Fast, custom-built sites that bring in work.
-                </h3>
-              </div>
-            </div>
-          </AnimateOnScroll>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-14">
-            {websites.map((s, i) => (
-              <AnimateOnScroll key={s.name} delay={i * 70} className="flex">
-                <CaseStudyCard study={s} sizes="(min-width: 768px) 360px, 100vw" />
-              </AnimateOnScroll>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 4. Services (light alt) ────────────────────────────────── */
-
-const services = [
-  {
-    title: "Management platforms",
-    body: "Scheduling, jobs, clients, compliance and reporting in one place — the core system your operation runs on.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" />
-      </svg>
-    ),
-  },
-  {
-    title: "AI where it pays off",
-    body: "Number-plate scanning, AI-written visit notes, plain-English search across your data. Practical, not a chatbot bolted on.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" /><path d="M19 17l.7 1.8 1.8.7-1.8.7L19 22l-.7-1.8-1.8-.7 1.8-.7L19 17z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Automation",
-    body: "SMS ETAs, reminders, invoicing and follow-ups that happen on their own — so admin stops eating the week.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Integrations",
-    body: "Xero, payments, mapping and messaging connected properly, so data flows through without re-entry.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.7 1.7M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.7-1.7" />
-      </svg>
-    ),
-  },
-  {
-    title: "Field & mobile apps",
-    body: "Installable apps that work offline on the yard, in the van or on site, and sync when you're back in range.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="5" y="2" width="14" height="20" rx="2.5" /><path d="M11 18h2" />
-      </svg>
-    ),
-  },
-  {
-    title: "Websites & client portals",
-    body: "Fast, custom-built sites and self-service portals that capture leads and keep clients in the loop.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" />
-      </svg>
-    ),
-  },
-];
-
-function Services() {
-  return (
-    <section id="services" className="py-24 md:py-32" style={{ background: "#F7F7F5" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <AnimateOnScroll>
-          <div className="max-w-2xl mb-14 md:mb-16">
-            <Eyebrow>What we build</Eyebrow>
-            <h2 className="text-[#0A0A0A] font-semibold tracking-[-0.03em] leading-[1.05] text-[2.25rem] md:text-[3rem] mb-5">
-              One system for the whole operation.
-            </h2>
-            <p className="text-[17px] leading-relaxed" style={{ color: "#52525B" }}>
-              From the first quote to the final invoice — designed around the way your team already works, not a template you adapt to.
-            </p>
-          </div>
-        </AnimateOnScroll>
-
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 rounded-2xl overflow-hidden"
-          style={{ background: "rgba(0,0,0,0.06)", gap: "1px", border: "1px solid rgba(0,0,0,0.06)" }}
-        >
-          {services.map((s, i) => (
-            <AnimateOnScroll key={s.title} delay={i * 50} className="flex">
-              <div className="flex flex-col w-full p-7 md:p-8" style={{ background: "#FFFFFF" }}>
-                <div className="mb-6 text-[#0A0A0A]/70">{s.icon}</div>
-                <h3 className="text-[#0A0A0A] font-semibold text-[17px] tracking-[-0.01em] mb-2">{s.title}</h3>
-                <p className="text-[14.5px] leading-relaxed" style={{ color: "#52525B" }}>
-                  {s.body}
-                </p>
-              </div>
-            </AnimateOnScroll>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 5. How it works (light) ────────────────────────────────── */
-
-const steps = [
-  {
-    n: "01",
-    title: "Discovery",
-    body: "A free 30-minute call. We look at where time and money are leaking and whether custom software is the right fix. No pitch.",
-  },
-  {
-    n: "02",
-    title: "Scope & fixed price",
-    body: "We map your workflows, pick the highest-value pieces, and set a fixed price and timeline before any code is written.",
-  },
-  {
-    n: "03",
-    title: "Build, launch, partner",
-    body: "We build, test and deploy. You own the code and data outright. Then we stay on — iterating as the business grows.",
-  },
-];
-
-const principles = [
-  { k: "Fixed price", v: "Agreed before we start. No surprises." },
-  { k: "You own it", v: "Code, data, everything. No licence fees." },
-  { k: "Weeks, not months", v: "Most builds ship in 4–12 weeks." },
-];
-
-function HowItWorks() {
-  return (
-    <section id="process" className="py-24 md:py-32" style={{ background: "#FFFFFF" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <AnimateOnScroll>
-          <div className="max-w-2xl mb-14 md:mb-16">
-            <Eyebrow>How it works</Eyebrow>
-            <h2 className="text-[#0A0A0A] font-semibold tracking-[-0.03em] leading-[1.05] text-[2.25rem] md:text-[3rem]">
-              A clear price, a clear timeline, and software you keep.
-            </h2>
-          </div>
-        </AnimateOnScroll>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-          {steps.map((s, i) => (
-            <AnimateOnScroll key={s.n} delay={i * 80}>
-              <div className="pt-6" style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
-                <p className="font-mono text-[11px] tracking-[0.14em] mb-5" style={{ color: "#8A8A93" }}>
-                  {s.n}
-                </p>
-                <h3 className="text-[#0A0A0A] font-semibold text-[19px] tracking-[-0.02em] mb-3">{s.title}</h3>
-                <p className="text-[15px] leading-relaxed" style={{ color: "#52525B" }}>
-                  {s.body}
-                </p>
-              </div>
-            </AnimateOnScroll>
-          ))}
-        </div>
-
-        <AnimateOnScroll>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-3 mt-16 md:mt-20 rounded-2xl overflow-hidden"
-            style={{ background: "rgba(0,0,0,0.06)", gap: "1px", border: "1px solid rgba(0,0,0,0.06)" }}
-          >
-            {principles.map((p) => (
-              <div key={p.k} className="p-6 md:p-7" style={{ background: "#F7F7F5" }}>
-                <p className="text-[#0A0A0A] font-semibold text-[17px] tracking-[-0.01em] mb-1">{p.k}</p>
-                <p className="text-[14px]" style={{ color: "#52525B" }}>{p.v}</p>
-              </div>
-            ))}
-          </div>
-        </AnimateOnScroll>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 6. Social proof (light alt) ────────────────────────────── */
-
-function SocialProof() {
-  return (
-    <section className="py-20 md:py-24" style={{ background: "#F7F7F5", borderTop: "1px solid rgba(0,0,0,0.06)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Placeholder attribution — swap in the real client when available. */}
-        <AnimateOnScroll>
-          <figure className="max-w-3xl mx-auto text-center">
-            <blockquote
-              className="text-[#0A0A0A] font-medium tracking-[-0.02em] leading-[1.3] text-[1.5rem] md:text-[2rem] mb-8"
-            >
-              “Working with Oliver was straightforward from day one. The system does exactly what we needed and the team picked it up immediately.”
-            </blockquote>
-            <figcaption className="text-[14px]" style={{ color: "#8A8A93" }}>
-              <span className="text-[#0A0A0A] font-medium">Client Name</span> · Owner, Wellington Business
-            </figcaption>
-          </figure>
-        </AnimateOnScroll>
-      </div>
-    </section>
-  );
-}
-
-/* ─── 7. About (light) ───────────────────────────────────────── */
-
-function About() {
-  const facts = [
-    { k: "Oliver Barrass", v: "Founder" },
-    { k: "Queenstown, NZ", v: "Working nationwide" },
-    { k: "Founder-led", v: "On every project" },
-  ];
-
-  return (
-    <section id="about" className="py-24 md:py-32" style={{ background: "#FFFFFF" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <AnimateOnScroll className="lg:col-span-5">
-            <div
-              className="relative overflow-hidden rounded-2xl w-full max-w-md"
-              style={{ aspectRatio: "4 / 5", background: "#F7F7F5" }}
-            >
-              <Image
-                src="/oliver.jpg"
-                alt="Oliver Barrass, founder of Barrass AI"
-                fill
-                sizes="(min-width: 1024px) 440px, 100vw"
-                style={{ objectFit: "cover", objectPosition: "top" }}
-              />
-            </div>
-          </AnimateOnScroll>
-
-          <AnimateOnScroll delay={80} className="lg:col-span-7">
-            <Eyebrow>The founder</Eyebrow>
-            <h2 className="text-[#0A0A0A] font-semibold tracking-[-0.03em] leading-[1.08] text-[2rem] md:text-[2.6rem] mb-8">
-              I spent years inside NZ businesses before I built software for them.
-            </h2>
-            <div className="space-y-5 text-[16px] leading-relaxed" style={{ color: "#52525B" }}>
+            <div className="lede">
               <p>
-                Before Barrass AI, I worked in recruitment and business development — building a branch from scratch and finishing my first year at 147% of budget. The useful part wasn&apos;t the numbers. It was sitting inside dozens of trades, tourism, rental and service businesses every week and watching good operators get slowed down by software that didn&apos;t fit.
+                I&rsquo;m Ollie Barrass. I design, build and launch software products, with founders who have an
+                audience and for businesses that have outgrown their tools. Four of them are below, running.
               </p>
-              <p>
-                So every project here starts before any code: time with the people doing the work, mapping how the business actually runs. What comes out is software that fits the operation as it already is — and that the owner keeps.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 pt-8" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
-              {facts.map((f) => (
-                <div key={f.k}>
-                  <p className="text-[#0A0A0A] font-medium text-[15px] tracking-[-0.01em]">{f.k}</p>
-                  <p className="text-[13.5px]" style={{ color: "#8A8A93" }}>{f.v}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-1.5 text-[15px] font-medium text-[#0A0A0A] hover:opacity-70 transition-opacity"
-              >
-                Start a conversation
-                <Arrow />
+              <a className="reel-btn solid" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+                Book a call
               </a>
             </div>
-          </AnimateOnScroll>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-/* ─── 8. FAQ (light alt) ─────────────────────────────────────── */
+            <ol className="reel-index" id="work">
+              {products.map((p) => (
+                <li key={p.id} style={{ "--hue": p.indexHue } as React.CSSProperties}>
+                  <a href={`#${p.id}`}>
+                    <span className="name">{p.name}</span>
+                    <span className="what">{p.what}</span>
+                    <span className="state">
+                      <i aria-hidden />
+                      {p.state}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
 
-function FAQSection() {
-  return (
-    <section className="py-24 md:py-32" style={{ background: "#F7F7F5" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          <AnimateOnScroll className="lg:col-span-4">
-            <Eyebrow>Questions</Eyebrow>
-            <h2 className="text-[#0A0A0A] font-semibold tracking-[-0.03em] leading-[1.05] text-[2rem] md:text-[2.5rem]">
-              The things people ask before they book.
-            </h2>
-          </AnimateOnScroll>
-          <AnimateOnScroll delay={80} className="lg:col-span-8">
-            <FAQ />
-          </AnimateOnScroll>
-        </div>
-      </div>
-    </section>
-  );
-}
+        {products.map((p) => (
+          <section
+            key={p.id}
+            id={p.id}
+            className="scene"
+            style={
+              {
+                "--bg": p.colors.bg,
+                "--fg": p.colors.fg,
+                "--dim": p.colors.dim,
+                "--hue": p.colors.hue,
+                "--on-hue": p.colors.onHue,
+              } as React.CSSProperties
+            }
+          >
+            <div className="reel-wrap">
+              <SceneScreen name={p.name} ad={p.ad} poster={p.poster} pendingNote={p.pendingNote} />
 
-/* ─── 9. CTA + Contact (dark) ────────────────────────────────── */
+              <div className="body">
+                <div>
+                  <h2 className="display">{p.name}</h2>
+                  <p className="status">
+                    <i aria-hidden />
+                    {p.state}
+                  </p>
+                </div>
+                <div>
+                  <p className="build">{p.build}</p>
+                  <p className="result">{p.result}</p>
+                  <dl>
+                    {p.facts.map(([k, v]) => (
+                      <div key={k} style={{ display: "contents" }}>
+                        <dt>{k}</dt>
+                        <dd>{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  {(p.link || p.walkthrough) && (
+                    <div className="actions">
+                      {p.link && (
+                        <a className="reel-btn hue" href={p.link.href} target="_blank" rel="noopener noreferrer">
+                          {p.link.label}
+                        </a>
+                      )}
+                      {p.walkthrough && (
+                        <WalkthroughButton name={p.name} src={p.walkthrough} poster={p.walkthroughPoster} />
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        ))}
 
-function CTAAndContact() {
-  const details = [
-    { label: "Phone", value: "022 548 2473", href: "tel:+64225482473" },
-    { label: "Email", value: "oliver@barrassai.com", href: "mailto:oliver@barrassai.com" },
-    { label: "Location", value: "Queenstown, New Zealand", href: undefined },
-  ];
-
-  return (
-    <section className="relative overflow-hidden" style={{ background: "#0A0C10" }}>
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div
-          className="absolute left-1/2 -translate-x-1/2"
-          style={{
-            top: "-10%",
-            width: "60%",
-            height: "50%",
-            background: "radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 65%)",
-            filter: "blur(80px)",
-          }}
-        />
-      </div>
-
-      {/* CTA */}
-      <div className="relative max-w-6xl mx-auto px-6 pt-24 md:pt-32 pb-20 md:pb-24">
-        <AnimateOnScroll>
-          <div className="max-w-2xl mx-auto text-center">
-            <Eyebrow dark>Free AI audit</Eyebrow>
-            <h2
-              className="text-white font-semibold tracking-[-0.035em] leading-[1.04] mb-6"
-              style={{ fontSize: "clamp(2.25rem, 5vw, 3.75rem)" }}
-            >
-              Find out where your business is losing time.
-            </h2>
-            <p className="text-[17px] leading-relaxed mb-10 mx-auto" style={{ color: "rgba(255,255,255,0.55)", maxWidth: "540px" }}>
-              A free 30-minute audit. We&apos;ll identify the highest-value opportunities for software and automation and send you a written summary. No obligation.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <ButtonPrimary href={CALENDLY} external tone="accent">
-                Book your free audit
-              </ButtonPrimary>
-              <ButtonSecondary href="#contact" dark>
-                Send a message
-              </ButtonSecondary>
+        <section className="reel-reviews" id="reviews">
+          <div className="reel-wrap">
+            <header>
+              <h2 className="display">What clients say</h2>
+              <p className="score">
+                <b>5.0</b> from 4 reviews on Google
+              </p>
+            </header>
+            <div className="grid">
+              <blockquote>
+                <p className="lead">
+                  &ldquo;Oliver is extremely easy to deal with, delivered a great product beyond which we were
+                  expecting, and has a fantastic response time for any problem we have. We&rsquo;d have no hesitation
+                  recommending this service to anyone.&rdquo;
+                </p>
+                <cite>
+                  <b>Zaminka Dog Motels</b>, boarding and daycare platform
+                </cite>
+              </blockquote>
+              <div className="rest">
+                <blockquote>
+                  <p>
+                    &ldquo;Amazing!! I don&rsquo;t know how I managed keeping track of stock at the dealership before
+                    having the app, it&rsquo;s made a huge difference to my workload and after sales back up is timely
+                    and reliable if at all needed.&rdquo;
+                  </p>
+                  <cite>
+                    <b>Andy</b>, Dealer Fleet
+                  </cite>
+                </blockquote>
+                <blockquote>
+                  <p>
+                    &ldquo;He took the time to listen to my ideas, welcomed every change and request, and went above
+                    and beyond to ensure the finished result was exactly what I wanted.&rdquo;
+                  </p>
+                  <cite>
+                    <b>Ange Enoka Hair and Bridal</b>, website
+                  </cite>
+                </blockquote>
+                <blockquote>
+                  <p>
+                    &ldquo;Working with Ollie has been a fantastic experience, with great communication and knowledge,
+                    and in my case patient!&rdquo;
+                  </p>
+                  <cite>
+                    <b>Pete&rsquo;s Custom Creations</b>, website
+                  </cite>
+                </blockquote>
+              </div>
             </div>
           </div>
-        </AnimateOnScroll>
-      </div>
+        </section>
 
-      {/* Contact */}
-      <div id="contact" className="relative max-w-6xl mx-auto px-6 pt-16 md:pt-20 pb-24 md:pb-32" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          <AnimateOnScroll className="lg:col-span-5">
-            <Eyebrow dark>Get in touch</Eyebrow>
-            <h3 className="text-white font-semibold tracking-[-0.03em] leading-[1.08] text-[1.75rem] md:text-[2.25rem] mb-5">
-              Tell us about your business.
-            </h3>
-            <p className="text-[15.5px] leading-relaxed mb-10" style={{ color: "rgba(255,255,255,0.5)" }}>
-              Replacing software that doesn&apos;t fit, or starting from scratch — either way, we reply within one business day.
-            </p>
-            <dl className="space-y-5">
-              {details.map((d) => (
-                <div key={d.label}>
-                  <dt className="font-mono text-[10.5px] tracking-[0.14em] uppercase mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
-                    {d.label}
-                  </dt>
-                  <dd className="text-[15px]" style={{ color: "rgba(255,255,255,0.85)" }}>
-                    {d.href ? (
-                      <a href={d.href} className="hover:text-white transition-colors">{d.value}</a>
-                    ) : (
-                      d.value
-                    )}
-                  </dd>
-                </div>
+        <section className="reel-earlier">
+          <div className="reel-wrap">
+            <h2 className="display">Also shipped</h2>
+            <ul>
+              {earlier.map(([name, what]) => (
+                <li key={name}>
+                  <b>{name}</b>
+                  <span>{what}</span>
+                </li>
               ))}
-            </dl>
-          </AnimateOnScroll>
-
-          <AnimateOnScroll delay={100} className="lg:col-span-7">
-            <div
-              className="rounded-2xl p-6 md:p-8"
-              style={{ background: "#111318", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
-              <ContactForm />
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Footer (dark) ──────────────────────────────────────────── */
-
-function Footer() {
-  const links = [
-    ["Work", "#work"],
-    ["Services", "#services"],
-    ["Process", "#process"],
-    ["About", "#about"],
-    ["Contact", "#contact"],
-  ];
-
-  return (
-    <footer style={{ background: "#0A0C10", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-      <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="flex items-center gap-2.5">
-          <span className="inline-block w-2 h-2 rounded-[2px]" style={{ background: "#10B981" }} aria-hidden />
-          <span className="text-white font-semibold text-[15px] tracking-tight">Barrass AI</span>
-          <span className="text-[13px] ml-2 hidden sm:inline" style={{ color: "rgba(255,255,255,0.35)" }}>
-            Custom software for NZ businesses
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13px]" style={{ color: "rgba(255,255,255,0.45)" }}>
-          {links.map(([label, href]) => (
-            <a key={href} href={href} className="hover:text-white transition-colors">
-              {label}
-            </a>
-          ))}
-          <a href="mailto:oliver@barrassai.com" className="hover:text-white transition-colors">
-            oliver@barrassai.com
-          </a>
-        </div>
-        <p className="text-[12.5px]" style={{ color: "rgba(255,255,255,0.3)" }}>
-          © {new Date().getFullYear()} Barrass AI · Queenstown, NZ
-        </p>
-      </div>
-    </footer>
-  );
-}
-
-/* ─── Page ───────────────────────────────────────────────────── */
-
-export default function Page() {
-  return (
-    <>
-      <Nav />
-      <main>
-        <Hero />
-        <CaseStudies />
-        <Services />
-        <HowItWorks />
-        <SocialProof />
-        <About />
-        <FAQSection />
-        <CTAAndContact />
+            </ul>
+          </div>
+        </section>
       </main>
-      <Footer />
-    </>
+
+      <footer className="reel-close">
+        <div className="reel-wrap">
+          <section className="reel-about" id="about">
+            <div className="photo">
+              <Image src="/oliver.jpg" alt="Ollie Barrass" fill sizes="(max-width: 860px) 360px, 40vw" style={{ objectFit: "cover" }} />
+            </div>
+            <div>
+              <h2 className="display">One person, the whole product.</h2>
+              <p>
+                I spent years in recruitment and business development before I built software, so I start with how
+                the business makes money and work back to the code.
+              </p>
+              <p>
+                I build with AI tooling from the first sketch to the launch film. That is why one person can take a
+                product from an idea to paying customers in weeks, and why you deal with the person doing the work.
+              </p>
+              <p>From New Zealand, working remotely.</p>
+            </div>
+          </section>
+
+          <section className="reel-contact" id="contact">
+            <div className="side">
+              <h2 className="display">Got a product in mind?</h2>
+              <p>
+                Book 30 minutes. Tell me what you want built and who it&rsquo;s for, and I&rsquo;ll tell you whether
+                I&rsquo;m the right person and what it would take.
+              </p>
+              <a className="reel-btn solid" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+                Book a call
+              </a>
+              <a className="mail" href="mailto:oliver@barrassai.com">
+                oliver@barrassai.com
+              </a>
+            </div>
+            <ContactForm />
+          </section>
+
+          <div className="reel-foot">
+            <span>© 2026 Barrass AI</span>
+            <a href="#top" style={{ color: "inherit" }}>
+              Back to top
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
