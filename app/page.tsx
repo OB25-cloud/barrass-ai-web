@@ -38,7 +38,7 @@ const products: Product[] = [
       "Etsy and print-on-demand sellers drop in their designs, pick their mockups and get every combination back as sorted ZIPs. Fifty designs on twenty mockups is a thousand listing photos from one click.",
     facts: [
       ["My part", "Product design, build, launch site and films"],
-      ["Built with", "Next.js, Supabase"],
+      ["Integrates with", "Photoshop mockup files (PSD)"],
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://mockmonkey.app", label: "Visit mockmonkey.app" },
@@ -60,7 +60,7 @@ const products: Product[] = [
       "A seller goes from a photo to a listing they can paste straight into Etsy. Subscriptions, monthly limits and free access for community members all run on the same billing system.",
     facts: [
       ["My part", "Product design, build, billing"],
-      ["Built with", "Claude, Supabase, Stripe"],
+      ["Integrates with", "Stripe, Google sign-in"],
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://titlewaveseo.com", label: "Visit titlewaveseo.com" },
@@ -79,7 +79,6 @@ const products: Product[] = [
       "Built with a YouTube Shorts creator for faceless channels. The creator approves the story plan before anything renders, then asks for changes in plain language.",
     facts: [
       ["My part", "Web app, accounts, payments, infrastructure"],
-      ["Built with", "Claude, a Python render engine, Supabase"],
     ],
     link: { href: "https://shorts-app-web.vercel.app", label: "See the preview site" },
     pendingNote: "Film in production",
@@ -97,7 +96,6 @@ const products: Product[] = [
       "It replaced the kennel's previous booking software and has run the business day to day since October 2026. The owners deal directly with the person who built it.",
     facts: [
       ["My part", "Scoping, design, build, handover"],
-      ["Built with", "Next.js, Supabase"],
       ["Client", "Zaminka Dog Motels, Ōtaki, New Zealand"],
     ],
     pendingNote: "Film in production",
