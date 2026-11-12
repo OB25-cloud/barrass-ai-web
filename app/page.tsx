@@ -65,7 +65,8 @@ const products: Product[] = [
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://titlewaveseo.com", label: "Visit titlewaveseo.com" },
-    still: "/reel/title-wave-still.jpg",
+    ad: "/reel/titlewave-ad.mp4",
+    poster: "/reel/titlewave-ad.jpg",
   },
   {
     id: "shorts",
