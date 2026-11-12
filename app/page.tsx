@@ -36,10 +36,10 @@ const products: Product[] = [
     build:
       "A batch render pipeline that places every design inside the smart objects of a seller's own Photoshop mockups, so the curve, shadow and shine of the original survive.",
     result:
-      "Etsy and print-on-demand sellers drop in their designs, pick their mockups and get every combination back as sorted ZIPs. Fifty designs on twenty mockups is a thousand listing photos from one click.",
+      "Etsy and print-on-demand sellers drop in their designs, pick their mockups and get every combination back as sorted ZIPs. Fifty designs on twenty mockups is a thousand listing photos from one click. A built-in shop lets creators sell their mockup files to other sellers.",
     facts: [
       ["My part", "Product design, build, launch site and films"],
-      ["Integrates with", "Dynamic Mockups, Stripe, Photoshop PSD files"],
+      ["Integrates with", "Dynamic Mockups, Stripe, Resend, Photoshop PSD files"],
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://mockmonkey.app", label: "Visit mockmonkey.app" },
@@ -98,9 +98,11 @@ const products: Product[] = [
       "It replaced the kennel's previous booking software and has run the business day to day since October 2026. The owners deal directly with the person who built it.",
     facts: [
       ["My part", "Scoping, design, build, handover"],
+      ["Integrates with", "Resend, Stripe, Cloudflare"],
       ["Also built", "The motel's public website"],
       ["Client", "Zaminka Dog Motels, Ōtaki, New Zealand"],
     ],
+    link: { href: "https://zaminkadogmotels.co.nz", label: "Visit zaminkadogmotels.co.nz" },
     still: "/reel/zaminka-still.jpg",
   },
 ];
