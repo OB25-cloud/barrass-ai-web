@@ -292,7 +292,7 @@ export default function Home() {
               {platforms.map((w) => (
                 <figure key={w.name}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/reel/wall/${w.img}.jpg`} alt={`${w.name} screenshot`} width={1200} height={600} loading="lazy" />
+                  <img src={`/reel/wall/${w.img}.jpg`} alt={`${w.name} screenshot`} width={1200} height={600} />
                   <figcaption>
                     <b>{w.name}</b>
                     <span>{w.what}</span>
@@ -309,7 +309,7 @@ export default function Home() {
         <div className="reel-wrap">
           <section className="reel-about" id="about">
             <div className="photo">
-              <Image src="/oliver.jpg" alt="Ollie Barrass" fill sizes="(max-width: 860px) 360px, 40vw" style={{ objectFit: "cover" }} />
+              <Image src="/oliver.jpg" alt="Ollie Barrass" fill loading="eager" sizes="(max-width: 860px) 360px, 40vw" style={{ objectFit: "cover" }} />
             </div>
             <div>
               <h2 className="display">One person, the whole product.</h2>

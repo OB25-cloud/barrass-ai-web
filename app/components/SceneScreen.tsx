@@ -77,7 +77,7 @@ export function SceneScreen({ name, ad, poster, still, pendingNote }: Props) {
         </button>
       ) : still ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={still} alt={`${name} screenshot`} loading="lazy" />
+        <img src={still} alt={`${name} screenshot`} />
       ) : (
         <div className="pending">
           <span>{pendingNote}</span>
