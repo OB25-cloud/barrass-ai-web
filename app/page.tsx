@@ -96,7 +96,7 @@ const products: Product[] = [
     result:
       "It replaced the kennel's previous booking software and has run the business day to day since October 2026. The owners deal directly with the person who built it.",
     facts: [
-      ["My part", "Scoping, design, build, data migration, handover"],
+      ["My part", "Scoping, design, build, handover"],
       ["Built with", "Next.js, Supabase"],
       ["Client", "Zaminka Dog Motels, Ōtaki, New Zealand"],
     ],
