@@ -102,12 +102,35 @@ const products: Product[] = [
   },
 ];
 
-const earlier: [string, string][] = [
-  ["Dealer Fleet", "Stock and compliance tracking for a two-site motor group, with plate and VIN scanning"],
-  ["Ange Enoka Hair & Bridal", "Website"],
-  ["Align Within", "Website"],
-  ["Pete's Custom Creations", "Website"],
+/* Earlier builds. Screenshots are demo data only. None are claimed as live. */
+const platforms: { img: string; name: string; what: string }[] = [
+  { img: "dealer-fleet", name: "Dealer Fleet", what: "Stock and compliance tracking for a two-site motor group, with plate and VIN scanning" },
+  { img: "car-rental-manager", name: "BCR Connect", what: "Operations platform for a car rental business: fleet, rostering, fines and weekly reporting, usable offline" },
+  { img: "runsite", name: "Runsite", what: "Scheduling, quotes, invoices and reporting for landscaping and trades" },
+  { img: "pet-management", name: "Pawly", what: "Check-ins, van runs, vaccinations and a client portal for dog daycares" },
 ];
+const websites: { img: string; name: string; what: string }[] = [
+  { img: "ange-enoka", name: "Ange Enoka Hair & Bridal", what: "Website" },
+  { img: "align-within", name: "Align Within", what: "Website" },
+  { img: "petes-custom-creations", name: "Pete's Custom Creations", what: "Website" },
+];
+
+/* The hero wall: two columns of real screens drifting in opposite directions. */
+const wallA = ["mm-1", "dealer-fleet", "pet-management", "mm-3", "ange-enoka", "runsite"];
+const wallB = ["car-rental-manager", "mm-2", "align-within", "mm-4", "petes-custom-creations", "dealer-fleet"];
+
+function WallColumn({ shots, reverse = false }: { shots: string[]; reverse?: boolean }) {
+  return (
+    <div className={`col${reverse ? " rev" : ""}`}>
+      <div className="track">
+        {[...shots, ...shots].map((s, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={i} src={`/reel/wall/${s}.jpg`} alt="" width={1200} height={600} loading={i < 3 ? "eager" : "lazy"} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -137,38 +160,32 @@ export default function Home() {
       <main id="top">
         <section className="reel-hero">
           <div className="reel-wrap">
-            <h1 className="display">
-              <span>Products</span>
-              <span>that ship.</span>
-            </h1>
-
-            <div className="lede">
+            <div className="pitch">
+              <h1 className="display">
+                <span>Your idea in.</span>
+                <span>Product out.</span>
+              </h1>
               <p>
                 I&rsquo;m Ollie Barrass. I design, build and launch software products, with founders who have an
-                audience and for businesses that have outgrown their tools. Four of them are below, running.
+                audience and for businesses that have outgrown their tools.
               </p>
-              <a className="reel-btn solid" href={CALENDLY} target="_blank" rel="noopener noreferrer">
-                Book a call
-              </a>
+              <div className="go">
+                <a className="reel-btn solid" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+                  Book a call
+                </a>
+                <a className="reel-btn ghost" href="#work">
+                  Watch the work
+                </a>
+              </div>
             </div>
-
-            <ol className="reel-index" id="work">
-              {products.map((p) => (
-                <li key={p.id} style={{ "--hue": p.indexHue } as React.CSSProperties}>
-                  <a href={`#${p.id}`}>
-                    <span className="name">{p.name}</span>
-                    <span className="what">{p.what}</span>
-                    <span className="state">
-                      <i aria-hidden />
-                      {p.state}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ol>
+            <div className="wall" aria-hidden>
+              <WallColumn shots={wallA} />
+              <WallColumn shots={wallB} reverse />
+            </div>
           </div>
         </section>
 
+        <div id="work" />
         {products.map((p) => (
           <section
             key={p.id}
@@ -279,15 +296,29 @@ export default function Home() {
 
         <section className="reel-earlier">
           <div className="reel-wrap">
-            <h2 className="display">Also shipped</h2>
-            <ul>
-              {earlier.map(([name, what]) => (
-                <li key={name}>
-                  <b>{name}</b>
-                  <span>{what}</span>
-                </li>
+            <h2 className="display">More I&rsquo;ve built</h2>
+            <div className="tiles">
+              {platforms.map((w) => (
+                <figure key={w.name} className="wide">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/reel/wall/${w.img}.jpg`} alt={`${w.name} screenshot`} width={1200} height={600} loading="lazy" />
+                  <figcaption>
+                    <b>{w.name}</b>
+                    <span>{w.what}</span>
+                  </figcaption>
+                </figure>
               ))}
-            </ul>
+              {websites.map((w) => (
+                <figure key={w.name}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/reel/wall/${w.img}.jpg`} alt={`${w.name} screenshot`} width={1200} height={600} loading="lazy" />
+                  <figcaption>
+                    <b>{w.name}</b>
+                    <span>{w.what}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </section>
       </main>
