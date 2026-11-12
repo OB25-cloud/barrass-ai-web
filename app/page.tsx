@@ -39,7 +39,7 @@ const products: Product[] = [
       "Etsy and print-on-demand sellers drop in their designs, pick their mockups and get every combination back as sorted ZIPs. Fifty designs on twenty mockups is a thousand listing photos from one click.",
     facts: [
       ["My part", "Product design, build, launch site and films"],
-      ["Integrates with", "Photoshop mockup files (PSD)"],
+      ["Integrates with", "Dynamic Mockups, Stripe, Photoshop PSD files"],
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://mockmonkey.app", label: "Visit mockmonkey.app" },
@@ -80,6 +80,7 @@ const products: Product[] = [
       "Built with a YouTube Shorts creator for faceless channels. The creator approves the story plan before anything renders, then asks for changes in plain language.",
     facts: [
       ["My part", "Web app, accounts, payments, infrastructure"],
+      ["Integrates with", "Stripe, fal, Modal, Fly.io, Cloudflare R2, AI agents"],
     ],
     link: { href: "https://shorts-app-web.vercel.app", label: "See the preview site" },
     still: "/reel/shorts-still.jpg",
