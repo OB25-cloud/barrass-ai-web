@@ -326,10 +326,9 @@ export default function Home() {
                 the business makes money and work back to the code.
               </p>
               <p>
-                I build with AI tooling from the first sketch to the launch film. That is why one person can take a
-                product from an idea to paying customers in weeks, and why you deal with the person doing the work.
+                I take a product from the first sketch to the launch film myself, so you deal with the person
+                doing the work.
               </p>
-              <p>From New Zealand, working remotely.</p>
             </div>
           </section>
 
