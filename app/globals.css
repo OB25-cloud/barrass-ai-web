@@ -273,8 +273,6 @@ iframe {
 
 /* Hero: pitch on the left, a drifting wall of real screens on the right */
 .reel-hero {
-  background: #0b0e13;
-  color: #f3f5f8;
   overflow: hidden;
 }
 .reel-hero > .reel-wrap {
@@ -295,7 +293,7 @@ iframe {
   max-width: 34rem;
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   line-height: 1.5;
-  color: rgba(243, 245, 248, 0.68);
+  color: var(--muted);
 }
 .reel-hero .go {
   display: flex;
@@ -303,23 +301,19 @@ iframe {
   gap: 12px;
   margin-top: 36px;
 }
-.reel-hero .reel-btn.solid:hover {
-  background: #fff;
-  color: #0b0e13;
-}
 .reel-btn.ghost {
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #fff;
+  border-color: var(--rule);
+  color: var(--ink);
 }
 .reel-btn.ghost:hover {
-  border-color: #fff;
+  border-color: var(--ink);
 }
 .reel-hero .wall {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 22px;
   height: min(100svh, 900px);
-  transform: rotate(-5deg) scale(1.12);
+  transform: rotate(-3deg) scale(1.06);
   transform-origin: center;
   -webkit-mask-image: linear-gradient(to bottom, transparent 9%, #000 30%, #000 84%, transparent);
   mask-image: linear-gradient(to bottom, transparent 9%, #000 30%, #000 84%, transparent);
@@ -329,8 +323,8 @@ iframe {
 }
 .reel-hero .wall .track {
   display: grid;
-  gap: 18px;
-  animation: wallDrift 70s linear infinite;
+  gap: 22px;
+  animation: wallDrift 80s linear infinite;
 }
 .reel-hero .wall .rev .track {
   animation-direction: reverse;
@@ -340,11 +334,11 @@ iframe {
   height: auto;
   display: block;
   border-radius: 12px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 1px var(--rule), 0 26px 44px -26px rgba(16, 20, 26, 0.45);
 }
 @keyframes wallDrift {
   to {
-    transform: translateY(calc(-50% - 9px));
+    transform: translateY(calc(-50% - 11px));
   }
 }
 @media (max-width: 860px) {
@@ -605,20 +599,23 @@ iframe {
   padding-bottom: clamp(80px, 10vw, 140px);
 }
 .reel-earlier h2 {
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  margin-bottom: 40px;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin-bottom: 28px;
 }
 .reel-earlier .tiles {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 36px 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px 20px;
 }
 .reel-earlier figure {
-  grid-column: span 2;
   margin: 0;
 }
-.reel-earlier figure.wide {
-  grid-column: span 3;
+.reel-earlier .sites {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 1.02rem;
 }
 .reel-earlier img {
   width: 100%;
@@ -638,10 +635,9 @@ iframe {
   font-size: 0.97rem;
   line-height: 1.45;
 }
-@media (max-width: 760px) {
-  .reel-earlier figure,
-  .reel-earlier figure.wide {
-    grid-column: 1 / -1;
+@media (max-width: 900px) {
+  .reel-earlier .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

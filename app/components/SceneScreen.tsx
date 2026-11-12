@@ -8,6 +8,7 @@ interface Props {
   poster?: string;
   walkthrough?: string;
   walkthroughPoster?: string;
+  still?: string;
   pendingNote?: string;
 }
 
@@ -16,7 +17,7 @@ interface Props {
  * and pauses when it leaves. People who ask for reduced motion get the poster
  * and native controls instead of autoplay.
  */
-export function SceneScreen({ name, ad, poster, pendingNote }: Props) {
+export function SceneScreen({ name, ad, poster, still, pendingNote }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -50,6 +51,9 @@ export function SceneScreen({ name, ad, poster, pendingNote }: Props) {
           preload="metadata"
           aria-label={`${name} product film`}
         />
+      ) : still ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={still} alt={`${name} screenshot`} loading="lazy" />
       ) : (
         <div className="pending">
           <span>{pendingNote}</span>

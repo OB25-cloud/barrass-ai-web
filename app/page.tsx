@@ -21,6 +21,7 @@ interface Product {
   poster?: string;
   walkthrough?: string;
   walkthroughPoster?: string;
+  still?: string;
   pendingNote?: string;
 }
 
@@ -64,7 +65,7 @@ const products: Product[] = [
       ["Made with", "The Etsy Accelerator community"],
     ],
     link: { href: "https://titlewaveseo.com", label: "Visit titlewaveseo.com" },
-    pendingNote: "Film in production",
+    still: "/reel/title-wave-still.jpg",
   },
   {
     id: "shorts",
@@ -109,15 +110,11 @@ const platforms: { img: string; name: string; what: string }[] = [
   { img: "runsite", name: "Runsite", what: "Scheduling, quotes, invoices and reporting for landscaping and trades" },
   { img: "pet-management", name: "Pawly", what: "Check-ins, van runs, vaccinations and a client portal for dog daycares" },
 ];
-const websites: { img: string; name: string; what: string }[] = [
-  { img: "ange-enoka", name: "Ange Enoka Hair & Bridal", what: "Website" },
-  { img: "align-within", name: "Align Within", what: "Website" },
-  { img: "petes-custom-creations", name: "Pete's Custom Creations", what: "Website" },
-];
+const websites = ["Ange Enoka Hair & Bridal", "Align Within", "Pete's Custom Creations"];
 
 /* The hero wall: two columns of real screens drifting in opposite directions. */
-const wallA = ["mm-1", "dealer-fleet", "pet-management", "mm-3", "ange-enoka", "runsite"];
-const wallB = ["car-rental-manager", "mm-2", "align-within", "mm-4", "petes-custom-creations", "dealer-fleet"];
+const wallA = ["mm-1", "tw-1", "pet-management", "mm-3"];
+const wallB = ["dealer-fleet", "mm-2", "tw-2", "car-rental-manager"];
 
 function WallColumn({ shots, reverse = false }: { shots: string[]; reverse?: boolean }) {
   return (
@@ -202,7 +199,7 @@ export default function Home() {
             }
           >
             <div className="reel-wrap">
-              <SceneScreen name={p.name} ad={p.ad} poster={p.poster} pendingNote={p.pendingNote} />
+              <SceneScreen name={p.name} ad={p.ad} poster={p.poster} still={p.still} pendingNote={p.pendingNote} />
 
               <div className="body">
                 <div>
@@ -299,16 +296,6 @@ export default function Home() {
             <h2 className="display">More I&rsquo;ve built</h2>
             <div className="tiles">
               {platforms.map((w) => (
-                <figure key={w.name} className="wide">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/reel/wall/${w.img}.jpg`} alt={`${w.name} screenshot`} width={1200} height={600} loading="lazy" />
-                  <figcaption>
-                    <b>{w.name}</b>
-                    <span>{w.what}</span>
-                  </figcaption>
-                </figure>
-              ))}
-              {websites.map((w) => (
                 <figure key={w.name}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`/reel/wall/${w.img}.jpg`} alt={`${w.name} screenshot`} width={1200} height={600} loading="lazy" />
@@ -319,6 +306,7 @@ export default function Home() {
                 </figure>
               ))}
             </div>
+            <p className="sites">Websites: {websites.join(", ")}.</p>
           </div>
         </section>
       </main>
