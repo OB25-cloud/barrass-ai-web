@@ -113,23 +113,14 @@ const platforms: { img: string; name: string; what: string }[] = [
 ];
 const websites = ["Ange Enoka Hair & Bridal", "Align Within", "Pete's Custom Creations"];
 
-/* The hero wall: two columns of real screens drifting in opposite directions. */
-// The first column is wider, so it carries the flagship screens.
-const wallA = ["mm-ready", "shorts-dog", "zaminka-site", "mm-grid"];
-const wallB = ["tw-hero", "mm-picker", "shorts-skate", "mm-mug"];
-
-function WallColumn({ shots, reverse = false }: { shots: string[]; reverse?: boolean }) {
-  return (
-    <div className={`col${reverse ? " rev" : ""}`}>
-      <div className="track">
-        {[...shots, ...shots].map((s, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img key={i} src={`/reel/wall/${s}.jpg`} alt="" width={1200} height={750} loading={i < 3 ? "eager" : "lazy"} />
-        ))}
-      </div>
-    </div>
-  );
-}
+/* The hero: one screen per product, laid out like prints on a table.
+   MockMonkey is largest because it is the flagship. Each links to its scene. */
+const prints = [
+  { id: "mockmonkey", name: "MockMonkey", img: "mm-ready" },
+  { id: "shorts", name: "Shorts engine", img: "shorts-dog" },
+  { id: "zaminka", name: "Zaminka", img: "zaminka-site" },
+  { id: "title-wave", name: "Title Wave", img: "tw-hero" },
+];
 
 export default function Home() {
   return (
@@ -177,9 +168,14 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="wall" aria-hidden>
-              <WallColumn shots={wallA} />
-              <WallColumn shots={wallB} reverse />
+            <div className="prints">
+              {prints.map((p) => (
+                <a key={p.id} href={`#${p.id}`} className={`print ${p.id}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/reel/wall/${p.img}.jpg`} alt="" width={1200} height={750} />
+                  <span>{p.name}</span>
+                </a>
+              ))}
             </div>
           </div>
         </section>

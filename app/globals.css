@@ -271,13 +271,13 @@ iframe {
   }
 }
 
-/* Hero: pitch on the left, a drifting wall of real screens on the right */
+/* Hero: pitch on the left, one screen per product on the right */
 .reel-hero {
   overflow: hidden;
 }
 .reel-hero > .reel-wrap {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: clamp(24px, 4vw, 64px);
   align-items: center;
   min-height: min(100svh, 900px);
@@ -286,7 +286,7 @@ iframe {
   padding: 120px 0 72px;
 }
 .reel-hero h1 {
-  font-size: clamp(2.7rem, 5vw, 4.9rem);
+  font-size: clamp(2.6rem, 4.6vw, 4.5rem);
 }
 .reel-hero h1 span {
   white-space: nowrap;
@@ -311,37 +311,84 @@ iframe {
 .reel-btn.ghost:hover {
   border-color: var(--ink);
 }
-.reel-hero .wall {
-  display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: 22px;
-  height: min(100svh, 900px);
-  transform: rotate(-3deg) scale(1.06);
-  transform-origin: center;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 9%, #000 30%, #000 84%, transparent);
-  mask-image: linear-gradient(to bottom, transparent 9%, #000 30%, #000 84%, transparent);
+.reel-hero .prints {
+  position: relative;
+  aspect-ratio: 1 / 0.78;
+  margin: 96px 0 56px;
 }
-.reel-hero .wall .col {
-  overflow: hidden;
+.reel-hero .print {
+  position: absolute;
+  display: block;
+  padding: 7px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px var(--rule), 0 30px 60px -30px rgba(16, 20, 26, 0.5);
+  text-decoration: none;
+  transform: rotate(var(--tilt));
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.1, 1);
+  animation: printDeal 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
 }
-.reel-hero .wall .track {
-  display: grid;
-  gap: 22px;
-  animation: wallDrift 80s linear infinite;
+.reel-hero .print:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.02);
+  z-index: 9;
 }
-.reel-hero .wall .rev .track {
-  animation-direction: reverse;
-}
-.reel-hero .wall img {
+.reel-hero .print img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 12px;
-  box-shadow: 0 0 0 1px var(--rule), 0 26px 44px -26px rgba(16, 20, 26, 0.45);
+  border-radius: 8px;
 }
-@keyframes wallDrift {
-  to {
-    transform: translateY(calc(-50% - 11px));
+.reel-hero .print span {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.reel-hero .print.mockmonkey {
+  --tilt: -3deg;
+  left: 0;
+  top: 8%;
+  width: 62%;
+  z-index: 3;
+  animation-delay: 0.25s;
+}
+.reel-hero .print.shorts {
+  --tilt: 3deg;
+  left: 54%;
+  top: 0;
+  width: 46%;
+  z-index: 2;
+  animation-delay: 0.37s;
+}
+.reel-hero .print.shorts span {
+  left: auto;
+  right: 16px;
+}
+.reel-hero .print.title-wave {
+  --tilt: -2deg;
+  left: 50%;
+  top: 46%;
+  width: 50%;
+  z-index: 4;
+  animation-delay: 0.49s;
+}
+.reel-hero .print.zaminka {
+  --tilt: 2.5deg;
+  left: 6%;
+  top: 58%;
+  width: 46%;
+  z-index: 2;
+  animation-delay: 0.61s;
+}
+@keyframes printDeal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotate(0deg) scale(0.94);
   }
 }
 @media (max-width: 860px) {
@@ -352,10 +399,8 @@ iframe {
   .reel-hero .pitch {
     padding: 112px 0 8px;
   }
-  .reel-hero .wall {
-    height: 380px;
-    transform: rotate(-4deg) scale(1.1);
-    margin-bottom: 40px;
+  .reel-hero .prints {
+    margin: 28px 0 48px;
   }
 }
 
@@ -744,7 +789,8 @@ iframe {
   .reel-hero h1 span,
   .reel-hero .pitch p,
   .reel-hero .go,
-  .reel-hero .wall .track {
+  .reel-hero .print {
     animation: none;
+    transition: none;
   }
 }
