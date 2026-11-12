@@ -82,7 +82,7 @@ const products: Product[] = [
       ["My part", "Web app, accounts, payments, infrastructure"],
     ],
     link: { href: "https://shorts-app-web.vercel.app", label: "See the preview site" },
-    pendingNote: "Film in production",
+    still: "/reel/shorts-still.jpg",
   },
   {
     id: "zaminka",
@@ -97,9 +97,10 @@ const products: Product[] = [
       "It replaced the kennel's previous booking software and has run the business day to day since October 2026. The owners deal directly with the person who built it.",
     facts: [
       ["My part", "Scoping, design, build, handover"],
+      ["Also built", "The motel's public website"],
       ["Client", "Zaminka Dog Motels, Ōtaki, New Zealand"],
     ],
-    pendingNote: "Film in production",
+    still: "/reel/zaminka-still.jpg",
   },
 ];
 
@@ -113,8 +114,9 @@ const platforms: { img: string; name: string; what: string }[] = [
 const websites = ["Ange Enoka Hair & Bridal", "Align Within", "Pete's Custom Creations"];
 
 /* The hero wall: two columns of real screens drifting in opposite directions. */
-const wallA = ["mm-1", "tw-1", "pet-management", "mm-3"];
-const wallB = ["dealer-fleet", "mm-2", "tw-2", "car-rental-manager"];
+// The first column is wider, so it carries the flagship screens.
+const wallA = ["mm-ready", "shorts-dog", "zaminka-site", "mm-grid"];
+const wallB = ["tw-hero", "mm-picker", "shorts-skate", "mm-mug"];
 
 function WallColumn({ shots, reverse = false }: { shots: string[]; reverse?: boolean }) {
   return (
@@ -122,7 +124,7 @@ function WallColumn({ shots, reverse = false }: { shots: string[]; reverse?: boo
       <div className="track">
         {[...shots, ...shots].map((s, i) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={i} src={`/reel/wall/${s}.jpg`} alt="" width={1200} height={600} loading={i < 3 ? "eager" : "lazy"} />
+          <img key={i} src={`/reel/wall/${s}.jpg`} alt="" width={1200} height={750} loading={i < 3 ? "eager" : "lazy"} />
         ))}
       </div>
     </div>
