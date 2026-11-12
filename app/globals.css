@@ -449,6 +449,25 @@ iframe {
   object-fit: cover;
   display: block;
 }
+.scene .screen .sound {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.scene .screen .sound:hover,
+.scene .screen .sound[aria-pressed="true"] {
+  background: var(--hue);
+  color: var(--on-hue, #000);
+}
 .scene .pending {
   position: absolute;
   inset: 0;
