@@ -94,7 +94,7 @@ const products: Product[] = [
     build:
       "A boarding and daycare management platform designed around how one family-run dog motel works, deployed to the client's own accounts so they own it outright.",
     result:
-      "It replaced the kennel's previous booking software. 110 live bookings were migrated ahead of launch and the business switched over on 14 October 2026.",
+      "It replaced the kennel's previous booking software and has run the business day to day since October 2026. The owners deal directly with the person who built it.",
     facts: [
       ["My part", "Scoping, design, build, data migration, handover"],
       ["Built with", "Next.js, Supabase"],
