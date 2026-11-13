@@ -426,6 +426,15 @@ iframe {
   background: var(--ink);
 }
 
+/* Heading that introduces the product scenes */
+.reel-heading {
+  padding: clamp(24px, 4vw, 56px) 0 clamp(36px, 5vw, 64px);
+  scroll-margin-top: 72px;
+}
+.reel-heading h2 {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+}
+
 /* Product scenes */
 .scene {
   background: var(--bg);

@@ -181,7 +181,11 @@ export default function Home() {
           </div>
         </section>
 
-        <div id="work" />
+        <section className="reel-heading" id="work">
+          <div className="reel-wrap">
+            <h2 className="display">Products I&rsquo;ve built</h2>
+          </div>
+        </section>
         {products.map((p) => (
           <section
             key={p.id}
